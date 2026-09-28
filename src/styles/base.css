@@ -1,0 +1,59 @@
+:root {
+  --gutter: clamp(18px, 5vw, 80px);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+html,
+body {
+  overflow-x: clip;
+}
+body {
+  font-family: var(--font-body);
+  color: var(--color-ink);
+  background: var(--color-bg);
+  line-height: 1.6;
+}
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+a {
+  color: inherit;
+}
+button {
+  font: inherit;
+}
+::selection {
+  background: var(--color-main);
+  color: var(--color-on-brand);
+}
+:focus-visible {
+  outline: 3px solid var(--color-main);
+  outline-offset: 4px;
+  border-radius: var(--radius-md);
+}
+.skip {
+  position: fixed;
+  left: 16px;
+  top: -60px;
+  z-index: 400;
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  background: var(--color-main);
+  color: var(--color-on-brand);
+  font-weight: 600;
+}
+.skip:focus {
+  top: 16px;
+}

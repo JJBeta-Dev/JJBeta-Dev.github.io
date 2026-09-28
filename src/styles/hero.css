@@ -1,0 +1,197 @@
+.hero {
+  min-height: 100svh;
+  padding: 110px var(--gutter) 250px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  align-content: center;
+}
+.hero__title {
+  grid-column: 1 / -1;
+  position: relative;
+  margin-left: calc(var(--gutter) * -1.3);
+}
+.welcome {
+  font-family: var(--font-title);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: clamp(4rem, 17.5vw, 17.5rem);
+  line-height: 0.8;
+  letter-spacing: -0.012em;
+  color: var(--color-on-brand);
+  text-shadow: 0 16px 14px oklch(from var(--color-relief) l c h / 0.75);
+  white-space: nowrap;
+}
+.char {
+  display: inline-block;
+}
+.me {
+  position: relative;
+  display: inline-block;
+  margin: -0.22em 0 0 24%;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(3.4rem, 12vw, 11rem);
+  line-height: 1;
+  letter-spacing: -0.015em;
+  color: var(--color-main);
+  cursor: pointer;
+}
+.me .soy {
+  position: absolute;
+  left: -0.55em;
+  top: 0.1em;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.9vw, 1.7rem);
+  letter-spacing: 0;
+  font-weight: 600;
+  padding: 0.05em 0.45em;
+  border-radius: var(--radius-pill);
+  background: var(--color-main);
+  color: var(--color-on-brand);
+  transform: rotate(-6deg);
+}
+.me-name {
+  display: inline-block;
+  white-space: nowrap;
+}
+.hero__meta {
+  grid-column: 7 / 12;
+  margin-top: 18px;
+}
+.hero__meta p {
+  font-size: clamp(1rem, 1.45vw, 1.22rem);
+  color: var(--color-neutral-750);
+}
+.hero__meta b {
+  font-weight: 700;
+}
+.pills {
+  margin-top: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  box-shadow: 0 8px 18px -10px oklch(from var(--color-shadow) l c h / 0.3);
+  font-weight: 600;
+  font-size: 0.92rem;
+}
+.pill i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-main);
+}
+.hero__sit {
+  position: absolute;
+  right: 0;
+  bottom: 18px;
+  width: clamp(300px, 27vw, 420px);
+  z-index: 4;
+}
+.sit-scene {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 428.394 / 253.538;
+  scale: -1 1;
+}
+.sit-scene > div {
+  position: absolute;
+}
+.sit-shape img,
+.sit-crop img {
+  position: absolute;
+  max-width: none;
+}
+.sit-shape--a {
+  left: 0;
+  top: 34.872%;
+  width: 100%;
+  height: 50.388%;
+  scale: -1 1;
+}
+.sit-shape--a img {
+  left: -3.83%;
+  top: -15.874%;
+  width: 112.23%;
+  height: 137.85%;
+}
+.sit-shape--b {
+  left: 3.593%;
+  top: 48%;
+  width: 82.037%;
+  height: 24.839%;
+  scale: -1 1;
+}
+.sit-shape--b img {
+  left: -4.846%;
+  top: -33.23%;
+  width: 115.09%;
+  height: 179.1%;
+}
+.sit-person {
+  left: 27.87%;
+  top: 0;
+  width: 37.256%;
+  height: 100%;
+}
+.sit-crop {
+  left: 9.48%;
+  top: 2.946%;
+  width: 81.04%;
+  height: 94.107%;
+  position: absolute;
+  overflow: hidden;
+  rotate: -172.44deg;
+  scale: 1 -1;
+}
+.sit-crop img {
+  left: -68%;
+  top: -56.6%;
+  width: 221.69%;
+  height: 180.26%;
+}
+.badge-spin {
+  position: absolute;
+  left: var(--gutter);
+  bottom: 96px;
+  width: 132px;
+  height: 132px;
+  z-index: 4;
+}
+.badge-spin > svg {
+  width: 100%;
+  height: 100%;
+}
+.badge-spin text {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  fill: var(--color-ink);
+  text-transform: uppercase;
+}
+.badge-spin .core {
+  position: absolute;
+  inset: 34px;
+  border-radius: 50%;
+  background: var(--color-main);
+  display: grid;
+  place-items: center;
+  color: var(--color-on-brand);
+  transition: background 0.3s var(--ease-soft);
+}
+.badge-spin:hover .core {
+  background: var(--color-hover);
+}
+.badge-spin .core svg {
+  width: 26px;
+  height: 26px;
+}

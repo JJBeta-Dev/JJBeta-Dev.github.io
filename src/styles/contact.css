@@ -1,0 +1,90 @@
+.contact {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  padding: clamp(100px, 13vw, 190px) var(--gutter) 60px;
+  align-items: center;
+}
+.contact .big-title {
+  grid-column: 1 / 10;
+  font-size: clamp(3.4rem, 11.5vw, 11rem);
+  white-space: nowrap;
+  margin-left: calc(var(--gutter) * -0.6);
+}
+.contact .big-title .char {
+  transition: color 0.3s var(--ease-soft);
+}
+.contact .big-title .char:hover {
+  color: var(--color-hover);
+}
+.contact__cta {
+  grid-column: 10 / 13;
+  justify-self: center;
+}
+.mag {
+  display: grid;
+  place-items: center;
+  width: clamp(170px, 16vw, 230px);
+  aspect-ratio: 1;
+  border: 0;
+  border-radius: 50%;
+  background: var(--color-main);
+  color: var(--color-on-brand);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  cursor: pointer;
+  box-shadow: 0 40px 60px -30px oklch(from var(--color-main) l c h / 0.9);
+  transition: background 0.3s var(--ease-soft);
+}
+.mag:hover {
+  background: var(--color-hover);
+}
+.mag span {
+  display: block;
+  pointer-events: none;
+  text-align: center;
+}
+.mag small {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.72rem;
+  opacity: 0.85;
+  margin-top: 4px;
+}
+.contact__links {
+  grid-column: 2 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 50px;
+}
+.slink {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 20px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  box-shadow: 0 12px 20px -14px oklch(from var(--color-shadow) l c h / 0.35);
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    transform 0.3s var(--ease-soft),
+    background 0.3s var(--ease-soft),
+    color 0.3s var(--ease-soft);
+}
+.slink svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--color-main);
+  transition: fill 0.3s var(--ease-soft);
+}
+.slink:hover {
+  background: var(--color-main);
+  color: var(--color-on-brand);
+  transform: translateY(-3px);
+}
+.slink:hover svg {
+  fill: var(--color-on-brand);
+}

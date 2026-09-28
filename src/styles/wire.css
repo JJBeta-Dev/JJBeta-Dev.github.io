@@ -1,0 +1,304 @@
+.wire-ui > * {
+  position: fixed;
+  pointer-events: none;
+}
+.wire-grid {
+  inset: 0;
+  z-index: 190;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 20px;
+  padding: 0 var(--gutter);
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.wire-grid i {
+  background: oklch(from var(--color-red-500) l c h / 0.07);
+  border-inline: 1px solid oklch(from var(--color-red-500) l c h / 0.18);
+}
+.wire-sel {
+  left: 0;
+  top: 0;
+  z-index: 330;
+  border: 1.5px solid var(--color-wire);
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+.wire-sel i {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: var(--color-on-brand);
+  border: 1.5px solid var(--color-wire);
+}
+.wire-sel i:nth-of-type(1) {
+  left: -5px;
+  top: -5px;
+}
+.wire-sel i:nth-of-type(2) {
+  right: -5px;
+  top: -5px;
+}
+.wire-sel i:nth-of-type(3) {
+  left: -5px;
+  bottom: -5px;
+}
+.wire-sel i:nth-of-type(4) {
+  right: -5px;
+  bottom: -5px;
+}
+.wire-name,
+.wire-size {
+  position: absolute;
+  left: -1px;
+  font: 600 11px/1 var(--font-body);
+  white-space: nowrap;
+}
+.wire-name {
+  top: -20px;
+  color: var(--color-wire);
+}
+.wire-size {
+  bottom: -24px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 4px 7px;
+  border-radius: var(--radius-xs);
+  background: var(--color-wire);
+  color: var(--color-on-brand);
+}
+.wire-scan {
+  left: 0;
+  top: 0;
+  z-index: 380;
+  width: 100%;
+  height: 100vh;
+  opacity: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 92%,
+    oklch(from var(--color-wire) l c h / 0.25) 97%,
+    var(--color-wire) 99.5%,
+    transparent 100%
+  );
+}
+.wire-bar {
+  top: 18px;
+  left: 50%;
+  z-index: 390;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 8px 7px 10px;
+  margin-left: -300px;
+  width: 600px;
+  max-width: calc(100% - 100px);
+  border-radius: var(--radius-lg);
+  background: var(--color-neutral-800);
+  color: var(--color-on-brand);
+  font: 600 13px var(--font-body);
+  box-shadow: 0 16px 30px -12px oklch(from var(--color-shadow) l c h / 0.5);
+  transform: translateY(-80px);
+  pointer-events: auto !important;
+  visibility: hidden;
+}
+.wire-logo {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  background: var(--color-main);
+  font: 800 16px var(--font-display);
+}
+.wire-title {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.wire-title em {
+  font-style: normal;
+  color: var(--color-neutral-350);
+  font-weight: 500;
+}
+.wire-btn,
+.wire-exit {
+  border: 0;
+  border-radius: var(--radius-sm);
+  padding: 7px 10px;
+  font: 600 12px var(--font-body);
+  color: var(--color-neutral-200);
+  background: transparent;
+  cursor: pointer;
+}
+.wire-btn[aria-pressed='true'] {
+  background: var(--color-wire);
+  color: var(--color-on-brand);
+}
+.wire-btn:hover,
+.wire-exit:hover {
+  background: var(--color-neutral-700);
+  color: var(--color-on-brand);
+}
+.wire-exit kbd {
+  margin-left: 4px;
+  padding: 1px 5px;
+  border-radius: var(--radius-xs);
+  background: var(--color-neutral-650);
+  font: 600 10px var(--font-body);
+}
+
+body.wire {
+  background: var(--color-on-brand);
+}
+body.wire .wire-grid {
+  opacity: 1;
+}
+body.wire.wire-no-grid .wire-grid {
+  opacity: 0;
+}
+body.wire.wire-no-measure .wire-sel,
+body.wire.wire-no-measure main > section::before {
+  display: none;
+}
+body.wire .wire-bar {
+  transform: none;
+  visibility: visible;
+}
+body.wire main *,
+body.wire footer * {
+  background-color: transparent !important;
+  box-shadow: none !important;
+  text-shadow: none !important;
+  color: var(--color-ink) !important;
+}
+body.wire
+  main
+  :is(
+    section,
+    div,
+    a,
+    button,
+    p,
+    h1,
+    h2,
+    h3,
+    li,
+    ul,
+    img,
+    svg,
+    .pill,
+    .ball,
+    .card-p,
+    .editor,
+    .playground,
+    .tchip,
+    .mag,
+    .slink,
+    .photo-blob
+  ) {
+  outline: 1px solid oklch(from var(--color-ink) l c h / 0.45);
+  outline-offset: -1px;
+}
+body.wire main :is(.char, .w, .nx, .name-extra, textPath, text, path, .reveal) {
+  outline: none !important;
+}
+body.wire :is(.welcome, .me, .big-title, .stack-title span),
+body.wire :is(.welcome, .me, .big-title, .stack-title span) * {
+  color: transparent !important;
+  -webkit-text-stroke: 1.2px var(--color-ink);
+}
+body.wire .me .soy {
+  color: var(--color-ink) !important;
+  -webkit-text-stroke: 0;
+  outline: 1px solid var(--color-ink);
+}
+body.wire main img {
+  filter: grayscale(1) opacity(0.12) !important;
+}
+body.wire main .thumb,
+body.wire main .hero__sit,
+body.wire main .about__right {
+  background-image:
+    linear-gradient(
+      to top right,
+      transparent calc(50% - 0.5px),
+      oklch(from var(--color-ink) l c h / 0.3) 50%,
+      transparent calc(50% + 0.5px)
+    ),
+    linear-gradient(
+      to top left,
+      transparent calc(50% - 0.5px),
+      oklch(from var(--color-ink) l c h / 0.3) 50%,
+      transparent calc(50% + 0.5px)
+    ) !important;
+}
+body.wire .card-p.locked .thumb {
+  background-image: none !important;
+}
+body.wire .decor img {
+  filter: brightness(0) opacity(0.07) !important;
+  outline: 1px dashed oklch(from var(--color-ink) l c h / 0.5);
+}
+body.wire .ball {
+  background: transparent !important;
+  border: 1px solid var(--color-ink);
+}
+body.wire .thread path {
+  stroke: var(--color-wire);
+}
+body.wire .editor__side {
+  background-image: none !important;
+}
+body.wire .cursor {
+  border-color: var(--color-wire);
+}
+body.wire .cursor-dot {
+  background: var(--color-wire);
+}
+body.wire .cursor.is-label {
+  background: var(--color-wire);
+  border-color: var(--color-wire);
+}
+body.wire .cursor.is-label span {
+  color: var(--color-on-brand) !important;
+}
+body.wire main > section {
+  outline: 1.5px solid var(--color-ink) !important;
+}
+body.wire main > section::before {
+  content: attr(data-frame);
+  position: absolute;
+  left: 12px;
+  top: 10px;
+  z-index: 5;
+  font: 600 11px var(--font-body);
+  color: var(--color-neutral-450);
+  letter-spacing: 0.02em;
+}
+body.wire .menu-btn,
+body.wire .secrets {
+  background: var(--color-on-brand) !important;
+  box-shadow: none;
+  outline: 1px solid var(--color-ink);
+}
+@media (max-width: 700px) {
+  .wire-bar {
+    margin-left: 0;
+    left: 12px;
+    max-width: calc(100% - 96px);
+  }
+  .wire-title em {
+    display: none;
+  }
+}
+body.wire .curve text {
+  fill: var(--color-ink);
+}
+body.wire .editor__text::before {
+  border-color: var(--color-ink);
+}
+body.wire .secrets .egg {
+  color: var(--color-ink);
+}

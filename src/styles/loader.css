@@ -1,0 +1,26 @@
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: none;
+  place-items: end start;
+  padding: var(--gutter);
+  background: var(--color-main);
+  color: var(--color-on-brand);
+}
+.js .loader {
+  display: grid;
+}
+.loader__count {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(5rem, 18vw, 16rem);
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+}
+.loader__tag {
+  font-family: var(--font-display);
+  font-weight: 600;
+  margin-top: 10px;
+  opacity: 0.8;
+}

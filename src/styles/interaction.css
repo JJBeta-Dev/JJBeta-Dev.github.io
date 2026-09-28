@@ -1,0 +1,72 @@
+pasa a negro justo debajo para que siga leyéndose. */ .cursor span {
+  transition:
+    opacity 0.2s var(--ease-soft),
+    color 0.2s var(--ease-soft),
+    transform 0.25s var(--ease-soft);
+}
+.cursor.is-label.is-down {
+  width: 34px;
+  height: 34px;
+  margin: -17px 0 0 -17px;
+}
+.cursor.is-label.is-down span {
+  color: var(--color-ink);
+  transform: translateY(34px);
+  text-shadow:
+    0 0 6px var(--color-bg),
+    0 0 2px var(--color-bg);
+}
+
+.menu-open .cursor {
+  border-color: var(--color-on-brand);
+}
+.menu-open .cursor.is-link {
+  background: oklch(from var(--color-on-brand) l c h / 0.18);
+}
+.menu-open .cursor-dot {
+  background: var(--color-on-brand);
+}
+.menu-open .ink {
+  z-index: 215;
+}
+
+.me-name {
+  transform-origin: left 80%;
+}
+.name-extra {
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
+  vertical-align: bottom;
+  white-space: nowrap;
+}
+.name-extra .nx {
+  display: inline-block;
+  color: var(--color-ink);
+  opacity: 0;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.toast {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.toast svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  color: var(--color-violet-250);
+}
+.secrets .egg {
+  width: 18px;
+  height: 18px;
+  color: var(--color-main);
+}

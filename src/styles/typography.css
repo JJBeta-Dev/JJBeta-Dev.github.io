@@ -1,0 +1,13 @@
+.welcome,
+.me,
+.big-title,
+.stack-title,
+.menu a,
+.case__title,
+.case__grid h3,
+.case__grid section:nth-child(4) p,
+.case__next,
+.band__group,
+.card-p h3 {
+  word-spacing: 0.14em;
+}
