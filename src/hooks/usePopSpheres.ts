@@ -1,7 +1,7 @@
 import { useEffect, useEffectEvent, type RefObject } from 'react'
 import { burstAt } from '@/helpers/confetti'
 import { gsap } from '@/plugins/gsap'
-import { useSecrets } from './useSecrets'
+import { useSecrets } from '@/hooks/useSecrets'
 
 const POPS_FOR_SECRET = 3
 
@@ -46,13 +46,6 @@ export const usePopSpheres = (scope: RefObject<HTMLElement | null>): void => {
           duration: 1,
           ease: 'elastic.out(1, .5)',
           delay: 2.2,
-          /**
-           * Permite volver a reventar la esfera cuando ya ha reaparecido.
-           *
-           * @returns {boolean} Resultado de eliminar la marca `data-popped`.
-           * @example
-           * onComplete()
-           */
           onComplete: () => delete sphere.dataset.popped,
         })
       pops += 1

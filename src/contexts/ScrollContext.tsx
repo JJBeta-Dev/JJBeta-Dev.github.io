@@ -1,4 +1,4 @@
-import { createContext } from 'react'
+import { createContext, type Dispatch, type SetStateAction } from 'react'
 
 /**
  * Motivo por el que se pausa el scroll de la página (un menú abierto o un caso de estudio abierto).
@@ -6,11 +6,12 @@ import { createContext } from 'react'
 export type ScrollLock = 'menu' | 'case'
 
 /**
- * Controles de scroll suave compartidos por todo el sitio.
+ * Controles de scroll suave compartidos por todo el sitio. `setLocks` es el setter de estado de
+ * React (estable por definición); los componentes lo usan a través de `useScrollLock`.
  */
 export interface ScrollApi {
   scrollTo: (target: string | HTMLElement) => void
-  setLock: (reason: ScrollLock, locked: boolean) => void
+  setLocks: Dispatch<SetStateAction<ReadonlySet<ScrollLock>>>
 }
 
 /**

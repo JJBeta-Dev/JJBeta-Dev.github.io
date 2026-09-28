@@ -1,8 +1,8 @@
 import { useState, type RefObject } from 'react'
 import { gsap } from '@/plugins/gsap'
 import { nameFitScale } from '@/utils/nameFitScale'
-import { usePrefersReducedMotion } from './usePrefersReducedMotion'
-import { useSecrets } from './useSecrets'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
+import { useSecrets } from '@/hooks/useSecrets'
 
 /**
  * Easter egg del nombre del hero: al hacer clic en "JJBeta" se despliega en su sitio como
@@ -46,13 +46,6 @@ export const useNameReveal = (scope: RefObject<HTMLElement | null>) => {
     gsap
       .timeline({
         defaults: { ease: 'power4.out' },
-        /**
-         * Libera el nombre para una nueva revelación y limpia el anuncio.
-         *
-         * @returns {void} No devuelve nada.
-         * @example
-         * onComplete()
-         */
         onComplete: () => {
           delete name.dataset.revealing
           setAnnouncement('')
@@ -62,14 +55,6 @@ export const useNameReveal = (scope: RefObject<HTMLElement | null>) => {
       .to(
         extras,
         {
-          /**
-           * Ancho natural de cada parte oculta del nombre.
-           *
-           * @param {number} i - Índice de la parte.
-           * @returns {number} Ancho en píxeles al que se despliega.
-           * @example
-           * width(0)
-           */
           width: (i: number) => widths[i] ?? 0,
           duration: 0.8 * speed,
           stagger: 0.12,

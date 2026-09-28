@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import { FONT_OPTIONS } from '@/data/editorOptions'
-import { useSecrets } from './useSecrets'
-import { useToast } from './useToast'
+import { useSecrets } from '@/hooks/useSecrets'
+import { useToast } from '@/hooks/useToast'
 
 const DEFAULT_FONT = 0
 const COMIC_SANS = FONT_OPTIONS.findIndex((option) => option.label === 'Comic Sans')

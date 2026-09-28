@@ -1,5 +1,5 @@
 import { CurtainContext, type CurtainApi } from '@/contexts/CurtainContext'
-import { useRequiredContext } from './useRequiredContext'
+import { useRequiredContext } from '@/hooks/useRequiredContext'
 
 /**
  * Da acceso a la cortina de transición entre páginas.

@@ -3,18 +3,20 @@ import { appendTypedKey } from '@/utils/typedBuffer'
 
 /**
  * Llama a `onMatch` cada vez que el visitante escribe `word` en cualquier parte de la página (fuera
- * de los campos de formulario).
+ * de los campos de formulario). Se puede desactivar, por ejemplo mientras hay un diálogo abierto.
  *
  * @param {string} word - Palabra en minúsculas que se detecta.
  * @param {() => void} onMatch - Se ejecuta cada vez que se completa la palabra.
+ * @param {boolean} enabled - Si la detección está activa.
  * @returns {void} No devuelve nada.
  * @example
- * useTypedWord('beta', () => setWire((on) => !on))
+ * useTypedWord('beta', () => setWire((on) => !on), !caseOpen)
  */
-export const useTypedWord = (word: string, onMatch: () => void): void => {
+export const useTypedWord = (word: string, onMatch: () => void, enabled = true): void => {
   const match = useEffectEvent(onMatch)
 
   useEffect(() => {
+    if (!enabled) return
     let buffer = ''
     /**
      * Añade la tecla al búfer y avisa cuando coincide con la palabra, ignorando los campos de texto.
@@ -31,5 +33,5 @@ export const useTypedWord = (word: string, onMatch: () => void): void => {
     }
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
-  }, [word])
+  }, [word, enabled])
 }

@@ -1,8 +1,8 @@
 import type { RefObject } from 'react'
 import { pauseOffscreen } from '@/helpers/pauseOffscreen'
 import { riseIn } from '@/helpers/reveals'
-import { gsap, SplitText, useGSAP } from '@/plugins/gsap'
-import { usePrefersReducedMotion } from './usePrefersReducedMotion'
+import { gsap, useGSAP } from '@/plugins/gsap'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 /**
  * Animación de la sección "Sobre mí": el título apilado entra deslizándose, el editor aterriza
@@ -20,11 +20,7 @@ export const useAboutMotion = (scope: RefObject<HTMLElement | null>): void => {
   useGSAP(
     () => {
       const root = scope.current
-      if (!root) return
-      const words = [...root.querySelectorAll('.reveal')].flatMap(
-        (paragraph) => new SplitText(paragraph, { type: 'words', wordsClass: 'w', aria: 'none' }).words,
-      )
-      if (reduced) return
+      if (!root || reduced) return
       riseIn('.stack-title span', '.stack-title', { xPercent: -30, stagger: 0.15, duration: 1.1 }, 'top 80%')
       riseIn('.editor', '.editor', { y: 80, rotate: 4, duration: 1.2 })
       riseIn(
@@ -34,7 +30,7 @@ export const useAboutMotion = (scope: RefObject<HTMLElement | null>): void => {
         'top 75%',
       )
       riseIn('.leaning', '.about__right', { y: 120, duration: 1.2 }, 'top 70%')
-      gsap.to(words, {
+      gsap.to(root.querySelectorAll('.reveal .w'), {
         opacity: 1,
         stagger: 0.05,
         ease: 'none',

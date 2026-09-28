@@ -1,5 +1,5 @@
 import { ScrollContext, type ScrollApi } from '@/contexts/ScrollContext'
-import { useRequiredContext } from './useRequiredContext'
+import { useRequiredContext } from '@/hooks/useRequiredContext'
 
 /**
  * Da acceso a los controles del scroll suave.

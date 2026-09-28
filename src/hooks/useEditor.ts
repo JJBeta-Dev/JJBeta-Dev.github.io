@@ -2,7 +2,7 @@ import { useState, type CSSProperties, type RefObject } from 'react'
 import { flushSync } from 'react-dom'
 import { FONT_OPTIONS, SIZE_OPTIONS, type TextFormat } from '@/data/editorOptions'
 import { gsap } from '@/plugins/gsap'
-import { usePrefersReducedMotion } from './usePrefersReducedMotion'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 /**
  * Estado del editor en vivo de "Sobre mí": formatos de texto, fuente y tamaño. Cambiar la fuente o
@@ -97,23 +97,7 @@ export const useEditor = (scope: RefObject<HTMLElement | null>) => {
     toggleFormat,
     font,
     size,
-    /**
-     * Selecciona una fuente con transición.
-     *
-     * @param {number} index - Índice de la fuente en `FONT_OPTIONS`.
-     * @returns {void} No devuelve nada.
-     * @example
-     * editor.selectFont(2)
-     */
     selectFont: (index: number) => morph(() => setFont(index)),
-    /**
-     * Selecciona un tamaño de texto con transición.
-     *
-     * @param {number} index - Índice del tamaño en `SIZE_OPTIONS`.
-     * @returns {void} No devuelve nada.
-     * @example
-     * editor.selectSize(1)
-     */
     selectSize: (index: number) => morph(() => setSize(index)),
     className: [...formats].join(' '),
     style,

@@ -1,6 +1,6 @@
 import type { RefObject } from 'react'
 import { gsap, useGSAP } from '@/plugins/gsap'
-import { usePrefersReducedMotion } from './usePrefersReducedMotion'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 /**
  * Hace subir los enlaces del menú de forma escalonada cada vez que el menú se abre.

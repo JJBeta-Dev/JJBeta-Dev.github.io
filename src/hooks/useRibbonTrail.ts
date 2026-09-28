@@ -4,7 +4,7 @@ import { fitCanvas } from '@/helpers/fitCanvas'
 import { gsap } from '@/plugins/gsap'
 import type { TimedPoint } from '@/types/geometry'
 import { pruneTrail } from '@/utils/ribbonOutline'
-import { useSecrets } from './useSecrets'
+import { useSecrets } from '@/hooks/useSecrets'
 
 const LIFE = 900
 const TRAVEL_FOR_SECRET = 600

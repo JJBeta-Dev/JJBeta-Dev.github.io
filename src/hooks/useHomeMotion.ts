@@ -3,12 +3,12 @@ import { useTranslation } from 'react-i18next'
 import { greetConsole } from '@/helpers/greetConsole'
 import { readToken } from '@/helpers/readToken'
 import { ScrollTrigger } from '@/plugins/gsap'
-import { useIntro } from './useIntro'
-import { useMagnetic } from './useMagnetic'
-import { useMouseParallax } from './useMouseParallax'
-import { usePopSpheres } from './usePopSpheres'
-import { useScrollParallax } from './useScrollParallax'
-import { useThread } from './useThread'
+import { useIntro } from '@/hooks/useIntro'
+import { useMagnetic } from '@/hooks/useMagnetic'
+import { useMouseParallax } from '@/hooks/useMouseParallax'
+import { usePopSpheres } from '@/hooks/usePopSpheres'
+import { useScrollParallax } from '@/hooks/useScrollParallax'
+import { useThread } from '@/hooks/useThread'
 
 /**
  * Orquesta los efectos que abarcan toda la página principal: entrada, parallax del mouse y del

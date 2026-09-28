@@ -1,6 +1,6 @@
 import type { RefObject } from 'react'
 import { gsap, useGSAP } from '@/plugins/gsap'
-import { usePrefersReducedMotion } from './usePrefersReducedMotion'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 /**
  * Hace que cada elemento `[data-speed]` se desplace a su propia velocidad durante el scroll, para que
@@ -19,13 +19,6 @@ export const useScrollParallax = (scope: RefObject<HTMLElement | null>): void =>
       if (reduced || !scope.current) return
       scope.current.querySelectorAll<HTMLElement>('[data-speed]').forEach((element) => {
         gsap.to(element, {
-          /**
-           * Recorrido vertical del elemento, proporcional a su velocidad y a la altura de la ventana.
-           *
-           * @returns {number} Desplazamiento en píxeles.
-           * @example
-           * y()
-           */
           y: () => Number(element.dataset.speed) * window.innerHeight,
           ease: 'none',
           scrollTrigger: { trigger: element, start: 'top bottom', end: 'bottom top', scrub: true },

@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react'
+import { useRef, useState, type ReactNode } from 'react'
 import { useTranslation } from 'react-i18next'
 import type { LineIconName } from '@/components/ui/icons/lineIconPaths'
 import { SECRET_KEYS, SecretsContext, type SecretKey } from '@/contexts/SecretsContext'
@@ -31,9 +31,11 @@ export default function SecretsProvider({ children }: { children: ReactNode }) {
   const enabled = useFinePointer()
   const reduced = usePrefersReducedMotion()
   const [found, setFound] = useState<ReadonlySet<SecretKey>>(new Set())
+  const revealed = useRef(new Set<SecretKey>())
 
   /**
-   * Marca un secreto como encontrado, lo anuncia y lanza confeti al completar todos.
+   * Marca un secreto como encontrado, lo anuncia y lanza confeti al completar todos. El registro
+   * síncrono (`revealed`) evita anuncios repetidos si se llama varias veces antes de volver a renderizar.
    *
    * @param {SecretKey} key - Secreto descubierto.
    * @returns {void} No devuelve nada.
@@ -41,8 +43,9 @@ export default function SecretsProvider({ children }: { children: ReactNode }) {
    * reveal('beta')
    */
   const reveal = (key: SecretKey) => {
-    if (!enabled || found.has(key)) return
-    const next = new Set(found).add(key)
+    if (!enabled || revealed.current.has(key)) return
+    revealed.current.add(key)
+    const next = new Set(revealed.current)
     setFound(next)
     if (next.size < SECRET_KEYS.length) {
       show(t(`secrets.found.${key}`), ICONS[key])

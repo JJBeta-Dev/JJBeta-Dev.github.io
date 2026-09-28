@@ -14,13 +14,6 @@ import { getRepositoryActivity } from '@/services/githubService'
 export const useRepoActivity = (repository: string | null) =>
   useQuery({
     queryKey: ['repository-activity', repository],
-    /**
-     * Pide a GitHub la actividad del repositorio.
-     *
-     * @returns {Promise<import('@/services/githubService').RepositoryActivity>} La actividad del repositorio.
-     * @example
-     * queryFn()
-     */
     queryFn: () => getRepositoryActivity(repository as string),
     enabled: repository !== null,
   })

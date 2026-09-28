@@ -1,6 +1,6 @@
 import { useEffect, useId, useState, type KeyboardEvent } from 'react'
 import { gsap } from '@/plugins/gsap'
-import { usePrefersReducedMotion } from './usePrefersReducedMotion'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 /**
  * Opciones de {@link useListbox}.
@@ -130,61 +130,12 @@ export const useListbox = ({ count, selected, onSelect }: ListboxOptions) => {
    */
   const onListKey = (event: KeyboardEvent) => {
     const actions: Record<string, () => void> = {
-      /**
-       * Activa la opción siguiente.
-       *
-       * @returns {void} No devuelve nada.
-       * @example
-       * actions.ArrowDown()
-       */
       ArrowDown: () => move(active + 1),
-      /**
-       * Activa la opción anterior.
-       *
-       * @returns {void} No devuelve nada.
-       * @example
-       * actions.ArrowUp()
-       */
       ArrowUp: () => move(active - 1),
-      /**
-       * Activa la primera opción.
-       *
-       * @returns {void} No devuelve nada.
-       * @example
-       * actions.Home()
-       */
       Home: () => move(0),
-      /**
-       * Activa la última opción.
-       *
-       * @returns {void} No devuelve nada.
-       * @example
-       * actions.End()
-       */
       End: () => move(count - 1),
-      /**
-       * Elige la opción activa.
-       *
-       * @returns {void} No devuelve nada.
-       * @example
-       * actions.Enter()
-       */
       Enter: () => pick(active),
-      /**
-       * Elige la opción activa con la barra espaciadora.
-       *
-       * @returns {void} No devuelve nada.
-       * @example
-       * actions[' ']()
-       */
       ' ': () => pick(active),
-      /**
-       * Cierra la lista y devuelve el foco al botón.
-       *
-       * @returns {void} No devuelve nada.
-       * @example
-       * actions.Escape()
-       */
       Escape: () => close(),
     }
     const action = actions[event.key]
@@ -202,22 +153,7 @@ export const useListbox = ({ count, selected, onSelect }: ListboxOptions) => {
       'aria-haspopup': 'listbox' as const,
       'aria-expanded': open,
       'aria-controls': listId,
-      /**
-       * Abre o cierra la lista al pulsar el botón.
-       *
-       * @returns {void} No devuelve nada.
-       * @example
-       * <button onClick={listbox.buttonProps.onClick} />
-       */
       onClick: () => (open ? close() : openList()),
-      /**
-       * Abre la lista con las flechas arriba o abajo desde el botón.
-       *
-       * @param {import('react').KeyboardEvent} event - Evento de teclado del botón.
-       * @returns {void} No devuelve nada.
-       * @example
-       * <button onKeyDown={listbox.buttonProps.onKeyDown} />
-       */
       onKeyDown: (event: KeyboardEvent) => {
         if (event.key !== 'ArrowDown' && event.key !== 'ArrowUp') return
         event.preventDefault()
@@ -225,26 +161,11 @@ export const useListbox = ({ count, selected, onSelect }: ListboxOptions) => {
       },
     },
     listProps: { id: listId, role: 'listbox' as const, hidden: !open, onKeyDown: onListKey },
-    /**
-     * Devuelve las props de una opción de la lista.
-     *
-     * @param {number} index - Índice de la opción.
-     * @returns {object} Props de la opción (id, rol, tabIndex, `aria-selected` y clic).
-     * @example
-     * <li {...listbox.optionProps(0)} />
-     */
     optionProps: (index: number) => ({
       id: optionId(index),
       role: 'option' as const,
       tabIndex: -1,
       'aria-selected': index === selected,
-      /**
-       * Elige esta opción al hacer clic.
-       *
-       * @returns {void} No devuelve nada.
-       * @example
-       * <li onClick={onClick} />
-       */
       onClick: () => pick(index),
     }),
   }

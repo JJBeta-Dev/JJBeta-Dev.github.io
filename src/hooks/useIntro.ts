@@ -1,7 +1,7 @@
 import type { RefObject } from 'react'
 import { pauseOffscreen } from '@/helpers/pauseOffscreen'
-import { gsap, SplitText, useGSAP } from '@/plugins/gsap'
-import { usePrefersReducedMotion } from './usePrefersReducedMotion'
+import { gsap, useGSAP } from '@/plugins/gsap'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 /**
  * Entrada de la página cuando se va el precargador: el saludo sube letra por letra, el nombre
@@ -31,10 +31,9 @@ export const useIntro = (scope: RefObject<HTMLElement | null>, ready: boolean): 
       })
       const stopSpin = badge ? pauseOffscreen(spin, badge) : undefined
       if (!ready) return stopSpin
-      const welcome = new SplitText('.welcome', { type: 'chars', charsClass: 'char' })
       gsap
         .timeline({ defaults: { ease: 'power4.out' } })
-        .from(welcome.chars, { yPercent: 120, rotate: 14, opacity: 0, stagger: 0.045, duration: 1.1 })
+        .from('.welcome .char', { yPercent: 120, rotate: 14, opacity: 0, stagger: 0.045, duration: 1.1 })
         .from(
           '.me-name > .char',
           { yPercent: 80, scale: 0.3, opacity: 0, stagger: 0.06, duration: 1.2, ease: 'elastic.out(1, .55)' },

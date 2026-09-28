@@ -25,16 +25,6 @@ const INITIAL: ToastState = { id: 0, message: '', icon: 'spark', duration: 0, vi
 export default function ToastProvider({ children }: { children: ReactNode }) {
   const [toast, setToast] = useState(INITIAL)
   const [api] = useState<ToastApi>(() => ({
-    /**
-     * Muestra un mensaje en el toast, reemplazando el anterior.
-     *
-     * @param {string} message - Texto del mensaje.
-     * @param {LineIconName} icon - Icono que acompaña al mensaje.
-     * @param {number} duration - Milisegundos que permanece visible.
-     * @returns {void} No devuelve nada.
-     * @example
-     * show('Correo copiado', 'check')
-     */
     show: (message, icon = 'spark', duration = 3200) =>
       setToast((previous) => ({ id: previous.id + 1, message, icon, duration, visible: true })),
   }))

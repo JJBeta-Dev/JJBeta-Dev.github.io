@@ -3,8 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { EMAIL } from '@/data/site'
 import { gsap } from '@/plugins/gsap'
 import { copyText } from '@/services/clipboardService'
-import { usePrefersReducedMotion } from './usePrefersReducedMotion'
-import { useToast } from './useToast'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
+import { useToast } from '@/hooks/useToast'
 
 /**
  * Copia el correo de contacto con una animación de pulsación elástica y un aviso de confirmación.

@@ -1,8 +1,8 @@
 import { useEffect, type RefObject } from 'react'
 import { cursorTarget } from '@/helpers/cursorTarget'
 import { gsap } from '@/plugins/gsap'
-import { useFinePointer } from './useFinePointer'
-import { usePrefersReducedMotion } from './usePrefersReducedMotion'
+import { useFinePointer } from '@/hooks/useFinePointer'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 /**
  * Controla el cursor personalizado: un anillo que sigue al puntero con un leve retraso, un punto

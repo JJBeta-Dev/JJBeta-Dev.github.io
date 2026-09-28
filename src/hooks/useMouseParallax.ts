@@ -1,7 +1,7 @@
 import type { RefObject } from 'react'
 import { gsap, useGSAP } from '@/plugins/gsap'
-import { useFinePointer } from './useFinePointer'
-import { usePrefersReducedMotion } from './usePrefersReducedMotion'
+import { useFinePointer } from '@/hooks/useFinePointer'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 /**
  * Mueve un poco cada elemento `[data-depth]` con el ratón; a mayor profundidad, más movimiento, lo que

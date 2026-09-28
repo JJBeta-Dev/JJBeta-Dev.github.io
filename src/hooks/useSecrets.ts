@@ -1,5 +1,5 @@
 import { SecretsContext, type SecretsApi } from '@/contexts/SecretsContext'
-import { useRequiredContext } from './useRequiredContext'
+import { useRequiredContext } from '@/hooks/useRequiredContext'
 
 /**
  * Da acceso al juego de secretos: qué easter eggs se han encontrado y cómo revelar uno.

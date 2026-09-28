@@ -1,6 +1,6 @@
 import type { RefObject } from 'react'
 import { gsap, useGSAP } from '@/plugins/gsap'
-import { usePrefersReducedMotion } from './usePrefersReducedMotion'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 /**
  * Animación del pie de página: la firma gigante "JJBeta" en contorno sube letra por letra. Después

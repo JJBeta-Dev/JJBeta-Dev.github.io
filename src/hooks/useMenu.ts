@@ -1,5 +1,5 @@
 import { useEffect, useEffectEvent, useState } from 'react'
-import { useScrollControls } from './useScrollControls'
+import { useScrollLock } from '@/hooks/useScrollLock'
 
 /**
  * Id del botón del menú, usado para devolverle el foco cuando el menú se cierra.
@@ -7,31 +7,17 @@ import { useScrollControls } from './useScrollControls'
 export const MENU_BUTTON_ID = 'menu-button'
 
 /**
- * Estado del menú a pantalla completa. Al abrirlo se pausa el scroll de la página y el cursor se
- * vuelve blanco (el fondo del menú es el color de marca); Escape lo cierra y devuelve el foco al botón.
+ * Estado del menú a pantalla completa. Abrirlo pausa el scroll y pone el cursor en blanco (el
+ * fondo del menú es del color de marca); Escape lo cierra y devuelve el foco al botón.
  *
- * @returns {{ open: boolean, setMenu: (next: boolean) => void }} Si el menú está abierto y su setter.
+ * @returns {{ open: boolean, setMenu: (next: boolean) => void }} Si el menú está abierto y cómo cambiarlo.
  * @example
- * const { open, setMenu } = useMenu()
- * <button onClick={() => setMenu(!open)} />
+ * const menu = useMenu()
+ * <button onClick={() => menu.setMenu(!menu.open)} />
  */
 export const useMenu = () => {
-  const [open, setOpen] = useState(false)
-  const { setLock } = useScrollControls()
-
-  /**
-   * Abre o cierra el menú, bloqueando el scroll y marcando el `body` mientras está abierto.
-   *
-   * @param {boolean} next - `true` para abrir el menú, `false` para cerrarlo.
-   * @returns {void} No devuelve nada.
-   * @example
-   * setMenu(false)
-   */
-  const setMenu = (next: boolean) => {
-    setOpen(next)
-    setLock('menu', next)
-    document.body.classList.toggle('menu-open', next)
-  }
+  const [open, setMenu] = useState(false)
+  useScrollLock('menu', open)
 
   const closeFromKeyboard = useEffectEvent(() => {
     setMenu(false)
@@ -39,9 +25,10 @@ export const useMenu = () => {
   })
 
   useEffect(() => {
+    document.body.classList.toggle('menu-open', open)
     if (!open) return
     /**
-     * Cierra el menú al pulsar Escape.
+     * Cierra el menú con Escape.
      *
      * @param {KeyboardEvent} event - Tecla pulsada.
      * @returns {void} No devuelve nada.

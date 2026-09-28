@@ -1,5 +1,5 @@
 import { ToastContext, type ToastApi } from '@/contexts/ToastContext'
-import { useRequiredContext } from './useRequiredContext'
+import { useRequiredContext } from '@/hooks/useRequiredContext'
 
 /**
  * Da acceso al aviso (toast) global.

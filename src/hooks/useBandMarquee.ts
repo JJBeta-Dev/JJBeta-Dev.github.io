@@ -1,7 +1,7 @@
 import type { RefObject } from 'react'
 import { pauseOffscreen } from '@/helpers/pauseOffscreen'
 import { gsap, ScrollTrigger, useGSAP } from '@/plugins/gsap'
-import { usePrefersReducedMotion } from './usePrefersReducedMotion'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 /**
  * Marquesina infinita de la banda de borde a borde: el texto siempre avanza hacia la derecha, se
@@ -27,26 +27,14 @@ export const useBandMarquee = (scope: RefObject<HTMLElement | null>): void => {
       )
       const stop = pauseOffscreen(band, root)
       ScrollTrigger.create({
-        /**
-         * Acelera la marquesina según la velocidad actual del scroll.
-         *
-         * @param {ScrollTrigger} self - Instancia del ScrollTrigger que se actualiza.
-         * @returns {gsap.core.Tween} Tween que ajusta la escala de tiempo de la banda.
-         * @example
-         * onUpdate(self)
-         */
+        trigger: root,
+        start: 'top bottom',
+        end: 'bottom top',
         onUpdate: (self) =>
           gsap.to(band, {
             timeScale: 1 + Math.min(4, Math.abs(self.getVelocity()) / 700),
             duration: 0.25,
             overwrite: true,
-            /**
-             * Devuelve la banda a su velocidad de crucero al terminar la aceleración.
-             *
-             * @returns {void} No devuelve nada.
-             * @example
-             * onComplete()
-             */
             onComplete: () => {
               gsap.to(band, { timeScale: 1, duration: 1.2, ease: 'power2.out' })
             },

@@ -2,7 +2,7 @@ import type { RefObject } from 'react'
 import { revealTitle } from '@/helpers/reveals'
 import { Draggable, gsap, useGSAP } from '@/plugins/gsap'
 import { layoutChips } from '@/utils/chipLayout'
-import { usePrefersReducedMotion } from './usePrefersReducedMotion'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 /**
  * Movimiento de la sección de tecnologías. En escritorio las fichas se reparten por el área de juego,
@@ -48,34 +48,13 @@ export const useTechPlayground = (scope: RefObject<HTMLElement | null>): void =>
           bounds: playground,
           inertia: true,
           edgeResistance: 0.85,
-          /**
-           * Trae al frente la ficha agarrada y la agranda un poco.
-           *
-           * @returns {void} No devuelve nada.
-           * @example
-           * onPress()
-           */
           onPress() {
             this.target.style.zIndex = String(++layer)
             gsap.to(this.target, { scale: 1.08, duration: 0.2 })
           },
-          /**
-           * Devuelve la ficha a su tamaño al soltarla.
-           *
-           * @returns {void} No devuelve nada.
-           * @example
-           * onRelease()
-           */
           onRelease() {
             gsap.to(this.target, { scale: 1, duration: 0.3 })
           },
-          /**
-           * Gira la ficha un ángulo aleatorio al empezar a arrastrarla.
-           *
-           * @returns {void} No devuelve nada.
-           * @example
-           * onDragStart()
-           */
           onDragStart() {
             gsap.to(this.target, { rotate: gsap.utils.random(-14, 14), duration: 0.3 })
           },
@@ -90,10 +69,23 @@ export const useTechPlayground = (scope: RefObject<HTMLElement | null>): void =>
           ease: 'elastic.out(1, .6)',
           scrollTrigger: { trigger: playground, start: 'top 92%' },
         })
-        window.addEventListener('resize', place)
+        let pending: gsap.core.Tween | null = null
+        /**
+         * Reacomoda los chips cuando la ventana deja de cambiar de tamaño.
+         *
+         * @returns {void} No devuelve nada.
+         * @example
+         * window.addEventListener('resize', onResize)
+         */
+        const onResize = () => {
+          pending?.kill()
+          pending = gsap.delayedCall(0.2, place)
+        }
+        window.addEventListener('resize', onResize)
         return () => {
           drags.forEach((drag) => drag.kill())
-          window.removeEventListener('resize', place)
+          pending?.kill()
+          window.removeEventListener('resize', onResize)
           gsap.set(chips, { clearProps: 'all' })
         }
       })

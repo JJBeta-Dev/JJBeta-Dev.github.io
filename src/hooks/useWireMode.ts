@@ -3,9 +3,9 @@ import { useTranslation } from 'react-i18next'
 import { SECTIONS } from '@/data/navigation'
 import { describeLayer, labelFrames, pickLayer } from '@/helpers/wireFrames'
 import { gsap, ScrollTrigger } from '@/plugins/gsap'
-import { usePrefersReducedMotion } from './usePrefersReducedMotion'
-import { useSecrets } from './useSecrets'
-import { useTypedWord } from './useTypedWord'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
+import { useSecrets } from '@/hooks/useSecrets'
+import { useTypedWord } from '@/hooks/useTypedWord'
 
 /**
  * Easter egg "beta": al escribir la palabra, la página pasa a una vista de contornos al estilo Figma
@@ -14,13 +14,14 @@ import { useTypedWord } from './useTypedWord'
  *
  * @param {import('react').RefObject<HTMLElement | null>} overlay - Raíz de la interfaz beta (rejilla,
  * caja de selección, línea de escaneo y barra de herramientas).
+ * @param {boolean} enabled - Si escribir «beta» puede activar el modo (se desactiva con diálogos abiertos).
  * @returns {{ on: boolean, grid: boolean, measure: boolean, toggleGrid: () => void,
  * toggleMeasure: () => void, exit: () => void }} Si está activo, los interruptores de rejilla y
  * medidas, y una acción para salir.
  * @example
  * const wire = useWireMode(overlay)
  */
-export const useWireMode = (overlay: RefObject<HTMLElement | null>) => {
+export const useWireMode = (overlay: RefObject<HTMLElement | null>, enabled = true) => {
   const { t } = useTranslation()
   const reduced = usePrefersReducedMotion()
   const secrets = useSecrets()
@@ -47,13 +48,6 @@ export const useWireMode = (overlay: RefObject<HTMLElement | null>) => {
         yPercent: 100,
         duration: 0.7,
         ease: 'power2.inOut',
-        /**
-         * Aplica el cambio de modo cuando la línea termina de barrer la pantalla.
-         *
-         * @returns {void} No devuelve nada.
-         * @example
-         * onComplete()
-         */
         onComplete: () => setOn(next),
       })
       .set(scan, { opacity: 0 })
@@ -61,10 +55,14 @@ export const useWireMode = (overlay: RefObject<HTMLElement | null>) => {
 
   const exitFromKeyboard = useEffectEvent(() => switchTo(false))
 
-  useTypedWord('beta', () => {
-    switchTo(!on)
-    secrets.reveal('beta')
-  })
+  useTypedWord(
+    'beta',
+    () => {
+      switchTo(!on)
+      secrets.reveal('beta')
+    },
+    enabled,
+  )
 
   useEffect(() => {
     const body = document.body
@@ -146,29 +144,8 @@ export const useWireMode = (overlay: RefObject<HTMLElement | null>) => {
     on,
     grid,
     measure,
-    /**
-     * Muestra u oculta la rejilla de columnas.
-     *
-     * @returns {void} No devuelve nada.
-     * @example
-     * wire.toggleGrid()
-     */
     toggleGrid: () => setGrid((value) => !value),
-    /**
-     * Muestra u oculta las medidas de la selección.
-     *
-     * @returns {void} No devuelve nada.
-     * @example
-     * wire.toggleMeasure()
-     */
     toggleMeasure: () => setMeasure((value) => !value),
-    /**
-     * Sale del modo beta.
-     *
-     * @returns {void} No devuelve nada.
-     * @example
-     * wire.exit()
-     */
     exit: () => switchTo(false),
   }
 }

@@ -42,13 +42,6 @@ export const useLoader = (
           value: 100,
           duration: 1.1,
           ease: 'power2.inOut',
-          /**
-           * Pinta en la etiqueta el valor redondeado del contador.
-           *
-           * @returns {void} No devuelve nada.
-           * @example
-           * onUpdate()
-           */
           onUpdate: () => {
             if (label) label.textContent = String(Math.round(counter.value))
           },

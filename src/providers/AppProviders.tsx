@@ -3,10 +3,10 @@ import { useState, type ReactNode } from 'react'
 import { I18nextProvider } from 'react-i18next'
 import { i18n } from '@/plugins/i18n'
 import { createQueryClient } from '@/plugins/queryClient'
-import CurtainProvider from './CurtainProvider'
-import ScrollProvider from './ScrollProvider'
-import SecretsProvider from './SecretsProvider'
-import ToastProvider from './ToastProvider'
+import CurtainProvider from '@/providers/CurtainProvider'
+import ScrollProvider from '@/providers/ScrollProvider'
+import SecretsProvider from '@/providers/SecretsProvider'
+import ToastProvider from '@/providers/ToastProvider'
 
 /**
  * Compone todos los providers globales de la aplicación en orden de dependencia: datos, traducciones,

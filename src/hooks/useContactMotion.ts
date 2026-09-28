@@ -1,7 +1,7 @@
 import type { RefObject } from 'react'
 import { revealTitle, riseIn } from '@/helpers/reveals'
 import { useGSAP } from '@/plugins/gsap'
-import { usePrefersReducedMotion } from './usePrefersReducedMotion'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 /**
  * Animación de la sección de contacto: el título sube letra por letra, el botón redondo del correo

@@ -1,7 +1,7 @@
 import type { RefObject } from 'react'
 import { revealTitle } from '@/helpers/reveals'
 import { gsap, useGSAP } from '@/plugins/gsap'
-import { usePrefersReducedMotion } from './usePrefersReducedMotion'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 /**
  * Movimiento de la sección de proyectos. En escritorio la galería queda fijada y se desplaza en
@@ -38,53 +38,17 @@ export const useWorkRail = (scope: RefObject<HTMLElement | null>): void => {
         const distance = () => track.scrollWidth - window.innerWidth
         const skew = gsap.quickTo(cards, 'skewX', { duration: 0.5, ease: 'power3' })
         const move = gsap.to(track, {
-          /**
-           * Posición horizontal final de la pista.
-           *
-           * @returns {number} Desplazamiento negativo en píxeles.
-           * @example
-           * x()
-           */
           x: () => -distance(),
           ease: 'none',
           scrollTrigger: {
             trigger: rail,
             start: 'center center',
-            /**
-             * Final del tramo fijado, tan largo como el recorrido de la pista.
-             *
-             * @returns {string} Posición relativa de fin, p. ej. `'+=1200'`.
-             * @example
-             * end()
-             */
             end: () => `+=${distance()}`,
             pin: true,
             scrub: 1,
             invalidateOnRefresh: true,
-            /**
-             * Inclina las tarjetas según la velocidad del scroll, con un límite de ±7 grados.
-             *
-             * @param {ScrollTrigger} self - Disparador con la velocidad actual.
-             * @returns {gsap.core.Tween} La animación de inclinación.
-             * @example
-             * onUpdate(trigger)
-             */
             onUpdate: (self) => skew(gsap.utils.clamp(-7, 7, self.getVelocity() / -400)),
-            /**
-             * Endereza las tarjetas al salir del tramo por abajo.
-             *
-             * @returns {gsap.core.Tween} La animación de inclinación.
-             * @example
-             * onLeave()
-             */
             onLeave: () => skew(0),
-            /**
-             * Endereza las tarjetas al salir del tramo por arriba.
-             *
-             * @returns {gsap.core.Tween} La animación de inclinación.
-             * @example
-             * onLeaveBack()
-             */
             onLeaveBack: () => skew(0),
           },
         })
@@ -103,7 +67,27 @@ export const useWorkRail = (scope: RefObject<HTMLElement | null>): void => {
             },
           })
         })
-        return () => skew(0)
+        /**
+         * Al enfocar con el teclado una tarjeta fuera de pantalla, desplaza la página hasta el punto
+         * del recorrido horizontal donde la tarjeta queda visible.
+         *
+         * @param {FocusEvent} event - Foco que entra en la galería.
+         * @returns {void} No devuelve nada.
+         * @example
+         * track.addEventListener('focusin', onFocus)
+         */
+        const onFocus = (event: FocusEvent) => {
+          const card = (event.target as Element).closest<HTMLElement>('.card-p, .card-end')
+          const trigger = move.scrollTrigger
+          if (!card || !trigger) return
+          const progress = gsap.utils.clamp(0, 1, (card.offsetLeft - window.innerWidth * 0.1) / distance())
+          window.scrollTo({ top: trigger.start + (trigger.end - trigger.start) * progress })
+        }
+        track.addEventListener('focusin', onFocus)
+        return () => {
+          track.removeEventListener('focusin', onFocus)
+          skew(0)
+        }
       })
       return () => media.revert()
     },
