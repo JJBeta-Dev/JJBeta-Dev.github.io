@@ -1,6 +1,8 @@
+import { casePath } from '@/data/caseStudies'
 import type { CaseSlug } from '@/data/caseSlugs'
 import { SITE_URL } from '@/data/site'
 import { i18n } from '@/plugins/i18n'
+import { buildCaseSchema } from '@/utils/caseSchema'
 import { buildMeta, type MetaDescriptor } from '@/utils/seoMeta'
 
 /**
@@ -42,14 +44,24 @@ export const homeMeta = (): MetaDescriptor[] =>
  */
 export const caseMeta = (slug: CaseSlug): MetaDescriptor[] => {
   const description = i18n.t(`cases.${slug}.description`)
-  return buildMeta({
+  const title = i18n.t(`cases.${slug}.plainTitle`)
+  const meta = buildMeta({
     ...base(),
-    path: `/casos/${slug}`,
+    path: casePath(slug),
     type: 'article',
-    title: i18n.t('meta.caseTitle', { title: i18n.t(`cases.${slug}.plainTitle`) }),
+    title: i18n.t('meta.caseTitle', { title }),
     description,
     socialDescription: description,
   })
+  const schema = buildCaseSchema({
+    siteUrl: SITE_URL,
+    path: casePath(slug),
+    title,
+    description,
+    homeLabel: i18n.t('menu.home'),
+    projectsLabel: i18n.t('menu.projects'),
+  })
+  return [...meta, { 'script:ld+json': schema }]
 }
 
 /**

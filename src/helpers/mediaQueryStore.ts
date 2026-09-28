@@ -19,33 +19,11 @@ export interface MediaQueryStore {
  * useSyncExternalStore(store.subscribe, store.getSnapshot, store.getServerSnapshot)
  */
 export const createMediaQueryStore = (query: string, serverValue = false): MediaQueryStore => ({
-  /**
-   * Se suscribe a los cambios de la media query.
-   *
-   * @param {() => void} onChange - Callback que React invoca cuando cambia el resultado.
-   * @returns {() => void} Función que cancela la suscripción.
-   * @example
-   * const unsubscribe = store.subscribe(onChange)
-   */
   subscribe(onChange) {
     const list = window.matchMedia(query)
     list.addEventListener('change', onChange)
     return () => list.removeEventListener('change', onChange)
   },
-  /**
-   * Lee si la media query coincide ahora mismo en el navegador.
-   *
-   * @returns {boolean} `true` cuando la media query coincide.
-   * @example
-   * store.getSnapshot()
-   */
   getSnapshot: () => window.matchMedia(query).matches,
-  /**
-   * Devuelve el valor fijo usado durante el pre-renderizado.
-   *
-   * @returns {boolean} El valor de servidor configurado.
-   * @example
-   * store.getServerSnapshot()
-   */
   getServerSnapshot: () => serverValue,
 })

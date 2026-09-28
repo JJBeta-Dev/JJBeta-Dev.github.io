@@ -5,6 +5,8 @@ export interface PersonData {
   siteUrl: string
   email: string
   profiles: readonly string[]
+  jobTitle: string
+  knowsAbout: readonly string[]
 }
 
 /**
@@ -16,14 +18,14 @@ export interface PersonData {
  * @example
  * JSON.stringify(buildPersonSchema({ siteUrl, email, profiles }))
  */
-export const buildPersonSchema = ({ siteUrl, email, profiles }: PersonData) => ({
+export const buildPersonSchema = ({ siteUrl, email, profiles, jobTitle, knowsAbout }: PersonData) => ({
   '@context': 'https://schema.org',
   '@type': 'Person',
   name: 'Jerónimo Jiménez Betancur',
   alternateName: 'JJBeta',
   url: siteUrl,
   image: new URL('og.png', siteUrl).href,
-  jobTitle: 'Diseñador UX/UI y desarrollador Front-End',
+  jobTitle,
   worksFor: { '@type': 'Organization', name: 'Asincode' },
   address: {
     '@type': 'PostalAddress',
@@ -32,15 +34,6 @@ export const buildPersonSchema = ({ siteUrl, email, profiles }: PersonData) => (
     addressCountry: 'CO',
   },
   email: `mailto:${email}`,
-  knowsAbout: [
-    'Diseño UX/UI',
-    'Figma',
-    'React',
-    'TypeScript',
-    'Tailwind CSS',
-    'Accesibilidad web',
-    'GSAP',
-    'Automatización con Make y n8n',
-  ],
+  knowsAbout: [...knowsAbout],
   sameAs: [...profiles],
 })

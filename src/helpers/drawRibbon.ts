@@ -1,7 +1,7 @@
 import type { Point, TimedPoint } from '@/types/geometry'
 import { withAlpha } from '@/utils/colorAlpha'
 import { ribbonOutline } from '@/utils/ribbonOutline'
-import { readToken } from './readToken'
+import { readToken } from '@/helpers/readToken'
 
 /**
  * Colores de un tema de la cinta.

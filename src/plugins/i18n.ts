@@ -14,5 +14,4 @@ i18n.use(initReactI18next).init({
   resources: { es: { translation: es } },
   initAsync: false,
   interpolation: { escapeValue: false },
-  returnObjects: true,
 })

@@ -39,13 +39,6 @@ export const burstAt = (x: number, y: number): void => {
         opacity: 0,
         duration: 0.8,
         ease: 'power3.out',
-        /**
-         * Elimina la esfera del DOM al terminar su animación.
-         *
-         * @returns {void} No devuelve nada.
-         * @example
-         * onComplete: () => sphere.remove()
-         */
         onComplete: () => sphere.remove(),
       },
     )
@@ -74,13 +67,6 @@ export const rainConfetti = (count: number, reduced: boolean): void => {
         duration: reduced ? 1.2 : gsap.utils.random(1.4, 2.6),
         delay: gsap.utils.random(0, 0.6),
         ease: 'power1.in',
-        /**
-         * Elimina la esfera del DOM al terminar su animación.
-         *
-         * @returns {void} No devuelve nada.
-         * @example
-         * onComplete: () => sphere.remove()
-         */
         onComplete: () => sphere.remove(),
       },
     )

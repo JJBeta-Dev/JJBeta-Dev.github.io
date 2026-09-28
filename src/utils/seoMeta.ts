@@ -6,6 +6,7 @@ export type MetaDescriptor =
   | { name: string; content: string }
   | { property: string; content: string }
   | { tagName: 'link'; rel: string; href: string }
+  | { 'script:ld+json': Record<string, unknown> }
 
 /**
  * Datos de una página necesarios para construir sus metadatos SEO y sociales.
