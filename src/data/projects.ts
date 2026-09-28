@@ -1,7 +1,7 @@
 import automation from '@/assets/images/photos/automatizacion.webp'
 import profile from '@/assets/images/photos/perfil-github.webp'
 import strictColors from '@/assets/images/photos/tailwind-strict-colors.webp'
-import type { CaseSlug } from './caseSlugs'
+import type { CaseSlug } from '@/data/caseSlugs'
 
 /**
  * Datos intrínsecos de una imagen. El ancho y el alto se declaran siempre para evitar saltos de maquetación.

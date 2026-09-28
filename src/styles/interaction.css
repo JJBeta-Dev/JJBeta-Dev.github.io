@@ -1,4 +1,6 @@
-pasa a negro justo debajo para que siga leyéndose. */ .cursor span {
+/* Al presionar sobre un elemento con etiqueta, el círculo se encoge y el texto
+   pasa a negro justo debajo para que siga leyéndose. */
+.cursor span {
   transition:
     opacity 0.2s var(--ease-soft),
     color 0.2s var(--ease-soft),

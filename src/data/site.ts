@@ -24,6 +24,15 @@ export const SOCIAL_LINKS = {
 } as const
 
 /**
+ * Perfiles públicos en el orden en que se muestran (contacto y footer). Los nombres son marcas.
+ */
+export const PROFILES = [
+  { icon: 'linkedin', label: 'LinkedIn', href: SOCIAL_LINKS.linkedin },
+  { icon: 'github', label: 'GitHub', href: SOCIAL_LINKS.github },
+  { icon: 'instagram', label: 'Instagram', href: SOCIAL_LINKS.instagram },
+] as const
+
+/**
  * Zona horaria IANA de El Carmen de Viboral, que usa el reloj del footer.
  */
 export const TIME_ZONE = 'America/Bogota'

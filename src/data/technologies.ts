@@ -1,4 +1,4 @@
-import type brandIcons from './brandIcons.json'
+import type brandIcons from '@/data/brandIcons.json'
 
 /**
  * Nombre de un icono disponible en `brandIcons.json`, más el lápiz propio dibujado como icono de línea.

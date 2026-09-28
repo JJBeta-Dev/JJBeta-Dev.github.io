@@ -6,7 +6,21 @@
     "socialDescription": "Diseño la interfaz y la construyo. Casos, proceso y un par de secretos escondidos.",
     "imageAlt": "Portada del portafolio de JJBeta: la palabra Quiubo en blanco con relieve y Soy JJBeta en morado",
     "caseTitle": "{{title}} · Caso de estudio · JJBeta",
-    "notFoundTitle": "Página no encontrada · JJBeta"
+    "notFoundTitle": "Página no encontrada · JJBeta",
+    "author": "Jerónimo Jiménez Betancur",
+    "person": {
+      "jobTitle": "Diseñador UX/UI y desarrollador Front-End",
+      "knowsAbout": [
+        "Diseño UX/UI",
+        "Figma",
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
+        "Accesibilidad web",
+        "GSAP",
+        "Automatización con Make y n8n"
+      ]
+    }
   },
   "a11y": {
     "skip": "Saltar al contenido",
@@ -28,7 +42,9 @@
     "sizeList": "Tamaño del texto",
     "nameMeaning": "JJBeta significa Jerónimo Jiménez Betancur"
   },
-  "loader": { "tag": "cargando v19.0.0-beta…" },
+  "loader": {
+    "tag": "cargando v19.0.0-beta…"
+  },
   "menu": {
     "home": "Inicio",
     "projects": "Proyectos",
@@ -65,7 +81,12 @@
     "now": "Ahora: Front-End y UX/UI en <b>Asincode</b>",
     "intro": "pero mi nombre real es <b>Jerónimo Jiménez Betancur</b>. Diseño la interfaz y la construyo.",
     "pills": ["Diseñador UX/UI", "Desarrollador Front-End"],
-    "badge": "scroll · proyectos · scroll · proyectos ·"
+    "badge": "scroll · proyectos · scroll · proyectos ·",
+    "nameExtras": {
+      "0": "erónimo ",
+      "1": "iménez ",
+      "5": "ncur"
+    }
   },
   "work": {
     "title": "Proyectos",

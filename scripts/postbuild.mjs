@@ -87,7 +87,7 @@ const protectPages = async (files) => {
  * @param {string} file - Ruta del archivo dentro de la carpeta del build.
  * @returns {string} URL absoluta de la página.
  * @example
- * pageUrl('build/client/casos/perfil/index.html') // 'https://…/casos/perfil'
+ * pageUrl('build/client/casos/perfil/index.html') // 'https://…/casos/perfil/'
  */
 const pageUrl = (file) => {
   const path = relative(CLIENT, file)

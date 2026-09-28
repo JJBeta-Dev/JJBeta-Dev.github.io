@@ -12,7 +12,7 @@ export type CaseSlug = (typeof CASE_SLUGS)[number]
  * Reduce un parámetro de ruta cualquiera a un slug de caso conocido.
  *
  * @param {string | undefined} value - Valor en bruto que llega desde la URL.
- * @returns {boolean} `true` cuando el valor es uno de {@link CASE_SLUGS}.
+ * @returns {value is CaseSlug} `true` cuando el valor es uno de {@link CASE_SLUGS}.
  * @example
  * isCaseSlug('perfil') // true
  * isCaseSlug('otro') // false

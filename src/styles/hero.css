@@ -21,8 +21,13 @@
   text-shadow: 0 16px 14px oklch(from var(--color-relief) l c h / 0.75);
   white-space: nowrap;
 }
-.char {
+.char,
+.w {
   display: inline-block;
+}
+.word {
+  display: inline-block;
+  white-space: nowrap;
 }
 .me {
   position: relative;
@@ -194,4 +199,18 @@
 .badge-spin .core svg {
   width: 26px;
   height: 26px;
+}
+
+.me__trigger {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+  color: inherit;
+  text-align: inherit;
+  cursor: inherit;
 }
