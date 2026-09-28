@@ -72,19 +72,18 @@ describe('buildCaseSchema', () => {
       title: 'Perfil',
       description: 'Un caso',
       homeLabel: 'Inicio',
-      projectsLabel: 'Proyectos',
     })
     const [work, breadcrumbs] = schema['@graph']
     expect(work).toMatchObject({
       '@type': 'CreativeWork',
       url: 'https://x.dev/casos/perfil/',
       name: 'Perfil',
+      author: { '@id': 'https://x.dev/#persona' },
     })
     expect(breadcrumbs).toMatchObject({
       itemListElement: [
         { position: 1, item: 'https://x.dev/' },
-        { position: 2, item: 'https://x.dev/#proyectos' },
-        { position: 3, item: 'https://x.dev/casos/perfil/' },
+        { position: 2, item: 'https://x.dev/casos/perfil/' },
       ],
     })
   })

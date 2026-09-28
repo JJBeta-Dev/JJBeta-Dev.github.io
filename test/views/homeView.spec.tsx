@@ -8,8 +8,8 @@ import AppProviders from '@/providers/AppProviders'
 import CaseRoute from '@/routes/case'
 import NotFoundRoute from '@/routes/notFound'
 import HomeView from '@/views/HomeView'
-import { mockMedia } from '../renderWithProviders'
-import { intersectAll } from '../setupTest'
+import { mockMedia } from '@test/renderWithProviders'
+import { intersectAll } from '@test/setupTest'
 
 vi.mock('@/services/githubService', () => ({
   getRepositoryActivity: vi.fn(async () => ({
@@ -85,6 +85,8 @@ describe.each([
     expect(document.body).toHaveClass('menu-open')
     await user.keyboard('{Escape}')
     expect(menuButton).toHaveAttribute('aria-expanded', 'false')
+    expect(menuButton).toHaveFocus()
+    expect(document.body).not.toHaveClass('menu-open')
     await user.click(menuButton)
     await user.click(
       within(screen.getByRole('navigation', { name: i18n.t('a11y.mainNav') })).getByText(
@@ -198,12 +200,13 @@ describe.each([
     await user.keyboard('{Escape}{Escape}')
     await vi.waitFor(() => expect(screen.queryByRole('dialog')).toBeNull(), { timeout: 4000 })
     expect(screen.getByRole('main')).not.toHaveAttribute('inert')
+    await vi.waitFor(() => expect(document.activeElement).toHaveAttribute('data-case-link', 'tailwind'))
   })
 
   it('un clic con Ctrl sobre una tarjeta se deja al navegador (pestaña nueva)', async () => {
     renderApp()
     const card = await screen.findByRole('link', { name: /Sistema visual de mi perfil/ })
-    fireEvent.click(card, { ctrlKey: true })
+    expect(fireEvent.click(card, { ctrlKey: true })).toBe(true)
     await act(async () => {
       await new Promise((resolve) => setTimeout(resolve, 50))
     })

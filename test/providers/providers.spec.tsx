@@ -16,7 +16,7 @@ import CurtainProvider from '@/providers/CurtainProvider'
 import ScrollProvider from '@/providers/ScrollProvider'
 import SecretsProvider from '@/providers/SecretsProvider'
 import ToastProvider from '@/providers/ToastProvider'
-import { mockMedia } from '../renderWithProviders'
+import { mockMedia } from '@test/renderWithProviders'
 
 vi.mock('@/helpers/confetti', () => ({ rainConfetti: vi.fn(), burstAt: vi.fn() }))
 
@@ -166,6 +166,6 @@ describe('CurtainProvider', () => {
         result.current.close(),
       ])
     })
-    expect(document.querySelector('.curtain')).toBeInTheDocument()
+    expect(document.querySelector('.curtain')).toHaveStyle({ visibility: 'hidden', pointerEvents: 'none' })
   })
 })

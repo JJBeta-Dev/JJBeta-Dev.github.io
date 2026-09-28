@@ -124,6 +124,7 @@ describe('buildPersonSchema', () => {
       knowsAbout: ['React'],
     })
     expect(schema['@type']).toBe('Person')
+    expect(schema['@id']).toBe('https://x.dev/#persona')
     expect(schema.email).toBe('mailto:a@b.co')
     expect(schema.sameAs).toEqual(['https://github.com/x'])
     expect(schema.image).toBe('https://x.dev/og.png')

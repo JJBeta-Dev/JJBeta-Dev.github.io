@@ -1,27 +1,18 @@
-import { AxiosError, AxiosHeaders } from 'axios'
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { githubClient } from '@/plugins/axios'
 import { getLatestRelease, getRepositoryActivity } from '@/services/githubService'
-
-const notFound = () =>
-  new AxiosError('Not Found', '404', undefined, undefined, {
-    status: 404,
-    statusText: 'Not Found',
-    data: {},
-    headers: {},
-    config: { headers: new AxiosHeaders() },
-  })
 
 afterEach(() => vi.restoreAllMocks())
 
 describe('getLatestRelease', () => {
   it('devuelve la etiqueta de la última versión', async () => {
-    vi.spyOn(githubClient, 'get').mockResolvedValue({ data: { tag_name: 'v0.1.0' } })
+    const get = vi.spyOn(githubClient, 'get').mockResolvedValue({ data: [{ tag_name: 'v0.1.0' }] })
     await expect(getLatestRelease('tailwind-strict-colors')).resolves.toBe('v0.1.0')
+    expect(get).toHaveBeenCalledWith(expect.stringMatching(/\/releases$/), { params: { per_page: 1 } })
   })
 
   it('devuelve null cuando el repositorio no tiene versiones', async () => {
-    vi.spyOn(githubClient, 'get').mockRejectedValue(notFound())
+    vi.spyOn(githubClient, 'get').mockResolvedValue({ data: [] })
     await expect(getLatestRelease('JJBeta-Dev')).resolves.toBeNull()
   })
 
@@ -31,7 +22,7 @@ describe('getLatestRelease', () => {
   })
 
   it('rechaza respuestas que no cumplen el esquema', async () => {
-    vi.spyOn(githubClient, 'get').mockResolvedValue({ data: { tag_name: '' } })
+    vi.spyOn(githubClient, 'get').mockResolvedValue({ data: [{ tag_name: '' }] })
     await expect(getLatestRelease('x')).rejects.toThrow()
   })
 })
@@ -39,8 +30,8 @@ describe('getLatestRelease', () => {
 describe('getRepositoryActivity', () => {
   it('combina el último push y la versión', async () => {
     vi.spyOn(githubClient, 'get').mockImplementation(async (url: string) =>
-      url.endsWith('/releases/latest')
-        ? { data: { tag_name: 'v1.0.0' } }
+      url.endsWith('/releases')
+        ? { data: [{ tag_name: 'v1.0.0' }] }
         : { data: { pushed_at: '2026-09-26T10:00:00Z', html_url: 'https://github.com/JJBeta-Dev/x' } },
     )
     const activity = await getRepositoryActivity('x')

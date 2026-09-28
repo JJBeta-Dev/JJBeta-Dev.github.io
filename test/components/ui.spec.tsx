@@ -9,7 +9,7 @@ import LineIcon from '@/components/ui/icons/LineIcon'
 import Pill from '@/components/ui/pill/Pill'
 import Toast from '@/components/ui/toast/Toast'
 import { FONT_OPTIONS } from '@/data/editorOptions'
-import { mockMedia, renderWithProviders } from '../renderWithProviders'
+import { mockMedia, renderWithProviders } from '@test/renderWithProviders'
 
 describe('iconos', () => {
   it('LineIcon es decorativo y usa currentColor', () => {
@@ -74,8 +74,9 @@ describe('AnchorLink', () => {
 
   it('no falla si el destino no existe', async () => {
     renderWithProviders(<AnchorLink to="#nada">Nada</AnchorLink>)
-    fireEvent.click(await screen.findByRole('link', { name: 'Nada' }))
-    expect(screen.getByRole('link', { name: 'Nada' })).toBeInTheDocument()
+    const link = await screen.findByRole('link', { name: 'Nada' })
+    expect(() => fireEvent.click(link)).not.toThrow()
+    expect(document.body).toHaveFocus()
   })
 })
 

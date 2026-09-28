@@ -11,7 +11,7 @@ import { readToken } from '@/helpers/readToken'
 import { revealTitle, riseIn } from '@/helpers/reveals'
 import { threadPoints } from '@/helpers/threadPoints'
 import { describeLayer, labelFrames, pickLayer } from '@/helpers/wireFrames'
-import { intersectAll, observers } from '../setupTest'
+import { intersectAll, observers } from '@test/setupTest'
 
 afterEach(() => {
   document.body.innerHTML = ''
