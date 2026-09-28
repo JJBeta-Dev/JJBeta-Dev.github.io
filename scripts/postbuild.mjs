@@ -1,9 +1,13 @@
 import { createHash } from 'node:crypto'
-import { copyFile, readdir, readFile, writeFile } from 'node:fs/promises'
+import { readdir, readFile, writeFile } from 'node:fs/promises'
 import { join, relative, sep } from 'node:path'
+import { loadEnv } from 'vite'
 
 const CLIENT = 'build/client'
-const SITE_URL = process.env.VITE_SITE_URL ?? 'https://jjbeta-dev.github.io/'
+const CHARSET = /<meta charSet="utf-8"\/>/i
+const SITE_URL =
+  loadEnv('production', process.cwd(), 'VITE_').VITE_SITE_URL ?? 'https://jjbeta-dev.github.io/'
+const NOT_FOUND_HEAD = '<title>Página no encontrada · JJBeta</title><meta name="robots" content="noindex"/>'
 
 /**
  * Recorre una carpeta y devuelve las rutas de todos los HTML que contiene.
@@ -75,8 +79,12 @@ const protectPages = async (files) => {
   await Promise.all(
     files.map(async (file) => {
       const html = await readFile(file, 'utf8')
+      if (!CHARSET.test(html)) throw new Error(`CSP: falta el meta charset en ${file}`)
       const meta = `<meta http-equiv="Content-Security-Policy" content="${buildPolicy(inlineScriptHashes(html))}"/>`
-      await writeFile(file, html.replace(/(<meta charSet="utf-8"\/>)/i, `$1${meta}`))
+      await writeFile(
+        file,
+        html.replace(CHARSET, (charset) => `${charset}${meta}`),
+      )
     }),
   )
 }
@@ -94,7 +102,6 @@ const pageUrl = (file) => {
     .split(sep)
     .join('/')
     .replace(/index\.html$/, '')
-    .replace(/\/$/, '')
   return new URL(path, SITE_URL).href
 }
 
@@ -107,10 +114,9 @@ const pageUrl = (file) => {
  * await writeSeoFiles(files)
  */
 const writeSeoFiles = async (files) => {
-  const today = new Date().toISOString().slice(0, 10)
   const urls = files
     .filter((file) => file.endsWith('index.html'))
-    .map((file) => `  <url><loc>${pageUrl(file)}</loc><lastmod>${today}</lastmod></url>`)
+    .map((file) => `  <url><loc>${pageUrl(file)}</loc></url>`)
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.join('\n')}\n</urlset>\n`
   await writeFile(join(CLIENT, 'sitemap.xml'), sitemap)
   await writeFile(
@@ -119,9 +125,26 @@ const writeSeoFiles = async (files) => {
   )
 }
 
+/**
+ * Escribe el `404.html` a partir del documento de respaldo de la SPA, con su propio título y la
+ * orden de no indexarlo, porque ese documento no pasa por el `meta` de ninguna ruta.
+ *
+ * @param {string} fallback - Ruta del HTML de respaldo generado por React Router.
+ * @returns {Promise<void>} Se resuelve cuando el archivo queda escrito.
+ * @example
+ * await writeNotFound('build/client/__spa-fallback.html')
+ */
+const writeNotFound = async (fallback) => {
+  const html = await readFile(fallback, 'utf8')
+  await writeFile(
+    join(CLIENT, '404.html'),
+    html.replace(CHARSET, (charset) => `${charset}${NOT_FOUND_HEAD}`),
+  )
+}
+
 const files = await listHtml(CLIENT)
 await protectPages(files)
 await writeSeoFiles(files.filter((file) => !file.includes('__spa-fallback')))
 const fallback = files.find((file) => file.includes('__spa-fallback')) ?? join(CLIENT, 'index.html')
-await copyFile(fallback, join(CLIENT, '404.html'))
+await writeNotFound(fallback)
 console.log(`postbuild: ${files.length} páginas protegidas, sitemap y 404 listos`)

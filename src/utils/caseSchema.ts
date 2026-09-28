@@ -1,3 +1,5 @@
+import { personId } from '@/utils/personSchema'
+
 /**
  * Datos de un caso de estudio para describirlo con schema.org.
  */
@@ -7,26 +9,18 @@ export interface CaseSchemaData {
   title: string
   description: string
   homeLabel: string
-  projectsLabel: string
 }
 
 /**
  * Construye el JSON-LD de un caso de estudio: un `CreativeWork` firmado por JJBeta y la ruta de
- * migas (`BreadcrumbList`) Inicio › Proyectos › Caso, para buscadores y asistentes de IA.
+ * migas (`BreadcrumbList`) Inicio › Caso, para buscadores y asistentes de IA.
  *
  * @param {CaseSchemaData} data - URL del sitio, ruta, título, descripción y etiquetas de las migas.
  * @returns {Record<string, unknown>} Un grafo schema.org serializable a JSON.
  * @example
- * buildCaseSchema({ siteUrl, path: '/casos/perfil/', title, description, homeLabel: 'Inicio', projectsLabel: 'Proyectos' })
+ * buildCaseSchema({ siteUrl, path: '/casos/perfil/', title, description, homeLabel: 'Inicio' })
  */
-export const buildCaseSchema = ({
-  siteUrl,
-  path,
-  title,
-  description,
-  homeLabel,
-  projectsLabel,
-}: CaseSchemaData) => {
+export const buildCaseSchema = ({ siteUrl, path, title, description, homeLabel }: CaseSchemaData) => {
   const url = new URL(path, siteUrl).href
   return {
     '@context': 'https://schema.org',
@@ -38,24 +32,13 @@ export const buildCaseSchema = ({
         description,
         url,
         inLanguage: 'es',
-        author: {
-          '@type': 'Person',
-          name: 'Jerónimo Jiménez Betancur',
-          alternateName: 'JJBeta',
-          url: siteUrl,
-        },
+        author: { '@id': personId(siteUrl) },
       },
       {
         '@type': 'BreadcrumbList',
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: homeLabel, item: siteUrl },
-          {
-            '@type': 'ListItem',
-            position: 2,
-            name: projectsLabel,
-            item: new URL('#proyectos', siteUrl).href,
-          },
-          { '@type': 'ListItem', position: 3, name: title, item: url },
+          { '@type': 'ListItem', position: 2, name: title, item: url },
         ],
       },
     ],

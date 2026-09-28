@@ -59,7 +59,6 @@ export const caseMeta = (slug: CaseSlug): MetaDescriptor[] => {
     title,
     description,
     homeLabel: i18n.t('menu.home'),
-    projectsLabel: i18n.t('menu.projects'),
   })
   return [...meta, { 'script:ld+json': schema }]
 }

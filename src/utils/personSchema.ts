@@ -10,6 +10,17 @@ export interface PersonData {
 }
 
 /**
+ * Identificador estable de la persona en el grafo de schema.org, para que otras entidades la
+ * referencien sin repetir sus datos.
+ *
+ * @param {string} siteUrl - URL pública del sitio.
+ * @returns {string} URL absoluta con el fragmento `#persona`.
+ * @example
+ * personId('https://jjbeta-dev.github.io/') // 'https://jjbeta-dev.github.io/#persona'
+ */
+export const personId = (siteUrl: string): string => new URL('#persona', siteUrl).href
+
+/**
  * Construye el grafo `Person` de schema.org (JSON-LD) que describe a Jerónimo Jiménez Betancur para
  * buscadores y asistentes de IA.
  *
@@ -21,6 +32,7 @@ export interface PersonData {
 export const buildPersonSchema = ({ siteUrl, email, profiles, jobTitle, knowsAbout }: PersonData) => ({
   '@context': 'https://schema.org',
   '@type': 'Person',
+  '@id': personId(siteUrl),
   name: 'Jerónimo Jiménez Betancur',
   alternateName: 'JJBeta',
   url: siteUrl,

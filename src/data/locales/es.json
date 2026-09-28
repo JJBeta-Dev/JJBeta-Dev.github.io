@@ -2,10 +2,10 @@
   "meta": {
     "siteName": "JJBeta",
     "title": "JJBeta · Diseñador UX/UI y desarrollador Front-End",
-    "description": "Portafolio de Jerónimo Jiménez Betancur (JJBeta), diseñador UX/UI y desarrollador Front-End en El Carmen de Viboral, Colombia. Diseño la interfaz y la construyo: de papel y lápiz a Figma, y de Figma a React.",
+    "description": "Jerónimo Jiménez Betancur (JJBeta), diseñador UX/UI y desarrollador Front-End en El Carmen de Viboral, Colombia. Diseño la interfaz y la construyo.",
     "socialDescription": "Diseño la interfaz y la construyo. Casos, proceso y un par de secretos escondidos.",
     "imageAlt": "Portada del portafolio de JJBeta: la palabra Quiubo en blanco con relieve y Soy JJBeta en morado",
-    "caseTitle": "{{title}} · Caso de estudio · JJBeta",
+    "caseTitle": "{{title}} · Caso de JJBeta",
     "notFoundTitle": "Página no encontrada · JJBeta",
     "author": "Jerónimo Jiménez Betancur",
     "person": {
@@ -24,6 +24,7 @@
   },
   "a11y": {
     "skip": "Saltar al contenido",
+    "newTab": " (se abre en una pestaña nueva)",
     "openMenu": "Abrir menú",
     "closeMenu": "Cerrar menú",
     "mainNav": "Principal",
@@ -184,6 +185,7 @@
   },
   "case": {
     "back": "Volver",
+    "position": "Caso {{current}} de {{total}}",
     "next": "Siguiente caso",
     "first": "Volver al primero",
     "nextCursor": "Siguiente",

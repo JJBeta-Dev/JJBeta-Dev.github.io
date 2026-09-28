@@ -1,10 +1,9 @@
-import { isAxiosError } from 'axios'
 import { z } from 'zod'
 import { GITHUB_OWNER } from '@/data/site'
 import { githubClient } from '@/plugins/axios'
 
 const repositorySchema = z.object({ pushed_at: z.string().datetime(), html_url: z.string().url() })
-const releaseSchema = z.object({ tag_name: z.string().min(1) })
+const releasesSchema = z.array(z.object({ tag_name: z.string().min(1) })).max(1)
 
 /**
  * Actividad pública de un repositorio que se muestra en un caso de estudio.
@@ -15,22 +14,21 @@ export interface RepositoryActivity {
 }
 
 /**
- * Obtiene la etiqueta del último release publicado de un repositorio.
+ * Obtiene la etiqueta del último release publicado de un repositorio. Pide la lista con un solo
+ * elemento en lugar de `/releases/latest`, que responde 404 (y ensucia la consola) cuando no hay
+ * ninguno.
  *
  * @param {string} repository - Nombre del repositorio dentro de {@link GITHUB_OWNER}.
  * @returns {Promise<string | null>} La etiqueta del release, o `null` si el repositorio no tiene releases.
- * @throws {Error} Cuando la petición falla por cualquier motivo distinto de "sin releases" (404).
+ * @throws {Error} Cuando la petición falla o la respuesta no cumple el esquema.
  * @example
  * await getLatestRelease('tailwind-strict-colors') // 'v0.1.0'
  */
 export const getLatestRelease = async (repository: string): Promise<string | null> => {
-  try {
-    const { data } = await githubClient.get(`/repos/${GITHUB_OWNER}/${repository}/releases/latest`)
-    return releaseSchema.parse(data).tag_name
-  } catch (error) {
-    if (isAxiosError(error) && error.response?.status === 404) return null
-    throw error
-  }
+  const { data } = await githubClient.get(`/repos/${GITHUB_OWNER}/${repository}/releases`, {
+    params: { per_page: 1 },
+  })
+  return releasesSchema.parse(data)[0]?.tag_name ?? null
 }
 
 /**
