@@ -37,11 +37,14 @@ const documentation = {
       publicOnly: false,
       require: {
         FunctionDeclaration: true,
-        ArrowFunctionExpression: true,
-        FunctionExpression: true,
+        ArrowFunctionExpression: false,
+        FunctionExpression: false,
         MethodDefinition: true,
       },
-      contexts: ['VariableDeclaration > VariableDeclarator > ArrowFunctionExpression'],
+      contexts: [
+        'VariableDeclaration > VariableDeclarator > ArrowFunctionExpression',
+        'VariableDeclaration > VariableDeclarator > FunctionExpression',
+      ],
       checkConstructors: false,
     },
   ],
