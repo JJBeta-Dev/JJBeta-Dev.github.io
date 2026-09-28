@@ -70,7 +70,20 @@ export default tseslint.config(
     languageOptions: { globals: { ...globals.browser, ...globals.node } },
     settings: { jsdoc: { mode: 'typescript' } },
     plugins: { 'react-hooks': reactHooks, jsdoc, local },
-    rules: { ...reactHooks.configs.recommended.rules, 'local/only-doc-comments': 'error', ...documentation },
+    rules: {
+      ...reactHooks.configs.recommended.rules,
+      'local/only-doc-comments': 'error',
+      ...documentation,
+    },
+  },
+  {
+    files: ['src/**/*.{ts,tsx}', 'test/**/*.{ts,tsx}'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        { patterns: [{ regex: '^[.]{1,2}/(?![+]types/)', message: 'Usa los alias @/ o @test/.' }] },
+      ],
+    },
   },
   {
     files: ['test/**/*.{ts,tsx}'],
@@ -78,8 +91,8 @@ export default tseslint.config(
   },
   {
     files: ['**/*.js', '**/*.mjs'],
-    plugins: { local },
+    plugins: { jsdoc, local },
     languageOptions: { globals: { ...globals.node } },
-    rules: { 'local/only-doc-comments': 'error' },
+    rules: { 'local/only-doc-comments': 'error', ...documentation },
   },
 )
