@@ -120,10 +120,14 @@ describe('buildPersonSchema', () => {
       siteUrl: 'https://x.dev/',
       email: 'a@b.co',
       profiles: ['https://github.com/x'],
+      jobTitle: 'Diseñador',
+      knowsAbout: ['React'],
     })
     expect(schema['@type']).toBe('Person')
     expect(schema.email).toBe('mailto:a@b.co')
     expect(schema.sameAs).toEqual(['https://github.com/x'])
     expect(schema.image).toBe('https://x.dev/og.png')
+    expect(schema.jobTitle).toBe('Diseñador')
+    expect(schema.knowsAbout).toEqual(['React'])
   })
 })

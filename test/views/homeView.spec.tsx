@@ -105,8 +105,8 @@ describe.each([
     const user = userEvent.setup()
     renderApp()
     const heading = await screen.findByRole('heading', { level: 1 })
-    await user.click(heading)
-    expect(await screen.findByText(i18n.t('secrets.found.name'))).toBeInTheDocument()
+    await user.click(within(heading).getByRole('button', { name: 'JJBeta' }))
+    await vi.waitFor(() => expect(screen.getByRole('status')).toHaveTextContent(i18n.t('secrets.found.name')))
 
     const spheres = document.querySelectorAll('.pop')
     ;[0, 1, 2].forEach((i) => fireEvent.click(spheres[i] as Element))
@@ -149,9 +149,11 @@ describe.each([
     await user.click(screen.getByRole('option', { name: '16pt' }))
 
     await user.click(screen.getByRole('button', { name: /Escríbeme/ }))
-    expect(
-      await screen.findByText(i18n.t('contact.copied', { email: 'jjbetacode@gmail.com' })),
-    ).toBeInTheDocument()
+    await vi.waitFor(() =>
+      expect(screen.getByRole('status')).toHaveTextContent(
+        i18n.t('contact.copied', { email: 'jjbetacode@gmail.com' }),
+      ),
+    )
   })
 
   it('los callbacks de scroll dibujan el hilo, aceleran la banda e inclinan la galería', async () => {
@@ -184,7 +186,8 @@ describe.each([
     renderApp()
     await user.click(await screen.findByRole('link', { name: /Sistema visual de mi perfil/ }))
     const dialog = await screen.findByRole('dialog', {}, { timeout: 3000 })
-    expect(within(dialog).getByRole('heading', { level: 2, name: /cuida/ })).toBeInTheDocument()
+    expect(within(dialog).getByRole('heading', { level: 1 })).toHaveTextContent('Un perfil que se cuida solo')
+    expect(screen.getAllByRole('heading', { level: 1 })).toHaveLength(1)
     expect(screen.getByRole('main')).toHaveAttribute('inert')
     expect(await within(dialog).findByText(/v0\.1\.0/)).toBeInTheDocument()
     intersectAll(true)
@@ -192,8 +195,19 @@ describe.each([
     await user.click(within(dialog).getByRole('link', { name: /Tailwind Strict Colors/ }))
     expect(await screen.findByRole('heading', { name: /respetado/ }, { timeout: 3000 })).toBeInTheDocument()
 
-    await user.keyboard('{Escape}')
+    await user.keyboard('{Escape}{Escape}')
     await vi.waitFor(() => expect(screen.queryByRole('dialog')).toBeNull(), { timeout: 4000 })
+    expect(screen.getByRole('main')).not.toHaveAttribute('inert')
+  })
+
+  it('un clic con Ctrl sobre una tarjeta se deja al navegador (pestaña nueva)', async () => {
+    renderApp()
+    const card = await screen.findByRole('link', { name: /Sistema visual de mi perfil/ })
+    fireEvent.click(card, { ctrlKey: true })
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 50))
+    })
+    expect(screen.queryByRole('dialog')).toBeNull()
   })
 })
 

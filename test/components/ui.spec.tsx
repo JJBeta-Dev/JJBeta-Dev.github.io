@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import AnchorLink from '@/components/ui/anchor-link/AnchorLink'
@@ -30,11 +30,12 @@ describe('iconos', () => {
 describe('Toast, Pill y BrowserWindow', () => {
   it('Toast es una región viva y solo muestra el icono con mensaje', () => {
     const { container, rerender } = render(<Toast message="" icon="spark" visible={false} />)
-    expect(screen.getByRole('status')).not.toHaveClass('show')
+    expect(container.querySelector('.toast')).not.toHaveClass('show')
     expect(container.querySelector('svg')).toBeNull()
     rerender(<Toast message="Hola" icon="spark" visible />)
-    expect(screen.getByRole('status')).toHaveClass('show')
-    expect(screen.getByText('Hola')).toBeInTheDocument()
+    expect(container.querySelector('.toast')).toHaveClass('show')
+    expect(container.querySelector('.toast')).toHaveAttribute('aria-hidden', 'true')
+    expect(screen.getByRole('status')).toHaveTextContent('Hola')
   })
 
   it('Pill muestra su contenido', () => {
@@ -64,9 +65,11 @@ describe('AnchorLink', () => {
     const link = await screen.findByRole('link', { name: 'Ir' })
     expect(link).toHaveAttribute('href', '#destino')
     expect(link).toHaveAttribute('data-magnetic', '')
+    fireEvent.click(link, { ctrlKey: true })
+    expect(onNavigate).not.toHaveBeenCalled()
     fireEvent.click(link)
     expect(onNavigate).toHaveBeenCalled()
-    expect(document.getElementById('destino')).toHaveFocus()
+    await waitFor(() => expect(document.getElementById('destino')).toHaveFocus())
   })
 
   it('no falla si el destino no existe', async () => {

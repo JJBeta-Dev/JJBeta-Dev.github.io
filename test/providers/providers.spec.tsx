@@ -1,4 +1,5 @@
-import { act, render, renderHook, screen } from '@testing-library/react'
+import { act, render, renderHook, screen, waitFor } from '@testing-library/react'
+import Lenis from 'lenis'
 import type { ReactNode } from 'react'
 import { I18nextProvider } from 'react-i18next'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
@@ -7,6 +8,7 @@ import { ToastContext } from '@/contexts/ToastContext'
 import { useCurtain } from '@/hooks/useCurtain'
 import { useRequiredContext } from '@/hooks/useRequiredContext'
 import { useScrollControls } from '@/hooks/useScrollControls'
+import { useScrollLock } from '@/hooks/useScrollLock'
 import { useSecrets } from '@/hooks/useSecrets'
 import { useToast } from '@/hooks/useToast'
 import { i18n } from '@/plugins/i18n'
@@ -57,10 +59,11 @@ describe('ToastProvider', () => {
     vi.useFakeTimers()
     const { result } = renderHook(useToast, { wrapper: Wrapper })
     act(() => result.current.show('Correo copiado', 'copy', 1000))
-    expect(screen.getByRole('status')).toHaveClass('show')
-    expect(screen.getByText('Correo copiado')).toBeInTheDocument()
+    expect(document.querySelector('.toast')).toHaveClass('show')
+    expect(screen.getByRole('status')).toHaveTextContent('Correo copiado')
     act(() => vi.advanceTimersByTime(1000))
-    expect(screen.getByRole('status')).not.toHaveClass('show')
+    expect(document.querySelector('.toast')).not.toHaveClass('show')
+    expect(screen.getByRole('status')).toBeEmptyDOMElement()
   })
 
   it('usa icono y duración por defecto', () => {
@@ -68,7 +71,7 @@ describe('ToastProvider', () => {
     const { result } = renderHook(useToast, { wrapper: Wrapper })
     act(() => result.current.show('Hola'))
     act(() => vi.advanceTimersByTime(3200))
-    expect(screen.getByRole('status')).not.toHaveClass('show')
+    expect(document.querySelector('.toast')).not.toHaveClass('show')
   })
 })
 
@@ -86,43 +89,42 @@ describe('SecretsProvider', () => {
     act(() => result.current.reveal('name'))
     act(() => result.current.reveal('name'))
     expect(result.current.found.size).toBe(1)
-    expect(screen.getByText(i18n.t('secrets.found.name'))).toBeInTheDocument()
+    expect(screen.getByRole('status')).toHaveTextContent(i18n.t('secrets.found.name'))
     SECRET_KEYS.forEach((key) => act(() => result.current.reveal(key)))
     expect(result.current.found.size).toBe(SECRET_KEYS.length)
-    expect(screen.getByText(i18n.t('secrets.all'))).toBeInTheDocument()
+    expect(screen.getByRole('status')).toHaveTextContent(i18n.t('secrets.all'))
   })
 })
 
 describe('ScrollProvider', () => {
   beforeEach(() => mockMedia(['prefers-reduced-motion']))
 
-  it('desplaza y enfoca la sección de destino', () => {
+  it('desplaza y enfoca la sección de destino en el siguiente frame', async () => {
     const { result } = renderHook(useScrollControls, { wrapper: Wrapper })
     render(<section id="destino">Destino</section>)
     const target = document.getElementById('destino') as HTMLElement
-    target.scrollIntoView = vi.fn()
     act(() => result.current.scrollTo('#destino'))
     expect(target.scrollIntoView).toHaveBeenCalled()
-    expect(target).toHaveFocus()
+    await waitFor(() => expect(target).toHaveFocus())
     act(() => result.current.scrollTo(target))
     act(() => result.current.scrollTo('#no-existe'))
   })
 
-  it('los bloqueos son idempotentes', () => {
-    const { result } = renderHook(useScrollControls, { wrapper: Wrapper })
-    const setLock = result.current.setLock
-    act(() => setLock('menu', true))
-    act(() => setLock('menu', true))
-    act(() => setLock('menu', false))
-    expect(result.current.setLock).toBe(setLock)
-  })
-
-  it('con movimiento activo crea el scroll suave y lo destruye al desmontar', () => {
+  it('con movimiento activo, useScrollLock pausa el scroll suave y lo reanuda al liberarse', () => {
     mockMedia([])
-    const { result, unmount } = renderHook(useScrollControls, { wrapper: Wrapper })
+    const stop = vi.spyOn(Lenis.prototype, 'stop')
+    const start = vi.spyOn(Lenis.prototype, 'start')
+    const { result, rerender, unmount } = renderHook(
+      ({ active }) => {
+        useScrollLock('case', active)
+        return useScrollControls()
+      },
+      { wrapper: Wrapper, initialProps: { active: true } },
+    )
+    expect(stop).toHaveBeenCalled()
+    rerender({ active: false })
+    expect(start).toHaveBeenCalled()
     render(<section id="suave">Suave</section>)
-    act(() => result.current.setLock('case', true))
-    act(() => result.current.setLock('case', false))
     act(() => result.current.scrollTo('#suave'))
     unmount()
   })
@@ -137,6 +139,32 @@ describe('CurtainProvider', () => {
       await result.current.lift()
       await result.current.drop()
       await result.current.close()
+    })
+    expect(document.querySelector('.curtain')).toBeInTheDocument()
+  })
+
+  it('transition ignora cualquier transición que llegue mientras otra está en curso', async () => {
+    mockMedia(['prefers-reduced-motion'])
+    const { result } = renderHook(useCurtain, { wrapper: Wrapper })
+    const task = vi.fn(() => new Promise<void>((resolve) => setTimeout(resolve, 20)))
+    await act(async () => {
+      await Promise.all([result.current.transition(task), result.current.transition(task)])
+    })
+    expect(task).toHaveBeenCalledTimes(1)
+    await act(() => result.current.transition(task))
+    expect(task).toHaveBeenCalledTimes(2)
+  })
+
+  it('con movimiento activo anima cada paso y lo resuelve al terminar', async () => {
+    mockMedia([])
+    const { result } = renderHook(useCurtain, { wrapper: Wrapper })
+    await act(async () => {
+      await Promise.all([
+        result.current.cover(),
+        result.current.lift(),
+        result.current.drop(),
+        result.current.close(),
+      ])
     })
     expect(document.querySelector('.curtain')).toBeInTheDocument()
   })

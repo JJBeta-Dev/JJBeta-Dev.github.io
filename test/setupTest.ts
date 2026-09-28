@@ -77,3 +77,15 @@ Object.assign(SVGElement.prototype, {
 HTMLCanvasElement.prototype.getContext = vi.fn(() => null) as unknown as HTMLCanvasElement['getContext']
 Element.prototype.scrollIntoView = vi.fn()
 document.elementFromPoint = vi.fn(() => document.body)
+
+/**
+ * jsdom no calcula layout y deja `offsetParent` siempre en `null`; GSAP interpreta eso como un
+ * elemento oculto y lo saca del DOM para medirlo, desordenando los espacios entre palabras. En el
+ * navegador un elemento visible sí tiene `offsetParent`, así que se simula con su padre.
+ */
+Object.defineProperty(HTMLElement.prototype, 'offsetParent', {
+  configurable: true,
+  get(this: HTMLElement) {
+    return this.parentElement
+  },
+})

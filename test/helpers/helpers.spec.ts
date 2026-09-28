@@ -137,9 +137,10 @@ describe('pauseOffscreen', () => {
 
 describe('reveals', () => {
   it('divide el título en letras y anima la entrada', () => {
-    document.body.innerHTML = '<h2 class="big-title">Hola</h2>'
-    const split = revealTitle(document.querySelector('h2') as Element)
-    expect(split.chars.length).toBeGreaterThan(0)
+    document.body.innerHTML =
+      '<h2 class="big-title"><span class="char">H</span><span class="char">i</span></h2>'
+    const tween = revealTitle(document.querySelector('h2') as Element)
+    expect(tween.targets()).toHaveLength(2)
     expect(riseIn('h2', 'h2', { y: 10 })).toBeTruthy()
   })
 })
