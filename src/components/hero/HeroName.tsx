@@ -1,8 +1,7 @@
 import { Fragment, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useCaseOpen } from '@/hooks/useCaseOpen'
 import { useNameReveal } from '@/hooks/useNameReveal'
-
-const EXTRA_AFTER: Record<number, string> = { 0: 'erónimo ', 1: 'iménez ', 5: 'ncur' }
 
 /**
  * Letras de un fragmento oculto del nombre, que revela el easter egg del nombre.
@@ -25,41 +24,47 @@ function NameExtra({ text }: { text: string }) {
 }
 
 /**
- * Titular del hero "Soy JJBeta". Al hacer clic, el nombre se expande a Jerónimo Jiménez Betancur. React
- * pinta las letras (no se dividen en tiempo de ejecución) para que el easter egg nunca le dispute el DOM a
- * React, y los lectores de pantalla leen "Soy JJBeta" más el significado anunciado.
+ * Titular del hero «Soy JJBeta». El nombre es un botón real (clic, Enter o espacio) que lo expande
+ * a Jerónimo Jiménez Betancur y anuncia su significado a los lectores de pantalla. React pinta las
+ * letras, así el easter egg nunca le disputa el DOM a React. Con un caso de estudio abierto el
+ * titular pasa a ser un párrafo, para que la página del caso tenga un solo `h1`.
  *
- * @returns {import('react').JSX.Element} El `h1` del hero.
+ * @returns {import('react').JSX.Element} El titular del hero y su región de anuncios.
  * @example
  * <HeroName />
  */
 export default function HeroName() {
   const { t } = useTranslation()
-  const root = useRef<HTMLHeadingElement>(null)
-  const { reveal, announcement } = useNameReveal(root)
+  const trigger = useRef<HTMLButtonElement>(null)
+  const { reveal, announcement } = useNameReveal(trigger)
+  const Heading = useCaseOpen() ? 'p' : 'h1'
   const name = t('hero.name')
+  const extras: Record<string, string> = t('hero.nameExtras', { returnObjects: true })
 
   return (
-    <h1
-      className="me"
-      id="hero-title"
-      ref={root}
-      data-cursor={t('hero.cursor')}
-      onClick={() => reveal(t('a11y.nameMeaning'))}
-    >
-      <span className="soy">{t('hero.soy')}</span>{' '}
-      <span className="me-name" aria-hidden="true">
-        {[...name].map((letter, i) => (
-          <Fragment key={`${letter}-${i}`}>
-            <span className="char">{letter}</span>
-            {EXTRA_AFTER[i] && <NameExtra text={EXTRA_AFTER[i]} />}
-          </Fragment>
-        ))}
-      </span>
-      <span className="sr-only">{name}</span>
+    <>
+      <Heading className="me" id="hero-title" data-cursor={t('hero.cursor')}>
+        <span className="soy">{t('hero.soy')}</span>{' '}
+        <button
+          className="me__trigger"
+          type="button"
+          ref={trigger}
+          onClick={() => reveal(t('a11y.nameMeaning'))}
+        >
+          <span className="me-name" aria-hidden="true">
+            {[...name].map((letter, i) => (
+              <Fragment key={`${letter}-${i}`}>
+                <span className="char">{letter}</span>
+                {extras[i] && <NameExtra text={extras[i]} />}
+              </Fragment>
+            ))}
+          </span>
+          <span className="sr-only">{name}</span>
+        </button>
+      </Heading>
       <span className="sr-only" aria-live="polite">
         {announcement}
       </span>
-    </h1>
+    </>
   )
 }

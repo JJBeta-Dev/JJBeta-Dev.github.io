@@ -1,8 +1,10 @@
 import { useRef } from 'react'
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
+import RichText from '@/components/ui/rich-text/RichText'
+import SplitChars from '@/components/ui/split-text/SplitChars'
 import { TECHNOLOGIES } from '@/data/technologies'
 import { useTechPlayground } from '@/hooks/useTechPlayground'
-import TechChip from './TechChip'
+import TechChip from '@/components/tech/TechChip'
 
 /**
  * Sección Tecnologías: introducción, título alineado a la derecha y el patio de juegos con los
@@ -21,11 +23,11 @@ export default function Tech() {
     <section className="tech" id="tecnologias" aria-labelledby="t-tech" ref={root}>
       <div className="tech__intro">
         <p>
-          <Trans i18nKey="tech.intro" components={{ b: <b /> }} />
+          <RichText text={t('tech.intro')} />
         </p>
       </div>
       <h2 className="big-title split-title" id="t-tech">
-        {t('tech.title')}
+        <SplitChars text={t('tech.title')} />
       </h2>
       <div className="playground" data-cursor={t('tech.cursor')} data-label={t('tech.label')}>
         <ul className="chips">

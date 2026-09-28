@@ -1,5 +1,5 @@
-import LineIcon from '../icons/LineIcon'
-import type { LineIconName } from '../icons/lineIconPaths'
+import LineIcon from '@/components/ui/icons/LineIcon'
+import type { LineIconName } from '@/components/ui/icons/lineIconPaths'
 
 /**
  * Props de {@link Toast}.
@@ -11,19 +11,24 @@ export interface ToastProps {
 }
 
 /**
- * Mensaje de estado discreto que sube desde abajo. Permanece montado para que los lectores de pantalla
- * anuncien cada cambio a través de su región viva.
+ * Mensaje de estado que sube desde abajo. La región viva para lectores de pantalla está siempre
+ * expuesta (visualmente oculta) y recibe el texto al mostrarse; la tarjeta visible es decorativa.
  *
  * @param {Readonly<ToastProps>} props - Mensaje, icono y visibilidad.
- * @returns {import('react').JSX.Element} La región viva del toast.
+ * @returns {import('react').JSX.Element} La región viva y la tarjeta visual del aviso.
  * @example
  * <Toast message="Correo copiado" icon="copy" visible />
  */
 export default function Toast({ message, icon, visible }: ToastProps) {
   return (
-    <div className={visible ? 'toast show' : 'toast'} role="status" aria-live="polite">
-      {message && <LineIcon name={icon} />}
-      <span>{message}</span>
-    </div>
+    <>
+      <div className="sr-only" role="status" aria-live="polite">
+        {visible ? message : ''}
+      </div>
+      <div className={visible ? 'toast show' : 'toast'} aria-hidden="true">
+        {message && <LineIcon name={icon} />}
+        <span>{message}</span>
+      </div>
+    </>
   )
 }

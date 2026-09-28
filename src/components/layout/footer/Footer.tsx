@@ -1,9 +1,10 @@
 import { useRef } from 'react'
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
+import RichText from '@/components/ui/rich-text/RichText'
 import AnchorLink from '@/components/ui/anchor-link/AnchorLink'
 import LineIcon from '@/components/ui/icons/LineIcon'
 import { SECTIONS } from '@/data/navigation'
-import { EMAIL, SOCIAL_LINKS, TIME_ZONE } from '@/data/site'
+import { EMAIL, PROFILES, TIME_ZONE } from '@/data/site'
 import { useFooterMotion } from '@/hooks/useFooterMotion'
 import { useLocalTime } from '@/hooks/useLocalTime'
 import { useMagnetic } from '@/hooks/useMagnetic'
@@ -43,21 +44,13 @@ export default function Footer({ inert }: { inert: boolean }) {
         <div className="foot__col">
           <h2 className="foot__h">{t('footer.social')}</h2>
           <ul>
-            <li>
-              <a href={SOCIAL_LINKS.linkedin} target="_blank" rel="noopener noreferrer">
-                LinkedIn ↗
-              </a>
-            </li>
-            <li>
-              <a href={SOCIAL_LINKS.github} target="_blank" rel="noopener noreferrer">
-                GitHub ↗
-              </a>
-            </li>
-            <li>
-              <a href={SOCIAL_LINKS.instagram} target="_blank" rel="noopener noreferrer">
-                Instagram ↗
-              </a>
-            </li>
+            {PROFILES.map((profile) => (
+              <li key={profile.icon}>
+                <a href={profile.href} target="_blank" rel="noopener noreferrer">
+                  {`${profile.label} ↗`}
+                </a>
+              </li>
+            ))}
             <li>
               <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
             </li>
@@ -78,8 +71,8 @@ export default function Footer({ inert }: { inert: boolean }) {
         ))}
       </p>
       <div className="foot__bottom">
-        <span>
-          <Trans i18nKey="footer.copyright" values={{ year: YEAR }} components={{ b: <b /> }} />
+        <span suppressHydrationWarning>
+          <RichText text={t('footer.copyright', { year: YEAR })} />
         </span>
         <span>{t('footer.motto')}</span>
       </div>

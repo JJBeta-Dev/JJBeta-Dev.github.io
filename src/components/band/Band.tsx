@@ -1,5 +1,6 @@
 import { Fragment, useRef } from 'react'
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
+import RichText from '@/components/ui/rich-text/RichText'
 import { useBandMarquee } from '@/hooks/useBandMarquee'
 
 const GROUPS = [0, 1, 2, 3]
@@ -15,7 +16,7 @@ const GROUPS = [0, 1, 2, 3]
 export default function Band() {
   const { t } = useTranslation()
   const root = useRef<HTMLDivElement>(null)
-  const phrases = t('band', { returnObjects: true }) as string[]
+  const phrases = t('band', { returnObjects: true })
   useBandMarquee(root)
 
   return (
@@ -23,10 +24,10 @@ export default function Band() {
       <div className="band__track">
         {GROUPS.map((group) => (
           <div className="band__group" key={group}>
-            {phrases.map((phrase, i) => (
+            {phrases.map((phrase) => (
               <Fragment key={phrase}>
                 <span>
-                  <Trans i18nKey={`band.${i}`} components={{ em: <em /> }} />
+                  <RichText text={phrase} />
                 </span>
                 <i />
               </Fragment>

@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react'
-import { Outlet, useMatch } from 'react-router'
+import { Outlet } from 'react-router'
 import About from '@/components/about/About'
 import Band from '@/components/band/Band'
 import Contact from '@/components/contact/Contact'
@@ -16,12 +16,15 @@ import Thread from '@/components/layout/thread/Thread'
 import WireOverlay from '@/components/layout/wire-overlay/WireOverlay'
 import Tech from '@/components/tech/Tech'
 import Work from '@/components/work/Work'
+import { useCaseOpen } from '@/hooks/useCaseOpen'
 import { useHomeMotion } from '@/hooks/useHomeMotion'
+import { useMenu } from '@/hooks/useMenu'
 
 /**
- * Página principal del portafolio. Mientras un caso de estudio está abierto (ruta hija), todo lo
- * que queda debajo se marca como `inert` para que el teclado y los lectores de pantalla solo
- * recorran el diálogo.
+ * Página principal del portafolio. Mientras el menú o un caso de estudio (ruta hija) cubren la
+ * página, todo lo que queda debajo se marca como `inert` (contenido, footer, secretos y el enlace
+ * para saltar al contenido) y el modo beta se desactiva, para que el teclado y los lectores de
+ * pantalla solo recorran la capa visible.
  *
  * @returns {import('react').JSX.Element} Página completa con su capa de casos de estudio.
  * @example
@@ -30,18 +33,20 @@ import { useHomeMotion } from '@/hooks/useHomeMotion'
 export default function HomeView() {
   const main = useRef<HTMLElement>(null)
   const [introReady, setIntroReady] = useState(false)
-  const caseOpen = Boolean(useMatch('/casos/:slug'))
+  const caseOpen = useCaseOpen()
+  const menu = useMenu()
+  const covered = caseOpen || menu.open
   useHomeMotion(main, introReady)
 
   return (
     <>
-      <SkipLink />
+      <SkipLink inert={covered} />
       <Loader onReveal={() => setIntroReady(true)} />
       <Cursor />
       <InkTrail />
-      <Navigation inert={caseOpen} />
-      <SecretsBadge inert={caseOpen} />
-      <main id="contenido" ref={main} inert={caseOpen}>
+      <Navigation open={menu.open} setMenu={menu.setMenu} inert={caseOpen} />
+      <SecretsBadge inert={covered} />
+      <main id="contenido" ref={main} inert={covered}>
         <Decor />
         <Thread />
         <Hero />
@@ -52,8 +57,8 @@ export default function HomeView() {
         <Contact />
       </main>
       <Outlet />
-      <Footer inert={caseOpen} />
-      <WireOverlay />
+      <Footer inert={covered} />
+      <WireOverlay enabled={!covered} />
     </>
   )
 }

@@ -1,5 +1,6 @@
 import type { MouseEvent, ReactNode } from 'react'
 import { useScrollControls } from '@/hooks/useScrollControls'
+import { isModifiedClick } from '@/utils/isModifiedClick'
 
 /**
  * Props de {@link AnchorLink}.
@@ -46,6 +47,7 @@ export default function AnchorLink({
    * onClick(event)
    */
   const onClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (isModifiedClick(event)) return
     event.preventDefault()
     onNavigate?.()
     scrollTo(to)

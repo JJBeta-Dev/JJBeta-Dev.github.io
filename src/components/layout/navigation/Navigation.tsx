@@ -3,21 +3,29 @@ import { useTranslation } from 'react-i18next'
 import AnchorLink from '@/components/ui/anchor-link/AnchorLink'
 import { SECTIONS } from '@/data/navigation'
 import { useMagnetic } from '@/hooks/useMagnetic'
-import { MENU_BUTTON_ID, useMenu } from '@/hooks/useMenu'
+import { MENU_BUTTON_ID } from '@/hooks/useMenu'
 import { useMenuMotion } from '@/hooks/useMenuMotion'
+
+/**
+ * Props de {@link Navigation}.
+ */
+export interface NavigationProps {
+  open: boolean
+  setMenu: (next: boolean) => void
+  inert: boolean
+}
 
 /**
  * Botón del menú y menú a pantalla completa que se abre como un círculo desde el botón.
  *
- * @param {{ inert: boolean }} props - `inert` la desactiva mientras hay un caso de estudio abierto.
+ * @param {Readonly<NavigationProps>} props - Estado del menú, cómo cambiarlo y si está inactiva (caso abierto).
  * @returns {import('react').JSX.Element} La navegación.
  * @example
- * <Navigation inert={false} />
+ * <Navigation open={menu.open} setMenu={menu.setMenu} inert={false} />
  */
-export default function Navigation({ inert }: { inert: boolean }) {
+export default function Navigation({ open, setMenu, inert }: Readonly<NavigationProps>) {
   const { t } = useTranslation()
   const root = useRef<HTMLDivElement>(null)
-  const { open, setMenu } = useMenu()
   useMagnetic(root)
   useMenuMotion(root, open)
 

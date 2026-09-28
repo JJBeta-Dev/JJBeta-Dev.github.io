@@ -8,14 +8,15 @@ const COLUMNS = Array.from({ length: 12 }, (_, i) => i)
  * Interfaz del modo contorno "beta": retícula de 12 columnas, caja de selección azul, línea de escaneo y
  * una barra de herramientas estilo Figma para alternar la retícula y las medidas o salir del modo.
  *
+ * @param {{ enabled: boolean }} props - Si escribir «beta» puede activar el modo.
  * @returns {import('react').JSX.Element} La capa del modo beta.
  * @example
- * <WireOverlay />
+ * <WireOverlay enabled />
  */
-export default function WireOverlay() {
+export default function WireOverlay({ enabled }: { enabled: boolean }) {
   const { t } = useTranslation()
   const root = useRef<HTMLDivElement>(null)
-  const wire = useWireMode(root)
+  const wire = useWireMode(root, enabled)
 
   return (
     <div className="wire-ui" ref={root}>

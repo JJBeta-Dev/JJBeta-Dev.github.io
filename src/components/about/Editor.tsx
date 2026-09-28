@@ -1,8 +1,9 @@
 import { useRef } from 'react'
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
+import SplitWords from '@/components/ui/split-text/SplitWords'
 import { useEditor } from '@/hooks/useEditor'
 import { useFontEasterEggs } from '@/hooks/useFontEasterEggs'
-import EditorToolbar from './EditorToolbar'
+import EditorToolbar from '@/components/about/EditorToolbar'
 
 /**
  * Editor "vivo" de la sección Acerca de mí: el texto de presentación dentro de una tarjeta tipo
@@ -17,14 +18,14 @@ export default function Editor() {
   const root = useRef<HTMLDivElement>(null)
   const editor = useEditor(root)
   const onFontPicked = useFontEasterEggs()
-  const paragraphs = t('about.paragraphs', { returnObjects: true }) as string[]
+  const paragraphs = t('about.paragraphs', { returnObjects: true })
 
   return (
     <div className={`editor ${editor.className}`} id="editor" ref={root} style={editor.style}>
       <div className="editor__text">
-        {paragraphs.map((_, i) => (
+        {paragraphs.map((paragraph, i) => (
           <p className="reveal" key={i}>
-            <Trans i18nKey={`about.paragraphs.${i}`} components={{ strong: <strong /> }} />
+            <SplitWords text={paragraph} />
           </p>
         ))}
         <EditorToolbar

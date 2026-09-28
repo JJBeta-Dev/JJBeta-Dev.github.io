@@ -1,8 +1,8 @@
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useAboutMotion } from '@/hooks/useAboutMotion'
-import Editor from './Editor'
-import PortraitBlob from './PortraitBlob'
+import Editor from '@/components/about/Editor'
+import PortraitBlob from '@/components/about/PortraitBlob'
 
 /**
  * Sección Acerca de mí: título apilado montado sobre el editor vivo y el retrato apoyado.

@@ -16,13 +16,6 @@ export default function Loader({ onReveal }: { onReveal: () => void }) {
   const [finished, setFinished] = useState(false)
   useLoader(root, {
     onReveal,
-    /**
-     * Marca el precargador como terminado para que se desmonte.
-     *
-     * @returns {void} No devuelve nada.
-     * @example
-     * onFinish()
-     */
     onFinish: () => setFinished(true),
   })
 

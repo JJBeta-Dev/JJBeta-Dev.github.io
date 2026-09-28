@@ -1,7 +1,7 @@
 import type { CSSProperties } from 'react'
 import type { EditorOption } from '@/data/editorOptions'
 import { useListbox } from '@/hooks/useListbox'
-import LineIcon from '../icons/LineIcon'
+import LineIcon from '@/components/ui/icons/LineIcon'
 
 /**
  * Props de {@link Dropdown}.

@@ -1,6 +1,6 @@
 import brandIcons from '@/data/brandIcons.json'
 import type { BrandIconName } from '@/data/technologies'
-import LineIcon from './LineIcon'
+import LineIcon from '@/components/ui/icons/LineIcon'
 
 /**
  * Props de {@link BrandIcon}.

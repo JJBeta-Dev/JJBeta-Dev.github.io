@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next'
 import type { CaseStudy } from '@/data/caseStudies'
-import RepoActivity from './RepoActivity'
+import RepoActivity from '@/components/case-study/RepoActivity'
 
 /**
  * Ficha flotante del caso: rol, año, stack, enlace externo y, si el repositorio es público,
@@ -13,22 +13,22 @@ import RepoActivity from './RepoActivity'
  */
 export default function CaseMeta({ study }: { study: CaseStudy }) {
   const { t } = useTranslation()
-  const key = `cases.${study.slug}`
-  const link = t(`${key}.linkLabel`)
+  const { slug } = study
+  const link = t(`cases.${slug}.linkLabel`)
 
   return (
     <dl className="case__meta">
       <div>
         <dt>{t('case.role')}</dt>
-        <dd>{t(`${key}.role`)}</dd>
+        <dd>{t(`cases.${slug}.role`)}</dd>
       </div>
       <div>
         <dt>{t('case.year')}</dt>
-        <dd>{t(`${key}.year`)}</dd>
+        <dd>{t(`cases.${slug}.year`)}</dd>
       </div>
       <div>
         <dt>{t('case.stack')}</dt>
-        <dd>{t(`${key}.stack`)}</dd>
+        <dd>{t(`cases.${slug}.stack`)}</dd>
       </div>
       <div>
         <dt>{t('case.link')}</dt>

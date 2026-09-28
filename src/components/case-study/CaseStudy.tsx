@@ -1,16 +1,17 @@
 import { useRef } from 'react'
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
+import SplitWords from '@/components/ui/split-text/SplitWords'
 import { Link } from 'react-router'
 import BrowserWindow from '@/components/ui/browser-window/BrowserWindow'
 import LineIcon from '@/components/ui/icons/LineIcon'
-import { CASE_COUNT, CASE_STUDIES } from '@/data/caseStudies'
+import { CASE_COUNT, CASE_STUDIES, casePath } from '@/data/caseStudies'
 import type { CaseSlug } from '@/data/caseSlugs'
 import { PROJECT_IMAGES } from '@/data/projects'
 import { useCaseNavigation } from '@/hooks/useCaseNavigation'
 import { useCaseView } from '@/hooks/useCaseView'
 import { useMagnetic } from '@/hooks/useMagnetic'
-import CaseMeta from './CaseMeta'
-import CaseSections from './CaseSections'
+import CaseMeta from '@/components/case-study/CaseMeta'
+import CaseSections from '@/components/case-study/CaseSections'
 
 /**
  * Vista completa de un caso de estudio sobre la página: diálogo modal con barra de regreso,
@@ -49,18 +50,18 @@ export default function CaseStudy({ slug }: { slug: CaseSlug }) {
       </div>
       <header className="case__hero">
         <p className="case__kicker">{t(`cases.${slug}.kicker`)}</p>
-        <h2 className="case__title" id={titleId} tabIndex={-1}>
-          <Trans i18nKey={`cases.${slug}.title`} components={{ acc: <span className="acc" /> }} />
-        </h2>
+        <h1 className="case__title" id={titleId} tabIndex={-1}>
+          <SplitWords text={t(`cases.${slug}.title`)} />
+        </h1>
         <CaseMeta study={study} />
       </header>
       <figure className="case__shot">
         <BrowserWindow image={PROJECT_IMAGES[slug]} alt={t(`projects.${slug}.alt`)} />
       </figure>
-      <CaseSections slug={slug} />
+      <CaseSections study={study} />
       <Link
         className="case__next"
-        to={`/casos/${next.slug}`}
+        to={casePath(next.slug)}
         preventScrollReset
         onClick={nextCase(next.slug)}
         data-cursor={t('case.nextCursor')}

@@ -1,8 +1,10 @@
-import { Trans, useTranslation } from 'react-i18next'
+import { useTranslation } from 'react-i18next'
+import RichText from '@/components/ui/rich-text/RichText'
 import Pill from '@/components/ui/pill/Pill'
-import HeroName from './HeroName'
-import ScrollBadge from './ScrollBadge'
-import SeatScene from './SeatScene'
+import SplitChars from '@/components/ui/split-text/SplitChars'
+import HeroName from '@/components/hero/HeroName'
+import ScrollBadge from '@/components/hero/ScrollBadge'
+import SeatScene from '@/components/hero/SeatScene'
 
 /**
  * Hero asimétrico: el saludo antioqueño gigante que se sale por el borde izquierdo, el nombre, el rol
@@ -14,7 +16,7 @@ import SeatScene from './SeatScene'
  */
 export default function Hero() {
   const { t } = useTranslation()
-  const pills = t('hero.pills', { returnObjects: true }) as string[]
+  const pills = t('hero.pills', { returnObjects: true })
 
   return (
     <section className="hero" id="inicio" aria-labelledby="hero-title">
@@ -23,7 +25,7 @@ export default function Hero() {
       <span className="ball pop hball tiny" data-depth="0.7" aria-hidden="true" />
       <div className="hero__title">
         <p className="welcome" aria-hidden="true">
-          {t('hero.welcome')}
+          <SplitChars text={t('hero.welcome')} />
         </p>
         <span className="welcome__note" aria-hidden="true">
           {t('hero.note')}
@@ -33,12 +35,12 @@ export default function Hero() {
       <p className="hero__now">
         <span className="live" aria-hidden="true" />
         <span>
-          <Trans i18nKey="hero.now" components={{ b: <b /> }} />
+          <RichText text={t('hero.now')} />
         </span>
       </p>
       <div className="hero__meta">
         <p>
-          <Trans i18nKey="hero.intro" components={{ b: <b /> }} />
+          <RichText text={t('hero.intro')} />
         </p>
         <div className="pills">
           {pills.map((pill) => (

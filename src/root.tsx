@@ -1,21 +1,24 @@
-import '@fontsource/montserrat/400.css'
-import '@fontsource/montserrat/500.css'
-import '@fontsource/montserrat/500-italic.css'
-import '@fontsource/montserrat/600.css'
-import '@fontsource/montserrat/700.css'
-import '@fontsource/poppins/500.css'
-import '@fontsource/poppins/600.css'
-import '@fontsource/poppins/700.css'
-import '@fontsource/poppins/800.css'
+import '@fontsource/montserrat/latin-400.css'
+import '@fontsource/montserrat/latin-500.css'
+import '@fontsource/montserrat/latin-500-italic.css'
+import '@fontsource/montserrat/latin-600.css'
+import '@fontsource/montserrat/latin-700.css'
+import '@fontsource/poppins/latin-500.css'
+import '@fontsource/poppins/latin-600.css'
+import '@fontsource/poppins/latin-700.css'
+import '@fontsource/poppins/latin-800.css'
 import type { ReactNode } from 'react'
 import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration } from 'react-router'
 import clashDisplayBold from '@/assets/fonts/clash-display-700.woff2?url'
 import { EMAIL, SITE_URL, SOCIAL_LINKS } from '@/data/site'
 import AppProviders from '@/providers/AppProviders'
+import { i18n } from '@/plugins/i18n'
+import { serializeJsonLd } from '@/utils/jsonLd'
+import { NotFoundError } from '@/utils/notFoundError'
 import { buildPersonSchema } from '@/utils/personSchema'
 import NotFoundView from '@/views/NotFoundView'
 import type { Route } from './+types/root'
-import './styles/app.css'
+import '@/styles/app.css'
 
 /**
  * Script en línea síncrono que cambia `no-js` por `js` antes del primer pintado, para que el precargador y
@@ -23,8 +26,14 @@ import './styles/app.css'
  */
 export const JS_CLASS_SCRIPT = "document.documentElement.classList.replace('no-js','js')"
 
-const PERSON_SCHEMA = JSON.stringify(
-  buildPersonSchema({ siteUrl: SITE_URL, email: EMAIL, profiles: Object.values(SOCIAL_LINKS) }),
+const PERSON_SCHEMA = serializeJsonLd(
+  buildPersonSchema({
+    siteUrl: SITE_URL,
+    email: EMAIL,
+    profiles: Object.values(SOCIAL_LINKS),
+    jobTitle: i18n.t('meta.person.jobTitle'),
+    knowsAbout: i18n.t('meta.person.knowsAbout', { returnObjects: true }),
+  }),
 )
 
 /**
@@ -50,12 +59,12 @@ export const links: Route.LinksFunction = () => [
  */
 export function Layout({ children }: { children: ReactNode }) {
   return (
-    <html lang="es" className="no-js">
+    <html lang="es" className="no-js" suppressHydrationWarning>
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#6F3AF8" />
-        <meta name="author" content="Jerónimo Jiménez Betancur" />
+        <meta name="theme-color" content="oklch(53.87% 0.2584 286.8)" />
+        <meta name="author" content={i18n.t('meta.author')} />
         <script>{JS_CLASS_SCRIPT}</script>
         <Meta />
         <Links />
@@ -95,7 +104,7 @@ export default function App() {
  * export { ErrorBoundary }
  */
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
-  if (!isRouteErrorResponse(error)) console.error(error)
+  if (!isRouteErrorResponse(error) && !(error instanceof NotFoundError)) console.error(error)
   return (
     <AppProviders>
       <NotFoundView />

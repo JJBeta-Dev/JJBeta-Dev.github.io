@@ -1,6 +1,7 @@
-import { data, useParams } from 'react-router'
+import { useParams } from 'react-router'
 import { isCaseSlug } from '@/data/caseSlugs'
 import { caseMeta, notFoundMeta } from '@/helpers/pageMeta'
+import { NotFoundError } from '@/utils/notFoundError'
 import CaseView from '@/views/CaseView'
 import type { Route } from './+types/case'
 
@@ -19,12 +20,12 @@ export const meta = ({ params }: Route.MetaArgs) =>
  * Ruta del caso de estudio. Valida el slug y pinta el caso sobre la página de inicio.
  *
  * @returns {import('react').JSX.Element} La vista del caso.
- * @throws {Response} Una respuesta 404 cuando el slug no existe.
+ * @throws {NotFoundError} Cuando el slug no corresponde a ningún caso.
  * @example
  * route('casos/:slug', 'routes/case.tsx')
  */
 export default function CaseRoute() {
   const { slug } = useParams()
-  if (!isCaseSlug(slug)) throw data(null, { status: 404 })
+  if (!isCaseSlug(slug)) throw new NotFoundError(`/casos/${slug}`)
   return <CaseView slug={slug} key={slug} />
 }

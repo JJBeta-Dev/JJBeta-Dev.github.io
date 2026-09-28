@@ -1,63 +1,67 @@
-import { Trans, useTranslation } from 'react-i18next'
-import type { CaseSlug } from '@/data/caseSlugs'
-
-const RICH = { b: <b />, code: <code /> }
+import type { ReactNode } from 'react'
+import { useTranslation } from 'react-i18next'
+import RichText from '@/components/ui/rich-text/RichText'
+import type { CaseStudy } from '@/data/caseStudies'
 
 /**
- * Los cuatro bloques de lectura de un caso: el reto, qué hice, decisiones y resultado,
- * dispuestos en asimetría.
+ * Un bloque de lectura del caso con su número y título.
  *
- * @param {{ slug: CaseSlug }} props - Caso de estudio a mostrar.
+ * @param {{ number: string, title: string, children: ReactNode }} props - Número, título y contenido.
+ * @returns {import('react').JSX.Element} Sección del caso.
+ * @example
+ * <CaseBlock number="01" title="El reto"><p>…</p></CaseBlock>
+ */
+function CaseBlock({ number, title, children }: { number: string; title: string; children: ReactNode }) {
+  return (
+    <section>
+      <h2>
+        <span>{number}</span>
+        {title}
+      </h2>
+      {children}
+    </section>
+  )
+}
+
+/**
+ * Los cuatro bloques de lectura de un caso (el reto, qué hice, decisiones y resultado),
+ * dispuestos en asimetría. «Qué hice» se numera cuando el caso describe una secuencia de pasos.
+ *
+ * @param {{ study: CaseStudy }} props - Caso de estudio a mostrar.
  * @returns {import('react').JSX.Element} Rejilla con los bloques del caso.
  * @example
- * <CaseSections slug="perfil" />
+ * <CaseSections study={CASE_STUDIES.perfil} />
  */
-export default function CaseSections({ slug }: { slug: CaseSlug }) {
+export default function CaseSections({ study }: { study: CaseStudy }) {
   const { t } = useTranslation()
-  const key = `cases.${slug}`
-  const items = t(`${key}.work`, { returnObjects: true }) as string[]
-  const List = slug === 'asistente' ? 'ol' : 'ul'
+  const { slug } = study
+  const items = t(`cases.${slug}.work`, { returnObjects: true })
+  const List = study.ordered ? 'ol' : 'ul'
 
   return (
     <div className="case__grid">
-      <section>
-        <h3>
-          <span>01</span>
-          {t('case.sections.challenge')}
-        </h3>
+      <CaseBlock number="01" title={t('case.sections.challenge')}>
         <p>
-          <Trans i18nKey={`${key}.challenge`} components={RICH} />
+          <RichText text={t(`cases.${slug}.challenge`)} />
         </p>
-      </section>
-      <section>
-        <h3>
-          <span>02</span>
-          {t('case.sections.work')}
-        </h3>
-        <List className={slug === 'asistente' ? 'steps' : undefined}>
-          {items.map((_, i) => (
-            <li key={i}>
-              <Trans i18nKey={`${key}.work.${i}`} components={RICH} />
+      </CaseBlock>
+      <CaseBlock number="02" title={t('case.sections.work')}>
+        <List className={study.ordered ? 'steps' : undefined}>
+          {items.map((item) => (
+            <li key={item}>
+              <RichText text={item} />
             </li>
           ))}
         </List>
-      </section>
-      <section>
-        <h3>
-          <span>03</span>
-          {t('case.sections.decisions')}
-        </h3>
+      </CaseBlock>
+      <CaseBlock number="03" title={t('case.sections.decisions')}>
         <p>
-          <Trans i18nKey={`${key}.decisions`} components={RICH} />
+          <RichText text={t(`cases.${slug}.decisions`)} />
         </p>
-      </section>
-      <section>
-        <h3>
-          <span>04</span>
-          {t('case.sections.result')}
-        </h3>
-        <p>{t(`${key}.result`)}</p>
-      </section>
+      </CaseBlock>
+      <CaseBlock number="04" title={t('case.sections.result')}>
+        <p>{t(`cases.${slug}.result`)}</p>
+      </CaseBlock>
     </div>
   )
 }

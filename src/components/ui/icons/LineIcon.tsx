@@ -1,4 +1,4 @@
-import { LINE_ICON_PATHS, type LineIconName } from './lineIconPaths'
+import { LINE_ICON_PATHS, type LineIconName } from '@/components/ui/icons/lineIconPaths'
 
 /**
  * Props de {@link LineIcon}.

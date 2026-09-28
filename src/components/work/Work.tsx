@@ -1,9 +1,10 @@
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
+import SplitChars from '@/components/ui/split-text/SplitChars'
 import AnchorLink from '@/components/ui/anchor-link/AnchorLink'
 import { PROJECTS } from '@/data/projects'
 import { useWorkRail } from '@/hooks/useWorkRail'
-import ProjectCard from './ProjectCard'
+import ProjectCard from '@/components/work/ProjectCard'
 
 /**
  * Sección de proyectos: título, una nota breve y la galería horizontal que termina con una invitación a
@@ -22,7 +23,7 @@ export default function Work() {
     <section className="work" id="proyectos" aria-labelledby="t-work" ref={root}>
       <div className="work__head">
         <h2 className="big-title split-title" id="t-work">
-          {t('work.title')}
+          <SplitChars text={t('work.title')} />
         </h2>
         <div className="note">
           <h3>{t('work.noteTitle')}</h3>

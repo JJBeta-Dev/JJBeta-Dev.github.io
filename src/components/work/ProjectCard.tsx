@@ -2,8 +2,10 @@ import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
 import BrowserWindow from '@/components/ui/browser-window/BrowserWindow'
 import LineIcon from '@/components/ui/icons/LineIcon'
+import { casePath } from '@/data/caseStudies'
 import type { Project } from '@/data/projects'
 import { useCaseNavigation } from '@/hooks/useCaseNavigation'
+import { formatIndex } from '@/utils/formatIndex'
 
 /**
  * Tarjeta de la galería de proyectos. Los proyectos públicos abren su caso de estudio (un enlace real, así
@@ -18,11 +20,11 @@ import { useCaseNavigation } from '@/hooks/useCaseNavigation'
 export default function ProjectCard({ project, index }: { project: Project; index: number }) {
   const { t } = useTranslation()
   const { openCase } = useCaseNavigation()
-  const tags = t(`projects.${project.id}.tags`, { returnObjects: true }) as string[]
+  const tags = t(`projects.${project.id}.tags`, { returnObjects: true })
   const body = (
     <div className="body">
       <div>
-        <span className="num">{String(index + 1).padStart(2, '0')}</span>
+        <span className="num">{formatIndex(index)}</span>
         <h3>{t(`projects.${project.id}.title`)}</h3>
         <p>{t(`projects.${project.id}.description`)}</p>
         <div className="tags">
@@ -56,14 +58,14 @@ export default function ProjectCard({ project, index }: { project: Project; inde
   return (
     <Link
       className="card-p"
-      to={`/casos/${project.slug}`}
+      to={casePath(project.slug)}
       preventScrollReset
       onClick={openCase(project.slug)}
       data-cursor={t('work.viewCase')}
       data-case-link={project.slug}
     >
       <div className="thumb">
-        <BrowserWindow image={project.image} alt={t(`projects.${project.id}.alt`)} />
+        <BrowserWindow image={project.image} alt={t(`projects.${project.slug}.alt`)} />
       </div>
       {body}
     </Link>
