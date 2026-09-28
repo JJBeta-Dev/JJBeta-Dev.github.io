@@ -1,6 +1,6 @@
-import { createElement, Fragment } from 'react'
-import { RICH_WRAPPERS } from '@/components/ui/rich-text/richWrappers'
-import { parseRichText, splitWords } from '@/utils/parseRichText'
+import { Fragment } from 'react'
+import { renderRich } from '@/components/ui/rich-text/renderRich'
+import { splitWords } from '@/utils/parseRichText'
 
 /**
  * Pinta cada palabra de un texto traducido como `.w` para animarla (revelado con el scroll,
@@ -15,20 +15,17 @@ import { parseRichText, splitWords } from '@/utils/parseRichText'
 export default function SplitWords({ text }: { text: string }) {
   return (
     <>
-      {parseRichText(text).map((segment, i) => {
-        const words = splitWords(segment.text).map((part, j) =>
+      {renderRich(text, (plain) =>
+        splitWords(plain).map((part, i) =>
           /^\s+$/.test(part) ? (
-            <Fragment key={j}>{part}</Fragment>
+            <Fragment key={i}>{part}</Fragment>
           ) : (
-            <span className="w" key={j}>
+            <span className="w" key={i}>
               {part}
             </span>
           ),
-        )
-        if (!segment.tag) return <Fragment key={i}>{words}</Fragment>
-        const wrapper = RICH_WRAPPERS[segment.tag]
-        return createElement(wrapper.tag, { key: i, className: wrapper.className }, words)
-      })}
+        ),
+      )}
     </>
   )
 }

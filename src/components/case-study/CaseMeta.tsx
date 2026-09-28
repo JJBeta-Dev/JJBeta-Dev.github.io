@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next'
 import type { CaseStudy } from '@/data/caseStudies'
 import RepoActivity from '@/components/case-study/RepoActivity'
+import ExternalLink from '@/components/ui/external-link/ExternalLink'
 
 /**
  * Ficha flotante del caso: rol, año, stack, enlace externo y, si el repositorio es público,
@@ -32,15 +33,7 @@ export default function CaseMeta({ study }: { study: CaseStudy }) {
       </div>
       <div>
         <dt>{t('case.link')}</dt>
-        <dd>
-          {study.href ? (
-            <a href={study.href} target="_blank" rel="noopener noreferrer">
-              {link}
-            </a>
-          ) : (
-            link
-          )}
-        </dd>
+        <dd>{study.href ? <ExternalLink href={study.href}>{link}</ExternalLink> : link}</dd>
       </div>
       <RepoActivity repository={study.repository} />
     </dl>

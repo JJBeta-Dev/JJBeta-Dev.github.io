@@ -1,6 +1,4 @@
-import { createElement, Fragment } from 'react'
-import { parseRichText } from '@/utils/parseRichText'
-import { RICH_WRAPPERS } from './richWrappers'
+import { renderRich } from '@/components/ui/rich-text/renderRich'
 
 /**
  * Pinta un texto traducido con sus énfasis simples (`<strong>`, `<b>`, `<em>`, `<code>`, `<acc>`)
@@ -12,13 +10,5 @@ import { RICH_WRAPPERS } from './richWrappers'
  * <RichText text={t('hero.intro')} />
  */
 export default function RichText({ text }: { text: string }) {
-  return (
-    <>
-      {parseRichText(text).map((segment, i) => {
-        if (!segment.tag) return <Fragment key={i}>{segment.text}</Fragment>
-        const wrapper = RICH_WRAPPERS[segment.tag]
-        return createElement(wrapper.tag, { key: i, className: wrapper.className }, segment.text)
-      })}
-    </>
-  )
+  return <>{renderRich(text, (plain) => plain)}</>
 }

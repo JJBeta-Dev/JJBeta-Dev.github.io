@@ -1,5 +1,6 @@
 import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
+import ExternalLink from '@/components/ui/external-link/ExternalLink'
 import SplitChars from '@/components/ui/split-text/SplitChars'
 import BrandIcon from '@/components/ui/icons/BrandIcon'
 import { EMAIL, PROFILES } from '@/data/site'
@@ -46,18 +47,16 @@ export default function Contact() {
           {t('contact.mail')}
         </a>
         {PROFILES.map((profile) => (
-          <a
+          <ExternalLink
             key={profile.icon}
             className="slink"
             href={profile.href}
-            target="_blank"
-            rel="noopener noreferrer"
             data-cursor-link=""
             data-magnetic="soft"
           >
             <BrandIcon name={profile.icon} />
             {profile.label}
-          </a>
+          </ExternalLink>
         ))}
       </div>
     </section>

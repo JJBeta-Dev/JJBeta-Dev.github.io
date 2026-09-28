@@ -4,7 +4,7 @@ import BrowserWindow from '@/components/ui/browser-window/BrowserWindow'
 import LineIcon from '@/components/ui/icons/LineIcon'
 import { casePath } from '@/data/caseStudies'
 import type { Project } from '@/data/projects'
-import { useCaseNavigation } from '@/hooks/useCaseNavigation'
+import { useOpenCase } from '@/hooks/useCaseNavigation'
 import { formatIndex } from '@/utils/formatIndex'
 
 /**
@@ -19,7 +19,7 @@ import { formatIndex } from '@/utils/formatIndex'
  */
 export default function ProjectCard({ project, index }: { project: Project; index: number }) {
   const { t } = useTranslation()
-  const { openCase } = useCaseNavigation()
+  const openCase = useOpenCase()
   const tags = t(`projects.${project.id}.tags`, { returnObjects: true })
   const body = (
     <div className="body">

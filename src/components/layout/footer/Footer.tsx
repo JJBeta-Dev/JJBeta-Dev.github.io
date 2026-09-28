@@ -2,6 +2,7 @@ import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import RichText from '@/components/ui/rich-text/RichText'
 import AnchorLink from '@/components/ui/anchor-link/AnchorLink'
+import ExternalLink from '@/components/ui/external-link/ExternalLink'
 import LineIcon from '@/components/ui/icons/LineIcon'
 import { SECTIONS } from '@/data/navigation'
 import { EMAIL, PROFILES, TIME_ZONE } from '@/data/site'
@@ -10,7 +11,6 @@ import { useLocalTime } from '@/hooks/useLocalTime'
 import { useMagnetic } from '@/hooks/useMagnetic'
 
 const SIGNATURE = ['J', 'J', 'B', 'e', 't', 'a']
-const YEAR = new Date().getFullYear()
 
 /**
  * Pie del sitio: navegación, perfiles sociales, colofón con la hora local, un botón magnético de
@@ -46,9 +46,9 @@ export default function Footer({ inert }: { inert: boolean }) {
           <ul>
             {PROFILES.map((profile) => (
               <li key={profile.icon}>
-                <a href={profile.href} target="_blank" rel="noopener noreferrer">
-                  {`${profile.label} ↗`}
-                </a>
+                <ExternalLink href={profile.href}>
+                  {profile.label} <span aria-hidden="true">↗</span>
+                </ExternalLink>
               </li>
             ))}
             <li>
@@ -72,7 +72,7 @@ export default function Footer({ inert }: { inert: boolean }) {
       </p>
       <div className="foot__bottom">
         <span suppressHydrationWarning>
-          <RichText text={t('footer.copyright', { year: YEAR })} />
+          <RichText text={t('footer.copyright', { year: new Date().getFullYear() })} />
         </span>
         <span>{t('footer.motto')}</span>
       </div>

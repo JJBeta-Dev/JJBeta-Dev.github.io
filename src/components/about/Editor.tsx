@@ -2,7 +2,6 @@ import { useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import SplitWords from '@/components/ui/split-text/SplitWords'
 import { useEditor } from '@/hooks/useEditor'
-import { useFontEasterEggs } from '@/hooks/useFontEasterEggs'
 import EditorToolbar from '@/components/about/EditorToolbar'
 
 /**
@@ -17,7 +16,6 @@ export default function Editor() {
   const { t } = useTranslation()
   const root = useRef<HTMLDivElement>(null)
   const editor = useEditor(root)
-  const onFontPicked = useFontEasterEggs()
   const paragraphs = t('about.paragraphs', { returnObjects: true })
 
   return (
@@ -33,10 +31,7 @@ export default function Editor() {
           font={editor.font}
           size={editor.size}
           onToggle={editor.toggleFormat}
-          onFont={(index) => {
-            editor.selectFont(index)
-            onFontPicked(index)
-          }}
+          onFont={editor.selectFont}
           onSize={editor.selectSize}
         />
       </div>

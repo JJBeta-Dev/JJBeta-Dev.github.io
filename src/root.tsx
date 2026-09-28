@@ -24,7 +24,7 @@ import '@/styles/app.css'
  * Script en línea síncrono que cambia `no-js` por `js` antes del primer pintado, para que el precargador y
  * los estados de entrada nunca parpadeen. Su hash se añade a la Content-Security-Policy durante el build.
  */
-export const JS_CLASS_SCRIPT = "document.documentElement.classList.replace('no-js','js')"
+const JS_CLASS_SCRIPT = "document.documentElement.classList.replace('no-js','js')"
 
 const PERSON_SCHEMA = serializeJsonLd(
   buildPersonSchema({

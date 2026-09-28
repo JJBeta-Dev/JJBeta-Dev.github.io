@@ -27,7 +27,8 @@ function NameExtra({ text }: { text: string }) {
  * Titular del hero «Soy JJBeta». El nombre es un botón real (clic, Enter o espacio) que lo expande
  * a Jerónimo Jiménez Betancur y anuncia su significado a los lectores de pantalla. React pinta las
  * letras, así el easter egg nunca le disputa el DOM a React. Con un caso de estudio abierto el
- * titular pasa a ser un párrafo, para que la página del caso tenga un solo `h1`.
+ * titular pasa a ser un párrafo, para que la página del caso tenga un solo `h1`; ese cambio de
+ * etiqueta vuelve a montar el titular, algo seguro porque bajo el caso la página está oculta e inerte.
  *
  * @returns {import('react').JSX.Element} El titular del hero y su región de anuncios.
  * @example
