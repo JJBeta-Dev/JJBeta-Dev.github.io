@@ -43,6 +43,6 @@ export const useMouseParallax = (scope: RefObject<HTMLElement | null>): void => 
       window.addEventListener('pointermove', onMove, { passive: true })
       return () => window.removeEventListener('pointermove', onMove)
     },
-    { scope, dependencies: [fine, reduced] },
+    { scope, dependencies: [fine, reduced], revertOnUpdate: true },
   )
 }

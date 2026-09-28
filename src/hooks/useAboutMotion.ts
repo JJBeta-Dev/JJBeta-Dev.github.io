@@ -47,6 +47,6 @@ export const useAboutMotion = (scope: RefObject<HTMLElement | null>): void => {
       })
       return side ? pauseOffscreen(float, side) : undefined
     },
-    { scope, dependencies: [reduced] },
+    { scope, dependencies: [reduced], revertOnUpdate: true },
   )
 }

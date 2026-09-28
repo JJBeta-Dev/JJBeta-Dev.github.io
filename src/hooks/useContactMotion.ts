@@ -34,6 +34,6 @@ export const useContactMotion = (scope: RefObject<HTMLElement | null>): void => 
         'top 60%',
       )
     },
-    { scope, dependencies: [reduced] },
+    { scope, dependencies: [reduced], revertOnUpdate: true },
   )
 }

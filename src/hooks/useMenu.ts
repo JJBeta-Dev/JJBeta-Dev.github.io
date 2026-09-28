@@ -1,4 +1,5 @@
 import { useEffect, useEffectEvent, useState } from 'react'
+import { useDocumentClass } from '@/hooks/useDocumentClass'
 import { useScrollLock } from '@/hooks/useScrollLock'
 
 /**
@@ -18,6 +19,7 @@ export const MENU_BUTTON_ID = 'menu-button'
 export const useMenu = () => {
   const [open, setMenu] = useState(false)
   useScrollLock('menu', open)
+  useDocumentClass('body', 'menu-open', open)
 
   const closeFromKeyboard = useEffectEvent(() => {
     setMenu(false)
@@ -25,7 +27,6 @@ export const useMenu = () => {
   })
 
   useEffect(() => {
-    document.body.classList.toggle('menu-open', open)
     if (!open) return
     /**
      * Cierra el menú con Escape.

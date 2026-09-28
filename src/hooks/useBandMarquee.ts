@@ -42,6 +42,6 @@ export const useBandMarquee = (scope: RefObject<HTMLElement | null>): void => {
       })
       return stop
     },
-    { scope, dependencies: [reduced] },
+    { scope, dependencies: [reduced], revertOnUpdate: true },
   )
 }

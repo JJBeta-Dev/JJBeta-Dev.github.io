@@ -56,6 +56,6 @@ export const useMagnetic = (scope: RefObject<HTMLElement | null>): void => {
       })
       return () => cleanups.forEach((cleanup) => cleanup())
     },
-    { scope, dependencies: [fine, reduced] },
+    { scope, dependencies: [fine, reduced], revertOnUpdate: true },
   )
 }

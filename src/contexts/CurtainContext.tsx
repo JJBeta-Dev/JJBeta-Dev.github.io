@@ -9,8 +9,9 @@ export interface CurtainOrigin {
 }
 
 /**
- * Cortina de transición entre páginas. Cada paso se resuelve cuando termina su animación y
- * `transition` garantiza que nunca corran dos transiciones a la vez.
+ * Cortina de transición entre páginas. Cada paso se resuelve cuando termina su animación;
+ * `transition` impide que arranquen dos navegaciones a la vez, y cada paso lleva al anterior a su
+ * final si sigue corriendo, así dos animaciones de la cortina nunca se pisan.
  */
 export interface CurtainApi {
   cover: (origin?: CurtainOrigin) => Promise<void>

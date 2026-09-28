@@ -1,13 +1,15 @@
 import { useState, type CSSProperties, type RefObject } from 'react'
 import { flushSync } from 'react-dom'
 import { FONT_OPTIONS, SIZE_OPTIONS, type TextFormat } from '@/data/editorOptions'
-import { gsap } from '@/plugins/gsap'
+import { gsap, useGSAP } from '@/plugins/gsap'
+import { useFontEasterEggs } from '@/hooks/useFontEasterEggs'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 /**
  * Estado del editor en vivo de "Sobre mí": formatos de texto, fuente y tamaño. Cambiar la fuente o
  * el tamaño nunca da saltos: el texto se desenfoca, se aplica el cambio, la tarjeta se ajusta
- * suavemente a su nueva altura y las palabras vuelven una tras otra.
+ * suavemente a su nueva altura y las palabras vuelven una tras otra. Elegir ciertas fuentes revela
+ * sus secretos.
  *
  * @param {import('react').RefObject<HTMLElement | null>} scope - Elemento raíz del editor.
  * @returns {{ formats: ReadonlySet<TextFormat>, toggleFormat: (format: TextFormat) => void, font: number, size: number, selectFont: (index: number) => void, selectSize: (index: number) => void, className: string, style: import('react').CSSProperties }}
@@ -18,6 +20,8 @@ import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
  */
 export const useEditor = (scope: RefObject<HTMLElement | null>) => {
   const reduced = usePrefersReducedMotion()
+  const onFontPicked = useFontEasterEggs()
+  const { contextSafe } = useGSAP({ scope })
   const [formats, setFormats] = useState<ReadonlySet<TextFormat>>(new Set())
   const [font, setFont] = useState(0)
   const [size, setSize] = useState(1)
@@ -46,7 +50,7 @@ export const useEditor = (scope: RefObject<HTMLElement | null>) => {
    * @example
    * morph(() => setFont(2))
    */
-  const morph = (apply: () => void) => {
+  const morph = contextSafe((apply: () => void) => {
     const root = scope.current
     if (reduced || !root) return apply()
     const paragraphs = root.querySelectorAll('.editor__text p')
@@ -83,7 +87,7 @@ export const useEditor = (scope: RefObject<HTMLElement | null>) => {
           clearProps: 'filter',
         },
       )
-  }
+  })
 
   const fontValue = FONT_OPTIONS[font]?.value
   const sizeValue = SIZE_OPTIONS[size]?.value
@@ -97,7 +101,10 @@ export const useEditor = (scope: RefObject<HTMLElement | null>) => {
     toggleFormat,
     font,
     size,
-    selectFont: (index: number) => morph(() => setFont(index)),
+    selectFont: (index: number) => {
+      morph(() => setFont(index))
+      onFontPicked(index)
+    },
     selectSize: (index: number) => morph(() => setSize(index)),
     className: [...formats].join(' '),
     style,

@@ -266,11 +266,12 @@
 .case__next:hover {
   background: var(--color-hover);
 }
-html.case-open {
+html.scroll-locked,
+html:has(.case) {
   overflow: hidden;
 }
 
-html.case-open #contenido,
-html.case-open .foot {
+html:has(.case) #contenido,
+html:has(.case) .foot {
   visibility: hidden;
 }

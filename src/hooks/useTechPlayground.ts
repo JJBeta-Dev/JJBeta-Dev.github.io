@@ -91,6 +91,6 @@ export const useTechPlayground = (scope: RefObject<HTMLElement | null>): void =>
       })
       return () => media.revert()
     },
-    { scope, dependencies: [reduced] },
+    { scope, dependencies: [reduced], revertOnUpdate: true },
   )
 }

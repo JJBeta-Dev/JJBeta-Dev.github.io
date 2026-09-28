@@ -17,10 +17,12 @@ import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 export default function CurtainProvider({ children }: { children: ReactNode }) {
   const curtain = useRef<HTMLDivElement>(null)
   const busy = useRef(false)
+  const active = useRef<gsap.core.Timeline | null>(null)
   const reduced = usePrefersReducedMotion()
 
   /**
-   * Reproduce un paso de la cortina, o no hace nada con movimiento reducido.
+   * Reproduce un paso de la cortina, o no hace nada con movimiento reducido. Si el paso anterior
+   * sigue corriendo lo lleva a su final (resolviendo su promesa) para que dos pasos nunca se pisen.
    *
    * @param {CurtainStep} step - Paso a reproducir.
    * @param {CurtainOrigin} origin - Punto de origen del paso `cover`.
@@ -28,8 +30,12 @@ export default function CurtainProvider({ children }: { children: ReactNode }) {
    * @example
    * play('lift')
    */
-  const play = (step: CurtainStep, origin: CurtainOrigin = { x: 0, y: 0 }): Promise<void> =>
-    reduced || !curtain.current ? Promise.resolve() : finished(curtainTimeline(curtain.current, step, origin))
+  const play = (step: CurtainStep, origin: CurtainOrigin = { x: 0, y: 0 }): Promise<void> => {
+    active.current?.progress(1)
+    if (reduced || !curtain.current) return Promise.resolve()
+    active.current = curtainTimeline(curtain.current, step, origin)
+    return finished(active.current)
+  }
 
   const api: CurtainApi = {
     cover: (origin = { x: window.innerWidth / 2, y: window.innerHeight / 2 }) => play('cover', origin),

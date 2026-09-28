@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from 'react'
 import { ScrollContext, type ScrollLock } from '@/contexts/ScrollContext'
+import { useDocumentClass } from '@/hooks/useDocumentClass'
 import { useLenis } from '@/hooks/useLenis'
 
 /**
@@ -14,7 +15,9 @@ import { useLenis } from '@/hooks/useLenis'
  */
 export default function ScrollProvider({ children }: { children: ReactNode }) {
   const [locks, setLocks] = useState<ReadonlySet<ScrollLock>>(new Set())
-  const lenis = useLenis(locks.size > 0)
+  const locked = locks.size > 0
+  const lenis = useLenis(locked)
+  useDocumentClass('html', 'scroll-locked', locked)
 
   /**
    * Desplaza la página hasta un elemento y le pasa el foco sin volver a desplazar. Usa `force`

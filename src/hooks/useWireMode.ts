@@ -2,7 +2,8 @@ import { useEffect, useEffectEvent, useState, type RefObject } from 'react'
 import { useTranslation } from 'react-i18next'
 import { SECTIONS } from '@/data/navigation'
 import { describeLayer, labelFrames, pickLayer } from '@/helpers/wireFrames'
-import { gsap, ScrollTrigger } from '@/plugins/gsap'
+import { gsap, ScrollTrigger, useGSAP } from '@/plugins/gsap'
+import { useDocumentClass } from '@/hooks/useDocumentClass'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { useSecrets } from '@/hooks/useSecrets'
 import { useTypedWord } from '@/hooks/useTypedWord'
@@ -28,6 +29,11 @@ export const useWireMode = (overlay: RefObject<HTMLElement | null>, enabled = tr
   const [on, setOn] = useState(false)
   const [grid, setGrid] = useState(true)
   const [measure, setMeasure] = useState(true)
+  const active = on && enabled
+  const { contextSafe } = useGSAP({ scope: overlay })
+  useDocumentClass('body', 'wire', active)
+  useDocumentClass('body', 'wire-no-grid', active && !grid)
+  useDocumentClass('body', 'wire-no-measure', active && !measure)
 
   /**
    * Activa o desactiva el modo beta; salvo con movimiento reducido, lo hace tras el barrido de la
@@ -38,7 +44,7 @@ export const useWireMode = (overlay: RefObject<HTMLElement | null>, enabled = tr
    * @example
    * switchTo(false)
    */
-  const switchTo = (next: boolean) => {
+  const switchTo = contextSafe((next: boolean) => {
     if (reduced || !overlay.current) return setOn(next)
     const scan = overlay.current.querySelector('.wire-scan')
     gsap
@@ -51,7 +57,7 @@ export const useWireMode = (overlay: RefObject<HTMLElement | null>, enabled = tr
         onComplete: () => setOn(next),
       })
       .set(scan, { opacity: 0 })
-  }
+  })
 
   const exitFromKeyboard = useEffectEvent(() => switchTo(false))
 
@@ -65,16 +71,9 @@ export const useWireMode = (overlay: RefObject<HTMLElement | null>, enabled = tr
   )
 
   useEffect(() => {
-    const body = document.body
-    body.classList.toggle('wire', on)
-    body.classList.toggle('wire-no-grid', on && !grid)
-    body.classList.toggle('wire-no-measure', on && !measure)
-  }, [on, grid, measure])
-
-  useEffect(() => {
     const root = overlay.current
     const main = document.getElementById('contenido')
-    if (!on || !root || !main) return
+    if (!active || !root || !main) return
     const names = Object.fromEntries(SECTIONS.map(({ id }) => [id, t(`wire.frames.${id}`)]))
     const selection = root.querySelector<HTMLElement>('.wire-sel')
     const label = root.querySelector('.wire-name')
@@ -138,10 +137,10 @@ export const useWireMode = (overlay: RefObject<HTMLElement | null>, enabled = tr
       if (selection) selection.style.opacity = '0'
       ScrollTrigger.refresh()
     }
-  }, [on, overlay, reduced, t])
+  }, [active, overlay, reduced, t])
 
   return {
-    on,
+    on: active,
     grid,
     measure,
     toggleGrid: () => setGrid((value) => !value),

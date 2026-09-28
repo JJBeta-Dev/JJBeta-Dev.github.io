@@ -27,6 +27,6 @@ export const useFooterMotion = (scope: RefObject<HTMLElement | null>): void => {
         scrollTrigger: { trigger: '.foot__mark', start: 'top 98%' },
       })
     },
-    { scope, dependencies: [reduced] },
+    { scope, dependencies: [reduced], revertOnUpdate: true },
   )
 }

@@ -25,6 +25,6 @@ export const useScrollParallax = (scope: RefObject<HTMLElement | null>): void =>
         })
       })
     },
-    { scope, dependencies: [reduced] },
+    { scope, dependencies: [reduced], revertOnUpdate: true },
   )
 }

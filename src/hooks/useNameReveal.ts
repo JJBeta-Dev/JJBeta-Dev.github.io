@@ -1,5 +1,5 @@
 import { useState, type RefObject } from 'react'
-import { gsap } from '@/plugins/gsap'
+import { gsap, useGSAP } from '@/plugins/gsap'
 import { nameFitScale } from '@/utils/nameFitScale'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 import { useSecrets } from '@/hooks/useSecrets'
@@ -20,6 +20,7 @@ export const useNameReveal = (scope: RefObject<HTMLElement | null>) => {
   const reduced = usePrefersReducedMotion()
   const secrets = useSecrets()
   const [announcement, setAnnouncement] = useState('')
+  const { contextSafe } = useGSAP({ scope })
 
   /**
    * Despliega el nombre completo, lo anuncia y marca el secreto como descubierto. Si la animación
@@ -30,7 +31,7 @@ export const useNameReveal = (scope: RefObject<HTMLElement | null>) => {
    * @example
    * reveal('JJBeta significa Jerónimo Jiménez Betancur')
    */
-  const reveal = (message: string) => {
+  const reveal = contextSafe((message: string) => {
     const root = scope.current
     const name = root?.querySelector<HTMLElement>('.me-name')
     if (!root || !name || name.dataset.revealing) return
@@ -74,7 +75,7 @@ export const useNameReveal = (scope: RefObject<HTMLElement | null>) => {
       .to(name, { scale: 1, duration: 0.6 * speed, ease: 'power3.inOut' }, '<')
       .to(chars, { color: 'var(--color-main)', duration: 0.3 }, '<')
     secrets.reveal('name')
-  }
+  })
 
   return { reveal, announcement }
 }

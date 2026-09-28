@@ -57,6 +57,6 @@ export const useIntro = (scope: RefObject<HTMLElement | null>, ready: boolean): 
         .from('.badge-spin', { scale: 0, rotate: -180, duration: 1, ease: 'back.out(2)' }, '-=1')
       return stopSpin
     },
-    { scope, dependencies: [ready, reduced] },
+    { scope, dependencies: [ready, reduced], revertOnUpdate: true },
   )
 }

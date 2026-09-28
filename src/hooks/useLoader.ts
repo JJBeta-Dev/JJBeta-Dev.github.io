@@ -52,6 +52,6 @@ export const useLoader = (
           '+=.1',
         )
     },
-    { scope, dependencies: [reduced] },
+    { scope, dependencies: [reduced], revertOnUpdate: true },
   )
 }

@@ -31,8 +31,6 @@ export const useCaseView = (
   useScrollLock('case', true)
 
   useEffect(() => {
-    const root = document.documentElement
-    root.classList.add('case-open')
     scope.current?.querySelector<HTMLElement>('.case__title')?.focus({ preventScroll: true })
     lift()
     /**
@@ -49,7 +47,6 @@ export const useCaseView = (
     document.addEventListener('keydown', onKey)
     return () => {
       document.removeEventListener('keydown', onKey)
-      root.classList.remove('case-open')
       document.querySelector<HTMLElement>(`[data-case-link="${slug}"]`)?.focus({ preventScroll: true })
     }
   }, [scope, slug])
@@ -90,6 +87,6 @@ export const useCaseView = (
       blocks.forEach((block) => observer.observe(block))
       return () => observer.disconnect()
     },
-    { scope, dependencies: [reduced] },
+    { scope, dependencies: [reduced], revertOnUpdate: true },
   )
 }
