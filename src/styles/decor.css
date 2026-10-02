@@ -1,0 +1,44 @@
+.decor__shape--a {
+  top: -110px;
+  left: -60px;
+  width: min(560px, 48vw);
+  height: auto;
+}
+.decor__shape--b {
+  top: 0;
+  right: 0;
+  width: min(300px, 26vw);
+  height: auto;
+}
+.decor__shape--c {
+  top: 1180px;
+  right: 0;
+  width: min(170px, 14vw);
+}
+.decor__shape--d {
+  top: 2250px;
+  left: 0;
+  width: min(190px, 16vw);
+}
+.decor__ball {
+  width: 54px;
+  height: 54px;
+  top: 2140px;
+  right: 9%;
+}
+.decor__shape--e {
+  top: 3150px;
+  right: 0;
+  width: min(150px, 13vw);
+}
+.decor__shape--f {
+  top: 4200px;
+  left: 0;
+  width: min(170px, 14vw);
+}
+.rider path {
+  fill: var(--color-surface);
+  stroke: var(--color-ink);
+  stroke-width: 2.6;
+  stroke-linejoin: round;
+}

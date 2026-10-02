@@ -1,0 +1,197 @@
+.work {
+  padding-top: clamp(80px, 10vw, 140px);
+}
+.work__head {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  padding: 0 var(--gutter);
+  align-items: end;
+  gap: 16px;
+}
+.work__head .big-title {
+  grid-column: 1 / 10;
+  white-space: nowrap;
+  margin-left: calc(var(--gutter) * -0.35);
+}
+.work__head .note {
+  grid-column: 9 / 13;
+  padding-bottom: 16px;
+}
+.note h3 {
+  font-weight: 500;
+  font-size: 1.1rem;
+  line-height: 1.35;
+  text-decoration: underline;
+  text-decoration-color: var(--color-main);
+  text-underline-offset: 6px;
+  text-decoration-thickness: 2px;
+}
+.note p {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--color-ink-soft);
+}
+.rail {
+  overflow: hidden;
+}
+.track {
+  display: flex;
+  align-items: center;
+  gap: clamp(22px, 3vw, 46px);
+  padding: 60px var(--gutter) 90px;
+  width: max-content;
+}
+.card-p {
+  position: relative;
+  flex: none;
+  width: clamp(300px, 36vw, 560px);
+  border-radius: var(--radius-card-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  text-decoration: none;
+  overflow: hidden;
+  will-change: transform;
+}
+.card-p:nth-child(2) {
+  width: clamp(280px, 30vw, 460px);
+  margin-top: 100px;
+}
+.card-p:nth-child(3) {
+  margin-top: -80px;
+}
+.card-p:nth-child(4) {
+  width: clamp(300px, 32vw, 500px);
+  margin-top: 70px;
+}
+.card-p .thumb {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: var(--color-tint) url('../assets/images/illustrations/topo.svg') center / cover;
+  overflow: hidden;
+}
+.card-p .thumb .win {
+  position: absolute;
+  left: 9%;
+  top: 13%;
+  width: 92%;
+  transform: rotate(-2.5deg);
+  transform-origin: left top;
+  transition: transform 0.6s var(--ease-soft);
+}
+.card-p:hover .thumb .win {
+  transform: rotate(-1deg) translateY(-6px);
+}
+.card-p .body {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 14px;
+  padding: 20px 22px 22px;
+}
+.card-p .num {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--color-main);
+}
+.card-p h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  margin-top: 4px;
+}
+.card-p p {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: var(--color-ink-soft);
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+}
+.tags span {
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
+  background: var(--color-tint);
+  color: var(--color-main);
+}
+.go {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--color-main);
+  color: var(--color-on-brand);
+  font-weight: 700;
+  transition:
+    background 0.25s var(--ease-soft),
+    transform 0.35s var(--ease-soft);
+}
+a.card-p:hover .go {
+  background: var(--color-hover);
+  transform: rotate(45deg);
+}
+.card-p.locked .thumb {
+  display: grid;
+  place-items: center;
+  background: radial-gradient(
+    120% 120% at 20% 10%,
+    var(--color-violet-400),
+    var(--color-violet-700) 55%,
+    var(--color-violet-900-cool)
+  );
+  color: var(--color-on-brand);
+  text-align: center;
+}
+.card-p.locked .thumb div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+.card-p.locked .thumb svg {
+  width: 36px;
+  height: 36px;
+}
+.card-end {
+  flex: none;
+  width: clamp(240px, 22vw, 340px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  background: var(--color-main);
+  color: var(--color-on-brand);
+  text-decoration: none;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.3rem, 2vw, 1.8rem);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  box-shadow: 0 40px 60px -30px oklch(from var(--color-main) l c h / 0.8);
+  transition: background 0.3s var(--ease-soft);
+}
+.card-end:hover {
+  background: var(--color-hover);
+}
+.card-end small {
+  display: block;
+  margin-top: 8px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  opacity: 0.85;
+  letter-spacing: 0;
+}

@@ -1,0 +1,96 @@
+.tech {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  padding: clamp(100px, 12vw, 180px) var(--gutter) 40px;
+  gap: 20px 0;
+}
+.tech .big-title {
+  grid-column: 4 / 13;
+  text-align: right;
+}
+.tech__intro {
+  grid-column: 1 / 5;
+  align-self: end;
+  padding-bottom: 12px;
+}
+.tech__intro p {
+  color: var(--color-ink-soft);
+  max-width: 32ch;
+}
+.tech__intro b {
+  color: var(--color-main);
+}
+.playground {
+  grid-column: 2 / 13;
+  position: relative;
+  height: 470px;
+  margin-top: 20px;
+  border-radius: var(--radius-panel);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+.playground::before {
+  content: attr(data-label);
+  position: absolute;
+  left: 30px;
+  top: 24px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-violet-gray-300);
+}
+.chips {
+  list-style: none;
+  padding: 0;
+}
+.tchip {
+  position: absolute;
+  left: 0;
+  top: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px 12px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  border: 2px solid var(--color-violet-75);
+  box-shadow: 0 16px 24px -14px oklch(from var(--color-violet-900) l c h / 0.4);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1rem;
+  white-space: nowrap;
+  user-select: none;
+  touch-action: none;
+  cursor: grab;
+}
+.tchip:active {
+  cursor: grabbing;
+}
+.tchip svg {
+  width: 22px;
+  height: 22px;
+  fill: var(--color-main);
+  flex: none;
+}
+.tchip.stroke svg {
+  fill: none;
+  stroke: var(--color-main);
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.tchip.hot {
+  background: var(--color-main);
+  color: var(--color-on-brand);
+  border-color: var(--color-main);
+}
+.tchip.hot svg {
+  fill: var(--color-on-brand);
+}
+.tchip.next {
+  border-style: dashed;
+  color: var(--color-ink-soft);
+}

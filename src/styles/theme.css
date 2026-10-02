@@ -1,0 +1,85 @@
+@theme {
+  --color-*: initial;
+  --color-neutral-0: oklch(100% 0 0);
+  --color-neutral-50: oklch(96.42% 0 0);
+  --color-neutral-75: oklch(95.51% 0 0);
+  --color-neutral-100: oklch(94.31% 0 0);
+  --color-neutral-200: oklch(87.61% 0 0);
+  --color-neutral-350: oklch(68.62% 0 0);
+  --color-neutral-400: oklch(66% 0 0);
+  --color-neutral-450: oklch(57.95% 0 0);
+  --color-neutral-500: oklch(52.78% 0 0);
+  --color-neutral-650: oklch(38.67% 0 0);
+  --color-neutral-700: oklch(36% 0 0);
+  --color-neutral-750: oklch(32.11% 0 0);
+  --color-neutral-800: oklch(29.31% 0 0);
+  --color-neutral-850: oklch(25.2% 0 0);
+  --color-neutral-900: oklch(23.5% 0 0);
+  --color-neutral-1000: oklch(0% 0 0);
+  --color-violet-25: oklch(97.04% 0.0082 301.36);
+  --color-violet-50: oklch(95.33% 0.0261 300.28);
+  --color-violet-75: oklch(94.2% 0.0194 302.2);
+  --color-violet-100: oklch(93.73% 0.0153 302.55);
+  --color-violet-150: oklch(90.59% 0.0526 298.58);
+  --color-violet-200: oklch(86.48% 0.0772 298.93);
+  --color-violet-250: oklch(81.8% 0.103 295.99);
+  --color-violet-300: oklch(76.5% 0.1002 295.07);
+  --color-violet-gray-300: oklch(75.22% 0.0313 304.98);
+  --color-violet-350: oklch(68.15% 0.1905 295.86);
+  --color-violet-400: oklch(61.18% 0.2306 291.89);
+  --color-violet-450: oklch(57.72% 0.2412 289.95);
+  --color-violet-500: oklch(55.4% 0.258 292.25);
+  --color-violet-550: oklch(53.87% 0.2584 286.8);
+  --color-violet-650: oklch(45.35% 0.2514 287.07);
+  --color-violet-700: oklch(41.78% 0.2362 284.25);
+  --color-violet-gray-700: oklch(41.7% 0.0187 302.11);
+  --color-violet-900: oklch(26.17% 0.1307 312.45);
+  --color-violet-900-cool: oklch(25.53% 0.1363 286.75);
+  --color-violet-950: oklch(20.74% 0.0865 291.29);
+  --color-magenta-500: oklch(67.52% 0.2812 322.72);
+  --color-violet-gray-600: oklch(44.92% 0.0153 305.76);
+  --color-red-400: oklch(69.36% 0.1964 26.36);
+  --color-red-500: oklch(65.61% 0.2301 26.33);
+  --color-amber-400: oklch(83.48% 0.1612 80.91);
+  --color-green-400: oklch(72.8% 0.2173 144.71);
+  --color-green-500: oklch(70.85% 0.1746 153.1);
+  --color-blue-500: oklch(66.98% 0.1827 249.22);
+  --color-bg: var(--color-neutral-100);
+  --color-surface: var(--color-neutral-0);
+  --color-main: var(--color-violet-550);
+  --color-secondary: var(--color-violet-500);
+  --color-hover: var(--color-magenta-500);
+  --color-deep: var(--color-violet-950);
+  --color-ink: var(--color-neutral-900);
+  --color-ink-soft: var(--color-violet-gray-600);
+  --color-tint: var(--color-violet-50);
+  --color-relief: var(--color-neutral-400);
+  --color-wire: var(--color-blue-500);
+  --color-live: var(--color-green-500);
+  --color-on-brand: var(--color-neutral-0);
+  --color-shadow: var(--color-neutral-1000);
+
+  --font-title: 'Clash Display', 'Poppins', system-ui, sans-serif;
+  --font-display: 'Poppins', system-ui, sans-serif;
+  --font-body: 'Montserrat', system-ui, sans-serif;
+
+  --radius-2xs: 2px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 16px;
+  --radius-2xl: 18px;
+  --radius-3xl: 22px;
+  --radius-card: 26px;
+  --radius-card-lg: 28px;
+  --radius-panel: 36px;
+  --radius-pill: 999px;
+
+  --shadow-lift: 0 18px 30px -14px oklch(from var(--color-shadow) l c h / 0.28);
+  --shadow-card:
+    0 30px 50px -28px oklch(from var(--color-shadow) l c h / 0.38),
+    0 2px 6px oklch(from var(--color-shadow) l c h / 0.05);
+
+  --ease-soft: cubic-bezier(0.2, 0.7, 0.2, 1);
+}

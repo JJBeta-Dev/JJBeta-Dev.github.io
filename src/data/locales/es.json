@@ -1,0 +1,276 @@
+{
+  "meta": {
+    "siteName": "JJBeta",
+    "title": "JJBeta · Diseñador UX/UI y desarrollador Front-End",
+    "description": "Jerónimo Jiménez Betancur (JJBeta), diseñador UX/UI y desarrollador Front-End en El Carmen de Viboral, Colombia. Diseño la interfaz y la construyo.",
+    "socialDescription": "Diseño la interfaz y la construyo. Casos, proceso y un par de secretos escondidos.",
+    "imageAlt": "Portada del portafolio de JJBeta: la palabra Quiubo en blanco con relieve y Soy JJBeta en morado",
+    "caseTitle": "{{title}} · Caso de JJBeta",
+    "notFoundTitle": "Página no encontrada · JJBeta",
+    "author": "Jerónimo Jiménez Betancur",
+    "person": {
+      "jobTitle": "Diseñador UX/UI y desarrollador Front-End",
+      "knowsAbout": [
+        "Diseño UX/UI",
+        "Figma",
+        "React",
+        "TypeScript",
+        "Tailwind CSS",
+        "Accesibilidad web",
+        "GSAP",
+        "Automatización con Make y n8n"
+      ]
+    }
+  },
+  "a11y": {
+    "skip": "Saltar al contenido",
+    "newTab": " (se abre en una pestaña nueva)",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
+    "mainNav": "Principal",
+    "toProjects": "Bajar a proyectos",
+    "toTop": "Volver arriba",
+    "footerNav": "Pie de página",
+    "wireToolbar": "Modo beta",
+    "formatToolbar": "Formato del texto (pruébalo)",
+    "bold": "Negrita",
+    "italic": "Cursiva",
+    "underline": "Subrayado",
+    "strike": "Tachado",
+    "fontLabel": "Fuente",
+    "fontList": "Fuente",
+    "sizeLabel": "Tamaño",
+    "sizeList": "Tamaño del texto",
+    "nameMeaning": "JJBeta significa Jerónimo Jiménez Betancur"
+  },
+  "loader": {
+    "tag": "cargando v19.0.0-beta…"
+  },
+  "menu": {
+    "home": "Inicio",
+    "projects": "Proyectos",
+    "about": "Acerca de mí",
+    "tech": "Tecnologías",
+    "contact": "Contacto",
+    "foot": "jjbetacode@gmail.com · El Carmen de Viboral, CO"
+  },
+  "secrets": {
+    "label": "Secretos",
+    "intro": "Hay 5 secretos escondidos. Pistas:",
+    "hints": {
+      "name": "Haz clic en mi nombre",
+      "beta": "Escribe «beta» en tu teclado",
+      "pop": "Revienta las esferas moradas",
+      "paint": "Mantén presionado y arrastra sobre el fondo para dibujar una estela",
+      "font": "Elige otra fuente en el editor"
+    },
+    "found": {
+      "name": "Secreto: de dónde sale JJBeta",
+      "beta": "Modo beta: así se ve por dentro. Esc para salir",
+      "pop": "Secreto: ¡pop! Las esferas vuelven",
+      "paint": "Secreto: dibujas con una estela",
+      "font": "Secreto: el editor funciona de verdad"
+    },
+    "all": "¡5/5! Eres de los curiosos. Escríbeme y cuéntame cuál te gustó más."
+  },
+  "hero": {
+    "welcome": "¡Quiubo!",
+    "note": "así saludamos en Antioquia",
+    "soy": "Soy",
+    "name": "JJBeta",
+    "cursor": "¿Quién?",
+    "now": "Ahora: Front-End y UX/UI en <b>Asincode</b>",
+    "intro": "pero mi nombre real es <b>Jerónimo Jiménez Betancur</b>. Diseño la interfaz y la construyo.",
+    "pills": ["Diseñador UX/UI", "Desarrollador Front-End"],
+    "badge": "scroll · proyectos · scroll · proyectos ·",
+    "nameExtras": {
+      "0": "erónimo ",
+      "1": "iménez ",
+      "5": "ncur"
+    }
+  },
+  "work": {
+    "title": "Proyectos",
+    "noteTitle": "Algunas ideas que llevé a producto.",
+    "noteText": "Sigue bajando y abre cada caso: reto, proceso y decisiones →",
+    "viewCase": "Ver caso",
+    "soon": "Pronto",
+    "locked": "Caso en camino",
+    "next": "¿El siguiente?",
+    "nextSmall": "Puede ser el tuyo →",
+    "nextCursor": "¡Va!"
+  },
+  "projects": {
+    "perfil": {
+      "title": "Sistema visual de mi perfil",
+      "description": "Identidad, paneles SVG generativos y un workflow que los actualiza cada día.",
+      "tags": ["Diseño", "SVG", "GitHub Actions"],
+      "alt": "Portada del perfil de GitHub de JJBeta con anillos de tinta morados"
+    },
+    "tailwind": {
+      "title": "Tailwind Strict Colors",
+      "description": "Extensión de VS Code para respetar tu sistema de diseño.",
+      "tags": ["TypeScript", "TSDoc", "CI"],
+      "alt": "Demo de la extensión reemplazando text-red-500 por un token del tema"
+    },
+    "sunra": {
+      "title": "Web para una marca de movilidad eléctrica",
+      "description": "Diseñada en Figma y desarrollada en React. Llega cuando salga al aire.",
+      "tags": ["Figma", "React", "UX"]
+    },
+    "asistente": {
+      "title": "Asistente de tareas con IA",
+      "description": "De una reunión a una tarea asignada en Notion, sin tocar nada.",
+      "tags": ["Make", "Gemini", "Notion"],
+      "alt": "Flujo de automatización: Telegram, Groq, Gemini, Notion y Telegram"
+    }
+  },
+  "band": [
+    "Figma <em>→</em> React",
+    "Accesible por defecto",
+    "Una sola <em>pieza</em>",
+    "Papel y lápiz",
+    "Diseño <em>+</em> código"
+  ],
+  "about": {
+    "titleA": "Acerca",
+    "titleB": "de mí",
+    "paragraphs": [
+      "¡Hola! Soy Jerónimo Jiménez Betancur, diseñador UX/UI y desarrollador Front-End en <strong>Asincode</strong> desde noviembre de 2025. Diseño la interfaz y la construyo: de papel y lápiz a Figma, y de Figma a React.",
+      "En el equipo he <strong>colaborado</strong> en frontend y diseño, <strong>aprendiendo</strong> muchísimo de mis compañeros. Me importa que lo que hago sea accesible y se sienta como una sola pieza.",
+      "Estoy terminando la técnica en Sistemas Informáticos en el Politécnico ASDI y <strong>exploro constantemente</strong> nuevas herramientas; la siguiente es Next.js."
+    ],
+    "curve": "Diseñador UX/UI · Desarrollador Front-End",
+    "comic": "¿Comic Sans? Respeto tu valentía."
+  },
+  "tech": {
+    "intro": "Lo que uso para llevar una idea <b>del papel a producción</b>. Agárralas y lánzalas: no se rompen.",
+    "title": "Tecnologías",
+    "cursor": "Arrastra",
+    "label": "Diseño · Código · Automatización · Flujo",
+    "pencil": "Papel y lápiz",
+    "next": "Next.js · aprendiendo"
+  },
+  "contact": {
+    "title": "¿Hablamos?",
+    "cta": "Escríbeme",
+    "cursor": "Copiar",
+    "copied": "Correo copiado: {{email}}",
+    "mail": "Correo"
+  },
+  "footer": {
+    "navigate": "Navegar",
+    "social": "Redes",
+    "colophon": "Colofón",
+    "colophonText": "Diseñado en Figma. Construido con React, TypeScript, GSAP y Lenis. Tipografías Clash Display, Poppins y Montserrat.",
+    "clock": "Son las {{time}} en El Carmen de Viboral, CO",
+    "place": "El Carmen de Viboral, CO",
+    "copyright": "© {{year}} <b>JJBeta</b> · Jerónimo Jiménez Betancur",
+    "motto": "Diseño la interfaz y la construyo.",
+    "top": "Arriba"
+  },
+  "wire": {
+    "title": "Modo beta",
+    "subtitle": "· vista de esquema",
+    "grid": "Cuadrícula",
+    "measure": "Medidas",
+    "exit": "Salir",
+    "frames": {
+      "inicio": "Hero",
+      "proyectos": "Proyectos",
+      "acerca": "Acerca de mí",
+      "tecnologias": "Tecnologías",
+      "contacto": "Contacto"
+    }
+  },
+  "case": {
+    "back": "Volver",
+    "position": "Caso {{current}} de {{total}}",
+    "next": "Siguiente caso",
+    "first": "Volver al primero",
+    "nextCursor": "Siguiente",
+    "role": "Rol",
+    "year": "Año",
+    "stack": "Stack",
+    "link": "Enlace",
+    "activity": "Actividad",
+    "updated": "Actualizado {{when}}",
+    "release": "Versión {{version}}",
+    "sections": {
+      "challenge": "El reto",
+      "work": "Qué hice",
+      "decisions": "Decisiones",
+      "result": "Resultado"
+    }
+  },
+  "cases": {
+    "perfil": {
+      "kicker": "Caso 01 · Identidad y automatización",
+      "title": "Un perfil que se <acc>cuida solo</acc>",
+      "plainTitle": "Un perfil que se cuida solo",
+      "description": "Cómo diseñé un perfil de GitHub con identidad propia, paneles SVG generativos y un workflow que lo actualiza cada día.",
+      "role": "Diseño y desarrollo",
+      "year": "2026",
+      "stack": "Figma, Node, SVG, opentype.js, GitHub Actions",
+      "linkLabel": "Ver perfil ↗",
+      "challenge": "Un perfil de GitHub suele ser una lista de repositorios. Quería que en diez segundos alguien entendiera quién soy, qué hago y con qué herramientas, sin leer un párrafo largo.",
+      "work": [
+        "Una identidad propia en morado <b>#390050</b> y negro, con ornamentos de suminagashi.",
+        "Paneles SVG generados con Node que miden cada texto con opentype.js, para que nada se corte.",
+        "Un banner que explica el nombre: (J)erónimo (J)iménez (BETA)ncur.",
+        "Un panel que muestra un flujo de automatización real, nodo por nodo.",
+        "Un workflow de GitHub Actions que regenera la actividad todos los días."
+      ],
+      "decisions": "<b>SVG y no PNG:</b> nítido en cualquier pantalla, liviano y con texto medible. <b>Versión en texto</b> dentro de un desplegable, con diagramas Mermaid, para lectores de pantalla y para quien prefiera leer. <b>Stack curado:</b> solo lo que uso de verdad, sin inflar la lista.",
+      "result": "Un perfil con identidad que se actualiza solo cada día y cuenta la misma historia a un reclutador, a un desarrollador y a un lector de pantalla."
+    },
+    "tailwind": {
+      "kicker": "Caso 02 · Herramienta para desarrolladores",
+      "title": "Tu sistema de diseño, <acc>respetado</acc>",
+      "plainTitle": "Tu sistema de diseño, respetado",
+      "description": "Tailwind Strict Colors: una extensión de VS Code que detecta colores quemados de Tailwind v4 y los reemplaza por los tokens de tu @theme.",
+      "role": "Idea, diseño y desarrollo",
+      "year": "2026",
+      "stack": "TypeScript, API de VS Code, esbuild, node:test, TSDoc",
+      "linkLabel": "Ver repositorio ↗",
+      "challenge": "Con Tailwind v4 es fácil que se cuelen colores de la paleta por defecto, como <code>text-red-500</code>, en vez de los tokens del <code>@theme</code>. El sistema de diseño se rompe en silencio y nadie lo nota hasta que la interfaz ya no es coherente.",
+      "work": [
+        "Una extensión para editores basados en VS Code que lee el <code>@theme</code> de tu CSS.",
+        "Marca cada color quemado en el editor y en el panel de problemas.",
+        "Corrige con Quick Fix, desde el hover con muestras de color, o con Fix All por archivo o proyecto.",
+        "Un panel lateral que escanea todo el proyecto, con buscador y salto al archivo."
+      ],
+      "decisions": "<b>Cero configuración:</b> no depende de ESLint; lee el CSS directamente. <b>Sugerencias con criterio:</b> se ordenan por cercanía de color real y, si el valor usa <code>oklch()</code> o <code>color-mix()</code>, por significado (danger, success, neutral). <b>Código mantenible:</b> TypeScript documentado con TSDoc y un CI que valida tipos, lint, formato y pruebas en cada push.",
+      "result": "Una herramienta instalable desde Releases que convierte una regla del sistema de diseño en algo que el editor cuida por ti, con un reemplazo literal porque Tailwind genera la utilidad desde cada token."
+    },
+    "asistente": {
+      "kicker": "Caso 03 · Automatización",
+      "title": "De la reunión a Notion, <acc>sin tocar nada</acc>",
+      "plainTitle": "De la reunión a Notion, sin tocar nada",
+      "description": "Un asistente en Make que convierte notas de voz de Telegram en tareas asignadas en Notion con Groq y Gemini.",
+      "role": "Diseño del flujo e implementación",
+      "year": "2026",
+      "stack": "Make, Telegram, Groq, Gemini, Notion",
+      "linkLabel": "Proyecto interno",
+      "challenge": "Después de cada reunión las tareas quedaban en notas de voz y mensajes sueltos. Pasarlas a Notion era trabajo manual, y lo manual se olvida.",
+      "work": [
+        "<b>Telegram</b> recibe el audio o el texto.",
+        "<b>Groq</b> transcribe la nota de voz.",
+        "<b>Gemini</b> entiende la conversación y la convierte en tareas claras.",
+        "<b>Notion</b> recibe cada tarea, asignada.",
+        "<b>Telegram</b> confirma de vuelta que quedó lista."
+      ],
+      "decisions": "<b>Make</b> para iterar rápido y ver el flujo completo de un vistazo. <b>Groq</b> para transcribir sin esperas. <b>Gemini</b> para pasar de lenguaje natural a tareas estructuradas. <b>Confirmación en Telegram</b> para cerrar el ciclo donde empezó.",
+      "result": "Una nota de voz se convierte en una tarea asignada en Notion sin abrir otra aplicación. Diseñar el flujo fue diseñar una experiencia: la mejor interfaz aquí es la que no se ve."
+    }
+  },
+  "toasts": {
+    "console": "¡Hola, curioso!",
+    "consoleText": "Si estás inspeccionando esto, seguro nos entendemos. Escríbeme: jjbetacode@gmail.com"
+  },
+  "notFound": {
+    "title": "Aquí no hay nada",
+    "text": "La página que buscas no existe, pero el resto del portafolio sí.",
+    "cta": "Volver al inicio"
+  }
+}

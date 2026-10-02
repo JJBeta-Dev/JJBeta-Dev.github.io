@@ -1,0 +1,73 @@
+.cursor,
+.cursor-dot {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 350;
+  pointer-events: none;
+  border-radius: 50%;
+  opacity: 0;
+}
+.cursor {
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  border: 2px solid var(--color-main);
+  display: grid;
+  place-items: center;
+  transition:
+    width 0.35s var(--ease-soft),
+    height 0.35s var(--ease-soft),
+    margin 0.35s var(--ease-soft),
+    background 0.35s var(--ease-soft),
+    border-color 0.35s var(--ease-soft);
+}
+.cursor span {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.8rem;
+  color: var(--color-on-brand);
+  opacity: 0;
+  transition: opacity 0.2s var(--ease-soft);
+  white-space: nowrap;
+}
+.cursor.is-label {
+  width: 96px;
+  height: 96px;
+  margin: -48px 0 0 -48px;
+  background: var(--color-main);
+  border-color: var(--color-main);
+}
+.cursor.is-label span {
+  opacity: 1;
+}
+.cursor.is-link {
+  width: 66px;
+  height: 66px;
+  margin: -33px 0 0 -33px;
+  background: oklch(from var(--color-main) l c h / 0.12);
+}
+.cursor.is-down {
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+}
+.cursor.is-label + .cursor-dot {
+  opacity: 0 !important;
+}
+.cursor-dot {
+  width: 7px;
+  height: 7px;
+  margin: -3.5px 0 0 -3.5px;
+  background: var(--color-main);
+}
+.has-cursor.cursor-on .cursor,
+.has-cursor.cursor-on .cursor-dot {
+  opacity: 1;
+}
+.has-cursor,
+.has-cursor a,
+.has-cursor button,
+.has-cursor [data-cursor] {
+  cursor: none;
+}

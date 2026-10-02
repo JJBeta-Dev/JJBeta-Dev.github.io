@@ -1,0 +1,44 @@
+.band {
+  position: relative;
+  z-index: 4;
+  width: 112vw;
+  margin: -40px 0 0 -6vw;
+  padding: 18px 0;
+  background: var(--color-main);
+  color: var(--color-on-brand);
+  transform: rotate(-2.5deg);
+  overflow: hidden;
+  box-shadow: 0 30px 50px -30px oklch(from var(--color-main) l c h / 0.9);
+}
+.band__track {
+  display: flex;
+  width: max-content;
+}
+.band__group {
+  display: flex;
+  align-items: center;
+  gap: clamp(22px, 3vw, 44px);
+  padding-right: clamp(22px, 3vw, 44px);
+  font-family: var(--font-title);
+  font-weight: 600;
+  font-size: clamp(1.4rem, 3vw, 2.6rem);
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+.band__group i {
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 26%,
+    var(--color-on-brand),
+    var(--color-violet-150) 60%,
+    var(--color-violet-250)
+  );
+  flex: none;
+}
+.band__group em {
+  font-style: normal;
+  color: transparent;
+  -webkit-text-stroke: 1.4px var(--color-on-brand);
+}
