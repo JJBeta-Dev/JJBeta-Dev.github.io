@@ -20,7 +20,9 @@ export const GITHUB_OWNER = 'JJBeta-Dev'
 export const SOCIAL_LINKS = {
   linkedin: 'https://www.linkedin.com/in/jjbeta',
   github: `https://github.com/${GITHUB_OWNER}`,
-  instagram: 'https://www.instagram.com/jnz_jero/',
+  instagram: 'https://www.instagram.com/soyjjbeta/',
+  behance: 'https://www.behance.net/soyjjbeta',
+  dribbble: 'https://dribbble.com/soyjjbeta',
 } as const
 
 /**
@@ -30,6 +32,8 @@ export const PROFILES = [
   { icon: 'linkedin', label: 'LinkedIn', href: SOCIAL_LINKS.linkedin },
   { icon: 'github', label: 'GitHub', href: SOCIAL_LINKS.github },
   { icon: 'instagram', label: 'Instagram', href: SOCIAL_LINKS.instagram },
+  { icon: 'behance', label: 'Behance', href: SOCIAL_LINKS.behance },
+  { icon: 'dribbble', label: 'Dribbble', href: SOCIAL_LINKS.dribbble },
 ] as const
 
 /**
