@@ -3,7 +3,8 @@ import { defineConfig } from 'vitest/config'
 
 /**
  * Configuración de Vitest: entorno jsdom, pruebas en `test/` y un mínimo de cobertura del 90 % sobre la
- * lógica de la aplicación (utils, helpers, services, hooks, contexts, providers y componentes de UI).
+ * lógica de la aplicación (utils, helpers, services, hooks, contexts, providers y componentes de UI). Las
+ * pruebas de integración recorren animaciones reales, así que tienen 15 s de margen para los runners de CI.
  *
  * @example
  * npm run test:coverage
@@ -20,6 +21,7 @@ export default defineConfig({
     globals: true,
     include: ['test/**/*.spec.{ts,tsx}'],
     setupFiles: ['./test/setupTest.ts'],
+    testTimeout: 15_000,
     css: false,
     coverage: {
       provider: 'v8',
