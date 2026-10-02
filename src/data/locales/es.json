@@ -98,7 +98,15 @@
     "locked": "Caso en camino",
     "next": "¿El siguiente?",
     "nextSmall": "Puede ser el tuyo →",
-    "nextCursor": "¡Va!"
+    "nextCursor": "¡Va!",
+    "filters": {
+      "label": "Filtrar proyectos por tipo",
+      "all": "Todo",
+      "dev": "Desarrollo",
+      "design": "Diseño",
+      "count_one": "{{count}} proyecto",
+      "count_other": "{{count}} proyectos"
+    }
   },
   "projects": {
     "perfil": {
@@ -123,6 +131,12 @@
       "description": "De una reunión a una tarea asignada en Notion, sin tocar nada.",
       "tags": ["Make", "Gemini", "Notion"],
       "alt": "Flujo de automatización: Telegram, Groq, Gemini, Notion y Telegram"
+    },
+    "tarjeta": {
+      "title": "Tarjeta de presentación",
+      "description": "Mi marca en 9 × 5 cm: impresa, con relieve y lista para la billetera.",
+      "tags": ["Marca", "Impresión", "Diseño"],
+      "alt": "Frente y reverso de la tarjeta de presentación de JJBeta: «¡Quiubo! Soy JJBeta» sobre gris y los datos de contacto sobre morado"
     }
   },
   "band": [
@@ -262,6 +276,26 @@
       ],
       "decisions": "<b>Make</b> para iterar rápido y ver el flujo completo de un vistazo. <b>Groq</b> para transcribir sin esperas. <b>Gemini</b> para pasar de lenguaje natural a tareas estructuradas. <b>Confirmación en Telegram</b> para cerrar el ciclo donde empezó.",
       "result": "Una nota de voz se convierte en una tarea asignada en Notion sin abrir otra aplicación. Diseñar el flujo fue diseñar una experiencia: la mejor interfaz aquí es la que no se ve."
+    },
+    "tarjeta": {
+      "kicker": "Caso 04 · Diseño de marca",
+      "title": "Mi marca, <acc>en tu bolsillo</acc>",
+      "plainTitle": "Mi marca, en tu bolsillo",
+      "description": "Cómo llevé la identidad de mi portafolio a una tarjeta de presentación impresa: lenguaje de cliente, color pensado para tinta y barniz en relieve.",
+      "role": "Dirección de arte, diseño y preparación para imprenta",
+      "year": "2026",
+      "stack": "HTML y CSS, Playwright, perfiles de color CMYK",
+      "linkLabel": "Pieza impresa",
+      "challenge": "Una tarjeta tiene tres segundos para decir quién eres. Tenía que verse igual de mía que la web, entenderse sin saber nada de tecnología y sobrevivir a la imprenta, donde el morado de pantalla no existe en tinta.",
+      "work": [
+        "El frente repite la portada de la web: «¡Quiubo! Soy JJBeta», las esferas y yo sentado en la cinta blanca.",
+        "Una promesa que entiende cualquiera: <b>Convierto tu idea en algo que funciona</b>, con mis tres servicios debajo.",
+        "El reverso se divide en dos bloques: quién soy arriba y cómo contactarme abajo, con un QR que dice qué gana quien lo escanea.",
+        "Archivo de imprenta en CMYK a 600 ppp, con sangrado, márgenes seguros medidos y el morado ajustado a una tinta real.",
+        "Una máscara de barniz UV para que «¡Quiubo!», mi nombre y las esferas tengan brillo en relieve sobre el laminado mate."
+      ],
+      "decisions": "<b>Lenguaje de cliente</b> en vez de jerga técnica: nada de herramientas, solo lo que la persona gana. <b>Menos elementos</b> que en la web: dos esferas y una sola forma blanca, porque en 9 cm todo compite. <b>Color para tinta</b>: sin amarillo en el morado, que es lo que lo ensucia al imprimir.",
+      "result": "Una pieza que se reconoce como parte de la misma marca que mi web y mis redes, lista para imprenta, con una versión digital para compartir y un contacto que se guarda en el celular con un toque."
     }
   },
   "toasts": {
