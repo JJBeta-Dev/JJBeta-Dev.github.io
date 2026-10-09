@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react'
+import { useEffect, useEffectEvent, useRef, useState, type ReactNode } from 'react'
 import { ScrollContext, type ScrollLock } from '@/contexts/ScrollContext'
 import { useDocumentClass } from '@/hooks/useDocumentClass'
 import { useLenis } from '@/hooks/useLenis'
@@ -18,11 +18,28 @@ export default function ScrollProvider({ children }: { children: ReactNode }) {
   const locked = locks.size > 0
   const lenis = useLenis(locked)
   useDocumentClass('html', 'scroll-locked', locked)
+  const pending = useRef<HTMLElement | null>(null)
 
   /**
-   * Desplaza la página hasta un elemento y le pasa el foco sin volver a desplazar. Usa `force`
-   * porque puede llamarse en el mismo instante en que se libera un bloqueo (al cerrar el menú), y
-   * mueve el foco en el siguiente frame, cuando React ya quitó el `inert` de la página.
+   * Desliza la página hasta un elemento y le pasa el foco sin volver a desplazar. El foco se mueve en
+   * el siguiente frame, cuando React ya quitó el `inert` de la página.
+   *
+   * @param {HTMLElement} element - Elemento de destino.
+   * @returns {void} No devuelve nada.
+   * @example
+   * glide(document.getElementById('contacto'))
+   */
+  const glide = (element: HTMLElement) => {
+    if (lenis.current) lenis.current.scrollTo(element, { offset: 0, duration: 1.4, force: true })
+    else element.scrollIntoView()
+    element.setAttribute('tabindex', '-1')
+    requestAnimationFrame(() => element.focus({ preventScroll: true }))
+  }
+
+  /**
+   * Desplaza la página hasta un elemento. Si el scroll está bloqueado (por ejemplo, al elegir una
+   * sección desde el menú, que se cierra en el mismo clic), espera a que se libere: al reanudarse,
+   * Lenis reinicia su estado y cancelaría un desplazamiento iniciado antes.
    *
    * @param {string | HTMLElement} target - Selector CSS o elemento de destino.
    * @returns {void} No devuelve nada.
@@ -32,11 +49,19 @@ export default function ScrollProvider({ children }: { children: ReactNode }) {
   const scrollTo = (target: string | HTMLElement) => {
     const element = typeof target === 'string' ? document.querySelector<HTMLElement>(target) : target
     if (!element) return
-    if (lenis.current) lenis.current.scrollTo(element, { offset: 0, duration: 1.4, force: true })
-    else element.scrollIntoView()
-    element.setAttribute('tabindex', '-1')
-    requestAnimationFrame(() => element.focus({ preventScroll: true }))
+    if (locked) pending.current = element
+    else glide(element)
   }
+
+  const resume = useEffectEvent(() => {
+    if (!pending.current) return
+    glide(pending.current)
+    pending.current = null
+  })
+
+  useEffect(() => {
+    if (!locked) resume()
+  }, [locked])
 
   return <ScrollContext value={{ scrollTo, setLocks }}>{children}</ScrollContext>
 }
