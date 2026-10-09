@@ -2,6 +2,7 @@ import type { RefObject } from 'react'
 import { revealTitle } from '@/helpers/reveals'
 import { gsap, useGSAP } from '@/plugins/gsap'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
+import type { WorkFilter } from '@/hooks/useWorkFilter'
 
 /**
  * Movimiento de la sección de proyectos. En escritorio la galería queda fijada y se desplaza en
@@ -9,11 +10,12 @@ import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
  * pantallas pequeñas las tarjetas simplemente se apilan.
  *
  * @param {import('react').RefObject<HTMLElement | null>} scope - Sección de proyectos.
+ * @param {WorkFilter} filter - Filtro activo; al cambiar se recalcula el recorrido de la galería.
  * @returns {void} No devuelve nada.
  * @example
- * useWorkRail(section)
+ * useWorkRail(section, 'all')
  */
-export const useWorkRail = (scope: RefObject<HTMLElement | null>): void => {
+export const useWorkRail = (scope: RefObject<HTMLElement | null>, filter: WorkFilter): void => {
   const reduced = usePrefersReducedMotion()
 
   useGSAP(
@@ -91,6 +93,6 @@ export const useWorkRail = (scope: RefObject<HTMLElement | null>): void => {
       })
       return () => media.revert()
     },
-    { scope, dependencies: [reduced], revertOnUpdate: true },
+    { scope, dependencies: [reduced, filter], revertOnUpdate: true },
   )
 }

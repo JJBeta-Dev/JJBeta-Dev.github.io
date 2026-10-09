@@ -34,7 +34,7 @@ export const useAboutMotion = (scope: RefObject<HTMLElement | null>): void => {
         opacity: 1,
         stagger: 0.05,
         ease: 'none',
-        scrollTrigger: { trigger: '.editor', start: 'top 75%', end: 'bottom 55%', scrub: true },
+        scrollTrigger: { trigger: '.editor', start: 'top 90%', end: 'bottom bottom', scrub: true },
       })
       const side = root.querySelector('.side-ball')
       const float = gsap.to('.side-ball', {

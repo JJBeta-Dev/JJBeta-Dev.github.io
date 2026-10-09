@@ -1,7 +1,7 @@
 /**
  * Slugs de los casos de estudio. Cada uno se convierte en una ruta pre-renderizada en `/casos/:slug`.
  */
-export const CASE_SLUGS = ['perfil', 'tailwind', 'asistente'] as const
+export const CASE_SLUGS = ['perfil', 'tailwind', 'asistente', 'tarjeta'] as const
 
 /**
  * Un slug de caso de estudio válido.

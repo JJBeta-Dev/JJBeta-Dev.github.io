@@ -84,7 +84,7 @@
   text-decoration-line: underline line-through;
 }
 .js .editor__text .w {
-  opacity: 0.14;
+  opacity: 0.3;
 }
 .toolbar {
   display: flex;

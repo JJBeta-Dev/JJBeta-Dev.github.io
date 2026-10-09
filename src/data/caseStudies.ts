@@ -41,6 +41,14 @@ export const CASE_STUDIES: Record<CaseSlug, CaseStudy> = {
     href: null,
     repository: null,
     ordered: true,
+    next: 'tarjeta',
+  },
+  tarjeta: {
+    slug: 'tarjeta',
+    number: '04',
+    href: null,
+    repository: null,
+    ordered: true,
     next: 'perfil',
   },
 }
