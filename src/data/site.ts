@@ -18,6 +18,7 @@ export const GITHUB_OWNER = 'JJBeta-Dev'
  * Perfiles externos. Siempre se abren en una pestaña nueva.
  */
 export const SOCIAL_LINKS = {
+  whatsapp: 'https://wa.me/573152116330',
   linkedin: 'https://www.linkedin.com/in/jjbeta',
   github: `https://github.com/${GITHUB_OWNER}`,
   instagram: 'https://www.instagram.com/soyjjbeta/',
@@ -29,6 +30,7 @@ export const SOCIAL_LINKS = {
  * Perfiles públicos en el orden en que se muestran (contacto y footer). Los nombres son marcas.
  */
 export const PROFILES = [
+  { icon: 'whatsapp', label: 'WhatsApp', href: SOCIAL_LINKS.whatsapp },
   { icon: 'linkedin', label: 'LinkedIn', href: SOCIAL_LINKS.linkedin },
   { icon: 'github', label: 'GitHub', href: SOCIAL_LINKS.github },
   { icon: 'instagram', label: 'Instagram', href: SOCIAL_LINKS.instagram },
