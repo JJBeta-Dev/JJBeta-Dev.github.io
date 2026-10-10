@@ -10,6 +10,11 @@ export const SITE_URL: string = import.meta.env.VITE_SITE_URL ?? 'https://jjbeta
 export const EMAIL = 'jjbetacode@gmail.com'
 
 /**
+ * Galería pública de plantillas web, que se abre desde la sección de proyectos.
+ */
+export const TEMPLATES_URL = 'https://jjbeta-dev.github.io/plantillas/'
+
+/**
  * Cuenta de GitHub dueña de los repositorios que aparecen en los casos de estudio.
  */
 export const GITHUB_OWNER = 'JJBeta-Dev'

@@ -186,6 +186,12 @@ a.card-p:hover .go {
 .card-end:hover {
   background: var(--color-hover);
 }
+.card-end--alt {
+  background: var(--color-deep);
+}
+.card-end--alt:hover {
+  background: var(--color-main);
+}
 .card-end small {
   display: block;
   margin-top: 8px;
