@@ -99,6 +99,9 @@
     "next": "¿El siguiente?",
     "nextSmall": "Puede ser el tuyo →",
     "nextCursor": "¡Va!",
+    "templates": "Mis plantillas",
+    "templatesSmall": "Del papel a la pantalla ↗",
+    "templatesCursor": "Ver",
     "filters": {
       "label": "Filtrar proyectos por tipo",
       "all": "Todo",
