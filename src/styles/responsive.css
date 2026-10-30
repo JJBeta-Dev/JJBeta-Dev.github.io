@@ -100,6 +100,26 @@
   .editor__text::before {
     left: 18px;
   }
+  .resume {
+    position: relative;
+    right: auto;
+    bottom: auto;
+    width: auto;
+    flex-direction: row;
+    justify-self: end;
+    gap: 10px;
+    margin: 0 20px 20px;
+    padding: 8px 8px 8px 10px;
+    transform: rotate(-1.5deg);
+  }
+  .resume__file {
+    width: 26px;
+    height: 32px;
+    padding-bottom: 3px;
+  }
+  .resume__ext {
+    font-size: 0.5rem;
+  }
   .secrets .label {
     display: none;
   }

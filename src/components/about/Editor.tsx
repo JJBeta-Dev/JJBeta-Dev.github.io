@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import SplitWords from '@/components/ui/split-text/SplitWords'
 import { useEditor } from '@/hooks/useEditor'
 import EditorToolbar from '@/components/about/EditorToolbar'
+import ResumeDownload from '@/components/about/ResumeDownload'
 
 /**
  * Editor "vivo" de la sección Acerca de mí: el texto de presentación dentro de una tarjeta tipo
@@ -42,6 +43,7 @@ export default function Editor() {
           <i />
         </div>
       </div>
+      <ResumeDownload />
     </div>
   )
 }

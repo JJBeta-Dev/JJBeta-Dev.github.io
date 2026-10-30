@@ -157,6 +157,11 @@
       "En el equipo he <strong>colaborado</strong> en frontend y diseño, <strong>aprendiendo</strong> muchísimo de mis compañeros. Me importa que lo que hago sea accesible y se sienta como una sola pieza.",
       "Estoy terminando la técnica en Sistemas Informáticos en el Politécnico ASDI y <strong>exploro constantemente</strong> nuevas herramientas; la siguiente es Next.js."
     ],
+    "resume": {
+      "label": "Hoja de vida",
+      "cta": "Descargar",
+      "aria": "Descargar mi hoja de vida en PDF"
+    },
     "curve": "Diseñador UX/UI · Desarrollador Front-End",
     "comic": "¿Comic Sans? Respeto tu valentía."
   },
