@@ -16,7 +16,8 @@
     "test": "vitest run --coverage --reporter=html --reporter=default",
     "test:coverage": "vitest run --coverage",
     "verify": "npm run typecheck && npm run lint && npm run format:check && npm run test:coverage && npm run build",
-    "prepare": "husky"
+    "prepare": "husky",
+    "enlaces": "node scripts/enlaces.mjs"
   },
   "engines": {
     "node": ">=22"
