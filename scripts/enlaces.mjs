@@ -41,7 +41,7 @@ const escribirPagina = async (codigo, destino) => {
   const url = destino.replace(/"/g, '&quot;')
   await writeFile(
     `${dir}/index.html`,
-    `<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0;url=${url}"><title>Abriendo…</title></head><body style="font-family:system-ui;display:grid;place-items:center;min-height:100vh;margin:0"><a href="${url}">Continuar</a></body></html>\n`,
+    `<!doctype html><html lang="es"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0;url=${url}"><title>Abriendo…</title></head><body style="font-family:system-ui;display:grid;place-items:center;min-height:100vh;margin:0"><a href="${url}">Continuar</a></body></html>\n`,
   )
 }
 
